@@ -70,25 +70,33 @@ def make_aiml2():
 
 class TestFunctions(unittest.TestCase):
 
-    def test_save_restore_aiml(self):
-        aiml = make_aiml()
-        Storage.save('test1', aiml)
-        aiml2 = Storage.restore('test1')
-        self.assertEqual(str(aiml), str(aiml2))
-
     def test_create_simple_category(self):
         cat = Category() #Create category obj
         pattern = Pattern() #Create pattern obj
         pattern.append("HELLO *") #Adding text to patter obj
         cat.append(pattern) #Placing pattern inside category obj
         self.assertEqual(str(cat), '<category><pattern>HELLO *</pattern></category>')
+    
+    def test_save_restore_aiml(self):
+        aiml = make_aiml()
+        Storage.save('test1', aiml)
+        aiml2 = Storage.restore('test1')
+        self.assertEqual(str(aiml), str(aiml2))
 
-    def test_import_export(self):
+    def test_import(self):
         expected = make_aiml2()
         #NOTE: Make sure to not have the '.aiml' after file name. 
         #      Causes an aborted core dump. Why?
         imported = Storage.importAIML('/home/jarid/DFT/Test_Save/atomic')
         self.assertEqual(str(expected), str(imported))
+
+    def test_export(self):
+        #NOTE: Works with make_aiml2 but NOT make_aiml() might have
+        #      something to do with the topic tag
+        export = make_aiml2()
+        Storage.exportAIML('/home/jarid/DFT/Test_Save/exporting', export)
+        imported = Storage.importAIML('/home/jarid/DFT/Test_Save/exporting')
+        self.assertEqual(str(export), str(imported))
 
 if __name__ == '__main__':
     unittest.main()
