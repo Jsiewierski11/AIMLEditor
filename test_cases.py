@@ -101,10 +101,10 @@ class TestFunctions(unittest.TestCase):
     
     def test_import_jupiter(self):
         imported = Storage.importAIML('./test_aimls/jupiter')
-        exported = Storage.importAIML('./test_aimls/jupiter_exp', imported)
-        jup = open('./test_aimls/jupiter', 'r')
+        exported = Storage.exportAIML('./test_aimls/jupiter_exp', imported)
+        jup = open('./test_aimls/jupiter.aiml', 'r')
         jup_contents = jup.read()
-        jup_exp = open('./test_aimls/jupiter_exp', 'r')
+        jup_exp = open('./test_aimls/jupiter_exp.aiml', 'r')
         jup2_contents = jup_exp.read()
         self.assertEqual(jup_contents, jup2_contents)
 
