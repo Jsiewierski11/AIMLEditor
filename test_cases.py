@@ -1,6 +1,7 @@
 import unittest
 import Utils.Storage as Storage
 from Model.Data import *
+from Tree.ElementTree import *
 
 
 def make_aiml():
@@ -80,7 +81,7 @@ class TestFunctions(unittest.TestCase):
     def test_save_restore_aiml(self):
         aiml = make_aiml()
         Storage.save('test_pickle/test1', aiml)
-        aiml2 = Storage.restore('test1')
+        aiml2 = Storage.restore('test_pickle/test1')
         self.assertEqual(str(aiml), str(aiml2))
 
     # TODO: Make file path relative to project
@@ -102,6 +103,12 @@ class TestFunctions(unittest.TestCase):
     def test_print_comment(self):
         comment = Comment()
         self.assertEqual(str(comment), "<!--  -->")
+
+    def test_commented_tree(self):
+        parser = ET.XMLParser(target=CommentedTreeBuilder())
+        tree = ET.parse('test_aimls/utils.aiml', parser)
+        tree.write('test_aimls/out.aiml')
+        pass
     
     # TODO: Be able to import comments. Add comments to data structure.
     #       Make a custom etree that recognizes comments. There are examples on SO
@@ -115,8 +122,18 @@ class TestFunctions(unittest.TestCase):
     #     jup2_contents = jup_exp.read()
     #     self.assertEqual(jup_contents, jup2_contents)
 
-    def test_srai_tag(self):
-        pass
+    # def test_srai_tag(self):
+    #     pass
+
+    # def test_util_import(self):
+    #     # NOTE: This fails due to comments
+    #     imported = Storage.importAIML('./test_aimls/utils')
+    #     exported = Storage.exportAIML('./test_aimls/utils_exp', imported)
+    #     util = open('./test_aimls/utils.aiml', 'r')
+    #     util_contents = util.read()
+    #     util_exp = open('./test_aimls/utils_exp.aiml', 'r')
+    #     util2_contents = util_exp.read()
+    #     self.assertEqual(util_contents, util2_contents)
 
 if __name__ == '__main__':
     unittest.main()
