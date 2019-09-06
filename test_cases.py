@@ -100,10 +100,6 @@ class TestFunctions(unittest.TestCase):
         imported = Storage.importAIML('./test_aimls/exporting')
         self.assertEqual(str(export), str(imported))
 
-    def test_print_comment(self):
-        comment = Comment()
-        self.assertEqual(str(comment), "<!--  -->")
-
     def test_commented_tree(self):
         parser = ET.XMLParser(target=CommentedTreeBuilder())
         tree = ET.parse('test_aimls/utils.aiml', parser)

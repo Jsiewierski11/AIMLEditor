@@ -58,8 +58,7 @@ tag_list = {"aiml": AIML,
             "option": Option,
             "image": Image,
             "video": Video,
-            "filename": Filename,
-            "comment": Comment}
+            "filename": Filename}
 
 
 def decode_tag(tag_type):
