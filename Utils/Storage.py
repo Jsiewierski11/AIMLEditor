@@ -58,7 +58,8 @@ tag_list = {"aiml": AIML,
             "option": Option,
             "image": Image,
             "video": Video,
-            "filename": Filename}
+            "filename": Filename,
+            "comment": Comment}
 
 
 def decode_tag(tag_type):
@@ -67,7 +68,19 @@ def decode_tag(tag_type):
     return False
 
 
-# head is the object that we are adding the categories to (either a topic, or the general aiml)
+# head is the object that we are adding the categories to 
+# (either a topic, or the general aiml)
+# From python documentation:
+# https://docs.python.org/3/library/xml.etree.elementtree.html
+# --
+# NOTE: Not all elements of the XML input will end up as elements 
+#       of the parsed tree. Currently, this module skips over any XML comments, 
+#       processing instructions, and document type declarations in the input. 
+#       Nevertheless, trees built using this module’s API rather than parsing 
+#       from XML text can have comments and processing instructions in them;
+#       they will be included when generating XML output. 
+#       A document type declaration may be accessed by passing a custom  
+#       TreeBuilder instance to the XMLParser constructor. 
 def recursive_decoding(head, tag_xml):
     try:
         for child in tag_xml:

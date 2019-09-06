@@ -84,12 +84,12 @@ class TestFunctions(unittest.TestCase):
         self.assertEqual(str(aiml), str(aiml2))
 
     # TODO: Make file path relative to project
-    # def test_import(self):
-    #     expected = make_aiml2()
-    #     #NOTE: Make sure to not have the '.aiml' after file name. 
-    #     #      Causes an aborted core dump. Why?
-    #     imported = Storage.importAIML('/home/jarid/DFT/Test_Save/atomic')
-    #     self.assertEqual(str(expected), str(imported))
+    def test_import(self):
+        expected = make_aiml2()
+        #NOTE: Make sure to not have the '.aiml' after file name. 
+        #      Causes an aborted core dump. Why?
+        imported = Storage.importAIML('./test_aimls/atomic')
+        self.assertEqual(str(expected), str(imported))
 
     def test_export(self):
         #NOTE: Works with make_aiml2 but NOT make_aiml() might have
@@ -98,7 +98,12 @@ class TestFunctions(unittest.TestCase):
         Storage.exportAIML('./test_aimls/exporting', export)
         imported = Storage.importAIML('./test_aimls/exporting')
         self.assertEqual(str(export), str(imported))
+
+    def test_print_comment(self):
+        comment = Comment()
+        self.assertEqual(str(comment), "<!--  -->")
     
+    # TODO: Be able to import comments. Add comments to data structure.
     def test_import_jupiter(self):
         # NOTE: This test fails only because of mismatches in whitespace
         imported = Storage.importAIML('./test_aimls/jupiter')

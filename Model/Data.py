@@ -31,7 +31,8 @@ class Tag(Serializable):
                     "option": Option,
                     "image": Image,
                     "video": Video,
-                    "filename": Filename}
+                    "filename": Filename,
+                    "comment": Comment}
 
     def decode_tag(self, tag_type):
         if tag_type in self.tag_list:
@@ -172,14 +173,17 @@ class Tag(Serializable):
     def __str__(self):
         attrib = (' ' + ' '.join('{}=\"{}\"'.format(
             key, val) for key, val in self.attrib.items())) if len(self.attrib) > 0 else ""
-        if len(self.tags) > 1:
+        if len(self.tags) > 1 and str(self.type) != "comment":
             tags = '\n' + indent('\n'.join(map(str, self.tags)),
                                  Common.indentation) + '\n'
         elif len(self.tags) > 0:
             tags = '\n'.join(map(str, self.tags))
         else:
             tags = ""
-        return "<{}{}>{}</{}>".format(str(self.type), attrib, tags, str(self.type))
+        if self.type == "!--":
+            return "<{}{} {} -->".format(str(self.type), attrib, tags)
+        else:
+            return "<{}{}>{}</{}>".format(str(self.type), attrib, tags, str(self.type))
 
     def getContents(self):
         attrib = (' ' + ' '.join('{}=\"{}\"'.format(
@@ -198,7 +202,12 @@ class Tag(Serializable):
 
 class AIML(Tag):
     def __init__(self, version="2.0"):
-        super().__init__("aiml", acceptable_tags=[Category, Topic], attrib={'version': version})
+        super().__init__("aiml", acceptable_tags=[Category, Topic, Comment], attrib={'version': version})
+
+
+class Comment(Tag):
+    def __init__(self):
+        super().__init__("!--", acceptable_tags=[str, char])
 
 
 class Topic(Tag):
@@ -207,13 +216,13 @@ class Topic(Tag):
             super().__init__("topic", acceptable_tags=[
                 Category], attrib={'name': name})
         else:
-            super().__init__("topic", acceptable_tags=[Category])
+            super().__init__("topic", acceptable_tags=[Category, Comment])
 
 
 class Category(Tag):
     def __init__(self, id=""):
         super().__init__("category", acceptable_tags=[
-            Pattern, Template, Think, That])
+            Pattern, Template, Think, That, Comment])
         # id to distinguish categories within an AIML object
         if id == "":
             newId = QUuid.createUuid()
@@ -224,91 +233,91 @@ class Category(Tag):
 
 class Pattern(Tag):
     def __init__(self):
-        super().__init__("pattern", acceptable_tags=[Set, str])
+        super().__init__("pattern", acceptable_tags=[Set, Comment, str])
 
 
 class Template(Tag):
     def __init__(self):
         super().__init__("template", acceptable_tags=[
-            Set, Think, Condition, Oob, Random, str])
+            Set, Think, Condition, Oob, Random, Comment, str])
 
 
 class That(Tag):
     def __init__(self):
-        super().__init__("that", acceptable_tags=[str])
+        super().__init__("that", acceptable_tags=[Comment, str])
 
 
 class Random(Tag):
     def __init__(self):
-        super().__init__("random", acceptable_tags=[ConditionItem, Oob])
+        super().__init__("random", acceptable_tags=[ConditionItem, Oob, Comment])
 
 
 class Condition(Tag):
     def __init__(self, name=""):
         if name != "":
             super().__init__("condition", attrib={
-                "name": name}, acceptable_tags={ConditionItem})
+                "name": name}, acceptable_tags={ConditionItem, Comment})
         else:
-            super().__init__("condition", acceptable_tags={ConditionItem})
+            super().__init__("condition", acceptable_tags={ConditionItem, Comment})
 
 
 class ConditionItem(Tag):
     def __init__(self, value=""):
         if value != "":
             super().__init__("li", attrib={
-                "value": value}, acceptable_tags=[Oob, Set, str])
+                "value": value}, acceptable_tags=[Oob, Set, Comment, str])
         else:
-            super().__init__("li", acceptable_tags=[Oob, Set, str])
+            super().__init__("li", acceptable_tags=[Oob, Set, Comment, str])
 
 
 class Set(Tag):
     def __init__(self, name=""):
         if name != "":
             super().__init__("set", attrib={
-                'name': name}, acceptable_tags=[str])
+                'name': name}, acceptable_tags=[Comment, str])
         else:
-            super().__init__("set", acceptable_tags=[str])
+            super().__init__("set", acceptable_tags=[Comment, str])
 
 
 class Think(Tag):
     def __init__(self):
-        super().__init__("think", acceptable_tags=[Set, str])
+        super().__init__("think", acceptable_tags=[Set, Comment, str])
 
 
 class Oob(Tag):
     def __init__(self):
-        super().__init__("oob", acceptable_tags=[Robot])
+        super().__init__("oob", acceptable_tags=[Robot, Comment])
 
 
 class Robot(Tag):
     def __init__(self):
-        super().__init__("robot", acceptable_tags=[Options, Video, Image])
+        super().__init__("robot", acceptable_tags=[Options, Video, Image, Comment])
 
 
 class Options(Tag):
     def __init__(self):
-        super().__init__("options", acceptable_tags=[Option])
+        super().__init__("options", acceptable_tags=[Option, Comment])
 
 
 class Option(Tag):
     def __init__(self, value=""):
         if value != "":
-            super().__init__("option", acceptable_tags=[str])
+            super().__init__("option", acceptable_tags=[Comment, str])
             super().append(value)
         else:
-            super().__init__("option", acceptable_tags=[str])
+            super().__init__("option", acceptable_tags=[Comment, str])
 
 
 class Video(Tag):
     def __init__(self):
-        super().__init__("video", acceptable_tags=[Filename])
+        super().__init__("video", acceptable_tags=[Filename, Comment])
 
 
 class Image(Tag):
     def __init__(self):
-        super().__init__("image", acceptable_tags=[Filename])
+        super().__init__("image", acceptable_tags=[Filename, Comment])
 
 
 class Filename(Tag):
     def __init__(self):
-        super().__init__("filename", acceptable_tags=[str])
+        super().__init__("filename", acceptable_tags=[Comment, str])
