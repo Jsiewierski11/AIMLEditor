@@ -207,7 +207,7 @@ class AIML(Tag):
 
 class Comment(Tag):
     def __init__(self):
-        super().__init__("!--", acceptable_tags=[str, char])
+        super().__init__("!--", acceptable_tags=[str])
 
 
 class Topic(Tag):
