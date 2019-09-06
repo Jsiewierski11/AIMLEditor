@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aiml version="2.0">
-
     <!-- BRANCHING FROM SCIENCE2 ASKING ABOUT FAVORITE PLANET -->
-
     <category>
         <pattern># JUPITER ^</pattern>
         <that>DO YOU HAVE A FAVORITE PLANET?</that>
