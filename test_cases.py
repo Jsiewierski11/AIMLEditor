@@ -106,8 +106,7 @@ class TestFunctions(unittest.TestCase):
         tree.write('test_aimls/out.aiml')
         pass
     
-    # TODO: Be able to import comments. Add comments to data structure.
-    #       Make a custom etree that recognizes comments. There are examples on SO
+    # TODO: convert etree parser in Utils/Storage.py to new Custome Etree
     # def test_import_jupiter(self):
     #     # NOTE: This test fails only because of mismatches in whitespace
     #     imported = Storage.importAIML('./test_aimls/jupiter')
