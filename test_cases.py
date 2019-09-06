@@ -100,6 +100,7 @@ class TestFunctions(unittest.TestCase):
         self.assertEqual(str(export), str(imported))
     
     def test_import_jupiter(self):
+        # NOTE: This test fails only because of mismatches in whitespace
         imported = Storage.importAIML('./test_aimls/jupiter')
         exported = Storage.exportAIML('./test_aimls/jupiter_exp', imported)
         jup = open('./test_aimls/jupiter.aiml', 'r')
