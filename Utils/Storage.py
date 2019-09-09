@@ -112,6 +112,9 @@ def importAIML(filename):
     print("parsing file into tree")
     try:
         tree = ET.parse(filename+".aiml")
+    except Exception as ex:
+        print(ex)
+    try:
         print("getting root of the tree")
         root = tree.getroot()
         aiml3 = None

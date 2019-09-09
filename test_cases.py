@@ -100,11 +100,11 @@ class TestFunctions(unittest.TestCase):
     #     imported = Storage.importAIML('./test_aimls/exporting')
     #     self.assertEqual(str(export), str(imported))
 
-    def test_commented_tree(self):
+    def test_parsing_commented_tree(self):
         parser = ET.XMLParser(target=CommentedTreeBuilder())
         tree = ET.parse('test_aimls/utils.aiml', parser)
         tree.write('test_aimls/out.aiml')
-        util = Storage.importAIML('./test_aimls/uitls')
+        util = Storage.importAIML('./test_aimls/utils')
         out = Storage.importAIML('./test_aimls/out')
         self.assertEqual(str(util), str(out))
 
@@ -122,15 +122,15 @@ class TestFunctions(unittest.TestCase):
     # def test_srai_tag(self):
     #     pass
 
-    # def test_util_import(self):
-    #     # NOTE: This fails due to comments
-    #     imported = Storage.importAIML('./test_aimls/utils')
-    #     exported = Storage.exportAIML('./test_aimls/utils_exp', imported)
-    #     util = open('./test_aimls/utils.aiml', 'r')
-    #     util_contents = util.read()
-    #     util_exp = open('./test_aimls/utils_exp.aiml', 'r')
-    #     util2_contents = util_exp.read()
-    #     self.assertEqual(util_contents, util2_contents)
+    def test_comments_util_import(self):
+        # NOTE: This fails due to comments
+        imported = Storage.importAIML('./test_aimls/utils')
+        exported = Storage.exportAIML('./test_aimls/utils_exp', imported)
+        util = open('./test_aimls/utils.aiml', 'r')
+        util_contents = util.read()
+        util_exp = open('./test_aimls/utils_exp.aiml', 'r')
+        util2_contents = util_exp.read()
+        self.assertEqual(util_contents, util2_contents)
 
 if __name__ == '__main__':
     unittest.main()
