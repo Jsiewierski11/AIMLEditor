@@ -1,5 +1,6 @@
 import pickle
-import xml.etree.ElementTree as ET
+# import xml.etree.ElementTree as ET
+# from Tree.CommentedTreeBuilder import *
 from Model.Data import *
 from PyQt5.QtWidgets import QErrorMessage
 
@@ -81,6 +82,7 @@ def decode_tag(tag_type):
 #       A document type declaration may be accessed by passing a custom  
 #       TreeBuilder instance to the XMLParser constructor. 
 def recursive_decoding(head, tag_xml):
+    parser = ET.XMLParser(target=CommentedTreeBuilder())
     try:
         for child in tag_xml:
             tag_obj = decode_tag(child.tag.lower())
@@ -95,7 +97,8 @@ def recursive_decoding(head, tag_xml):
                     print(ex)
                 if child.tail:
                     if child.tail.strip():
-                        head.append(child.tail.strip()) #TODO: remove the extra whitespaces in the text
+                        #TODO: remove the extra whitespaces in the text
+                        head.append(child.tail.strip()) 
             else:
                 head.append(ET.tostring(child, encoding="unicode"))
             recursive_decoding(tag_obj, child)
@@ -105,6 +108,7 @@ def recursive_decoding(head, tag_xml):
 
 
 def importAIML(filename):
+    parser = ET.XMLParser(target=CommentedTreeBuilder())
     print("parsing file into tree")
     try:
         tree = ET.parse(filename+".aiml")
