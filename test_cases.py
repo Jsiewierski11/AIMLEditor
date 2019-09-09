@@ -99,23 +99,25 @@ class TestFunctions(unittest.TestCase):
         imported = Storage.importAIML('./test_aimls/exporting')
         self.assertEqual(str(export), str(imported))
 
+    
+    def test_print_comment(self):
+        comment = Comment()
+        self.assertEqual(str(comment), "<!--  -->")
+
     def test_parsing_commented_tree(self):
         parser = ET.XMLParser(target=CommentedTreeBuilder())
         tree = ET.parse('test_aimls/utils.aiml', parser)
-        tree.write('test_aimls/out.aiml')
+        tree.write('test_aimls/out.aiml', xml_declaration=True, encoding='UTF-8')
         util = Storage.importAIML('./test_aimls/utils')
         out = Storage.importAIML('./test_aimls/out')
         self.assertEqual(str(util), str(out))
 
-    # NOTE: exporting comments does not work
-    # def test_comments_util_import(self):
-    #     imported = Storage.importAIML('./test_aimls/utils')
-    #     exported = Storage.exportAIML('./test_aimls/utils_exp', imported)
-    #     util = open('./test_aimls/utils.aiml', 'r')
-    #     util_contents = util.read()
-    #     util_exp = open('./test_aimls/utils_exp.aiml', 'r')
-    #     util2_contents = util_exp.read()
-    #     self.assertEqual(util_contents, util2_contents)
+    # TODO: Make export comments work. Possibly need to add a comments tag
+    def test_comments_util_import(self):
+        imported = Storage.importAIML('./test_aimls/utils')
+        Storage.exportAIML('./test_aimls/utils_exp', imported)
+        exported = Storage.importAIML('./test_aimls/utils_exp')
+        self.assertEqual(str(imported),str(exported))
 
     # TODO: convert etree parser in Utils/Storage.py to new Custome Etree
     # def test_import_jupiter(self):
