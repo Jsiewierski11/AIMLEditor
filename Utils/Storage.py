@@ -82,6 +82,7 @@ def decode_tag(tag_type):
 #       A document type declaration may be accessed by passing a custom  
 #       TreeBuilder instance to the XMLParser constructor. 
 def recursive_decoding(head, tag_xml):
+    # Make parser include comments
     parser = ET.XMLParser(target=CommentedTreeBuilder())
     try:
         for child in tag_xml:
@@ -108,6 +109,7 @@ def recursive_decoding(head, tag_xml):
 
 
 def importAIML(filename):
+    # Make parser include comments
     parser = ET.XMLParser(target=CommentedTreeBuilder())
     print("parsing file into tree")
     try:

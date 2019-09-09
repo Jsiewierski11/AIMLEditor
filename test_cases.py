@@ -84,21 +84,20 @@ class TestFunctions(unittest.TestCase):
         aiml2 = Storage.restore('test_pickle/test1')
         self.assertEqual(str(aiml), str(aiml2))
 
-    # TODO: fix for comments
-    # def test_import(self):
-    #     expected = make_aiml2()
-    #     #NOTE: Make sure to not have the '.aiml' after file name. 
-    #     #      Causes an aborted core dump. Why?
-    #     imported = Storage.importAIML('./test_aimls/atomic')
-    #     self.assertEqual(str(expected), str(imported))
+    def test_import(self):
+        expected = make_aiml2()
+        #NOTE: Make sure to not have the '.aiml' after file name. 
+        #      Causes an aborted core dump. Why?
+        imported = Storage.importAIML('./test_aimls/atomic')
+        self.assertEqual(str(expected), str(imported))
 
-    # def test_export(self):
-    #     #NOTE: Works with make_aiml2 but NOT make_aiml() might have
-    #     #      something to do with the topic tag
-    #     export = make_aiml2()
-    #     Storage.exportAIML('./test_aimls/exporting', export)
-    #     imported = Storage.importAIML('./test_aimls/exporting')
-    #     self.assertEqual(str(export), str(imported))
+    def test_export(self):
+        #NOTE: Works with make_aiml2 but NOT make_aiml() might have
+        #      something to do with the topic tag
+        export = make_aiml2()
+        Storage.exportAIML('./test_aimls/exporting', export)
+        imported = Storage.importAIML('./test_aimls/exporting')
+        self.assertEqual(str(export), str(imported))
 
     def test_parsing_commented_tree(self):
         parser = ET.XMLParser(target=CommentedTreeBuilder())
@@ -107,6 +106,16 @@ class TestFunctions(unittest.TestCase):
         util = Storage.importAIML('./test_aimls/utils')
         out = Storage.importAIML('./test_aimls/out')
         self.assertEqual(str(util), str(out))
+
+    # NOTE: exporting comments does not work
+    # def test_comments_util_import(self):
+    #     imported = Storage.importAIML('./test_aimls/utils')
+    #     exported = Storage.exportAIML('./test_aimls/utils_exp', imported)
+    #     util = open('./test_aimls/utils.aiml', 'r')
+    #     util_contents = util.read()
+    #     util_exp = open('./test_aimls/utils_exp.aiml', 'r')
+    #     util2_contents = util_exp.read()
+    #     self.assertEqual(util_contents, util2_contents)
 
     # TODO: convert etree parser in Utils/Storage.py to new Custome Etree
     # def test_import_jupiter(self):
@@ -122,16 +131,7 @@ class TestFunctions(unittest.TestCase):
     # def test_srai_tag(self):
     #     pass
 
-    def test_comments_util_import(self):
-        # NOTE: This fails due to comments
-        imported = Storage.importAIML('./test_aimls/utils')
-        exported = Storage.exportAIML('./test_aimls/utils_exp', imported)
-        util = open('./test_aimls/utils.aiml', 'r')
-        util_contents = util.read()
-        util_exp = open('./test_aimls/utils_exp.aiml', 'r')
-        util2_contents = util_exp.read()
-        self.assertEqual(util_contents, util2_contents)
-
+    
 if __name__ == '__main__':
     unittest.main()
     # make_aiml2()
