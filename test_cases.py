@@ -120,15 +120,15 @@ class TestFunctions(unittest.TestCase):
         self.assertEqual(str(imported),str(exported))
 
     # TODO: convert etree parser in Utils/Storage.py to new Custome Etree
-    # def test_import_jupiter(self):
-    #     # NOTE: This test fails only because of mismatches in whitespace
-    #     imported = Storage.importAIML('./test_aimls/jupiter')
-    #     exported = Storage.exportAIML('./test_aimls/jupiter_exp', imported)
-    #     jup = open('./test_aimls/jupiter.aiml', 'r')
-    #     jup_contents = jup.read()
-    #     jup_exp = open('./test_aimls/jupiter_exp.aiml', 'r')
-    #     jup2_contents = jup_exp.read()
-    #     self.assertEqual(jup_contents, jup2_contents)
+    def test_import_jupiter(self):
+        # NOTE: This test fails only because of mismatches in whitespace
+        imported = Storage.importAIML('./test_aimls/jupiter')
+        exported = Storage.exportAIML('./test_aimls/jupiter_exp', imported)
+        jup = open('./test_aimls/jupiter.aiml', 'r')
+        jup_contents = jup.read()
+        jup_exp = open('./test_aimls/jupiter_exp.aiml', 'r')
+        jup2_contents = jup_exp.read()
+        self.assertEqual(jup_contents, jup2_contents)
 
     # def test_srai_tag(self):
     #     pass

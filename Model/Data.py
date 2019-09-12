@@ -183,7 +183,9 @@ class Tag(Serializable):
             tags = ""
 
         if self.type == '!--':
-            return "<{}  -->".format(str(self.type))
+            # TODO: Figure out how ET stores the text in comments, need to use that
+            #       To print out contents of the comment.
+            return "<{} {} -->".format(str(self.type), tags)
         else:
             return "<{}{}>{}</{}>".format(str(self.type), attrib, tags, str(self.type))
 
@@ -208,7 +210,7 @@ class AIML(Tag):
 
 class Comment(Tag):
     def __init__(self, version="2.0"):
-        super().__init__("!--", acceptable_tags=[str])
+        super().__init__("!--", acceptable_tags=[ET.Comment, str])
 
 class Topic(Tag):
     def __init__(self, name=""):
