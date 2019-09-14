@@ -312,14 +312,14 @@ class Option(Tag):
 
 class Video(Tag):
     def __init__(self):
-        super().__init__("video", acceptable_tags=[Filename])
+        super().__init__("video", acceptable_tags=[Filename, Comment])
 
 
 class Image(Tag):
     def __init__(self):
-        super().__init__("image", acceptable_tags=[Filename])
+        super().__init__("image", acceptable_tags=[Filename, Comment])
 
 
 class Filename(Tag):
     def __init__(self):
-        super().__init__("filename", acceptable_tags=[str])
+        super().__init__("filename", acceptable_tags=[Comment, str])
