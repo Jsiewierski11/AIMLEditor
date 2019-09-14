@@ -16,8 +16,7 @@ print(root.tag)
 
 for child in root:
     print("child.tag: {}".format(child.tag))
-    text = ''.join(child.text.strip())
-    print("child.text: {}".format(text))
+    print("child.text: {}".format(child.text))
     print(type(child.text))
     tag_obj = Storage.decode_tag(child.tag.lower())
     print(tag_obj)
