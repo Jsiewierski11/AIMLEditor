@@ -114,7 +114,8 @@ class EditorWindow(QMainWindow):
     def categoryCreated(self, cat):
         print("slot in EditorWindow")
         print(str(cat))
-        self.catCreated.emit(cat) # emitting signal to send category received from docker to EditorWidget slot
+        # emitting signal to send category received from docker to EditorWidget slot
+        self.catCreated.emit(cat) 
 
     @pyqtSlot(str)
     def addChildClicked(self, thatStr):

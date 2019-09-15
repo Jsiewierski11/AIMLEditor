@@ -33,7 +33,7 @@ if pyQtVersion == "PyQt4":
                              QPainter, QFont, QSyntaxHighlighter,
                              QTextFormat, QTextCharFormat)
 else:
-    from PyQt5.QtCore import Qt, QRect, QRegExp, pyqtSlot, QFileInfo
+    from PyQt5.QtCore import Qt, QRect, QRegExp, pyqtSlot, QFileInfo, pyqtSignal
     from PyQt5.QtWidgets import QWidget, QTextEdit, QPlainTextEdit, QErrorMessage
     from PyQt5.QtGui import (QColor, QPainter, QFont, QSyntaxHighlighter,
                              QTextFormat, QTextCharFormat)
@@ -137,6 +137,8 @@ class QCodeEditor(QPlainTextEdit):
         http://doc.qt.io/qt-5/qtwidgets-widgets-codeeditor-example.html
 
     '''
+    # Adding signal
+    catCreated = pyqtSignal(Tag)
 
     class NumberBar(QWidget):
         '''class that deifnes textEditor numberBar'''
@@ -229,7 +231,7 @@ class QCodeEditor(QPlainTextEdit):
 
         # connecting slot for category creation
         self.aiml = AIML()
-        # self.make_connection(docker)
+        self.make_connection(docker)        
 
         self.setReadOnly(True)
 
@@ -271,23 +273,23 @@ class QCodeEditor(QPlainTextEdit):
         docker.catCreated.connect(self.categoryCreated)
 
     # slot function for a category being created and displaying on editSpace
-    # @pyqtSlot(Tag)
-    # def categoryCreated(self, cat):
-    #     try:
-    #         print("made it to slot")
-    #         if self.aiml is not None:
-    #             print("Ok to add category")
-    #             self.aiml.append(cat)
-    #             print("appended category to AIML object")
-    #             self.setPlainText(str(self.aiml))
-    #         else:
-    #             print("CodeEditor is equal to None")
-    #             self.aiml = AIML()
-    #             self.clear()
-    #             self.aiml.append(cat)
-    #             print("appended category to AIML object")
-    #             self.setPlainText(str(self.aiml))
-    #     except Exception as ex:
-    #         handleError(ex)
-    #         print("exception caught!")
-    #         print(ex)
+    @pyqtSlot(Tag)
+    def categoryCreated(self, cat):
+        try:
+            print("made it to slot")
+            if self.aiml is not None:
+                print("Ok to add category")
+                self.aiml.append(cat)
+                print("appended category to AIML object")
+                self.setPlainText(str(self.aiml))
+            else:
+                print("CodeEditor is equal to None")
+                self.aiml = AIML()
+                self.clear()
+                self.aiml.append(cat)
+                print("appended category to AIML object")
+                self.setPlainText(str(self.aiml))
+        except Exception as ex:
+            handleError(ex)
+            print("exception caught!")
+            print(ex)
