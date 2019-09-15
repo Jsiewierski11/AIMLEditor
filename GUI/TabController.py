@@ -1,11 +1,22 @@
-from PyQt5.QtWidgets import QMainWindow, QWidget, QVBoxLayout, QTabWidget, QPushButton
+from PyQt5.QtWidgets import QMainWindow, QWidget, QVBoxLayout, QTabWidget, QPushButton, QVBoxLayout
+from GUI.CodeEditor import *
 from PyQt5.QtGui import QColor
-from PyQt5.QtCore import Qt, pyqtSlot, QFileInfo
+from PyQt5.QtCore import Qt, pyqtSlot, QFileInfo, pyqtSignal
+from GUI.DockerWidget import DockerWidget
+
 class TabController(QWidget):
+
+     # Adding signal
+    catCreated = pyqtSignal(Tag)
+    catClicked = pyqtSignal(Tag)
+    catUpdated = pyqtSignal(Tag)
+    childClicked = pyqtSignal(str)
     
-    def __init__(self, parent):
+    def __init__(self, parent, docker):
         super(QWidget, self).__init__(parent)
         self.layout = QVBoxLayout(self)
+        self.editSpace = None # Used for displaying source code
+        self.docker = docker
         
         # Initialize tab screen
         self.tabs = QTabWidget()
@@ -18,12 +29,21 @@ class TabController(QWidget):
         self.tabs.addTab(self.tab2,"Tab 2")
         
         # Create first tab
-        self.tab1.layout = QVBoxLayout(self)
-        self.pushButton1 = QPushButton("PyQt5 button")
-        # NOTE: How to add something
-        # self.tab1.layout.addWidget(self.pushButton1)
-        self.tab1.setLayout(self.tab1.layout)
+        self.add_editspace(self.tab1, self.docker)
+       
         
         # Add tabs to widget
         self.layout.addWidget(self.tabs)
         self.setLayout(self.layout)
+
+    def add_editspace(self, tab, docker):
+        tab.layout = QVBoxLayout(self)
+        # Setting main editing area where Files will be displayed and can be edited
+        self.editSpace = QCodeEditor(docker)
+        self.tab1.layout.addWidget(self.editSpace)
+        tab.setLayout(tab.layout)
+
+        # NOTE: How to add something
+        # self.pushButton1 = QPushButton("PyQt5 button")
+        # self.tab1.layout.addWidget(self.pushButton1)
+        # tab.setLayout(tab.layout)

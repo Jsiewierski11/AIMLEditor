@@ -30,6 +30,10 @@ class EditorWindow(QMainWindow):
         self.display = None # Used for graphing out categories
         self.aiml = AIML()
 
+        # create dockable widget to have as place to write content in categories
+        # Creating docker that can create categories
+        self.docker = DockerWidget(self)
+
         self.initUI()
 
 
@@ -69,13 +73,14 @@ class EditorWindow(QMainWindow):
 
         # create dockable widget to have as place to write content in categories
         # Creating docker that can create categories
-        docker = None
-        docker = DockerWidget(self)
-        self.addDockWidget(Qt.LeftDockWidgetArea, docker)
+        # docker = None
+        # docker = DockerWidget(self)
+        self.addDockWidget(Qt.LeftDockWidgetArea, self.docker)
 
-        # Creating table to hold and controll tabs
-        self.tab_controller = TabController(self)
-        self.setCentralWidget(self.tab_controller)
+        # Creating table to hold and control tabs
+        # self.tab_controller = TabController(self)
+        self.editSpace = TabController(self, self.docker)
+        self.setCentralWidget(self.editSpace)
 
         # Setting main editing area where Files will be displayed and can be edited
         # self.editSpace = QCodeEditor(docker)
@@ -88,8 +93,8 @@ class EditorWindow(QMainWindow):
         # self.setCentralWidget(self.editSpace)
 
         ########## making connections to slots ################
-        docker.catCreated.connect(self.categoryCreated) # connecting signal from docker to slot
-        docker.catUpdated.connect(self.categoryUpdated) # connecting signal from docker
+        self.docker.catCreated.connect(self.categoryCreated) # connecting signal from docker to slot
+        self.docker.catUpdated.connect(self.categoryUpdated) # connecting signal from docker
         # self.editSpace.catClicked.connect(self.categoryClicked) # connecting signal from EditorWidget to slot
         # self.editSpace.childClicked.connect(self.addChildClicked) # connecting signal from EditorWidget
 
