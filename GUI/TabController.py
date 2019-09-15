@@ -25,8 +25,8 @@ class TabController(QWidget):
         self.tabs.resize(300,200)
         
         # Add tabs
-        self.tabs.addTab(self.tab1,"Tab 1")
-        self.tabs.addTab(self.tab2,"Tab 2")
+        self.tabs.addTab(self.tab1,"Text Display")
+        self.tabs.addTab(self.tab2,"Graph Display")
         
         # Create first tab
         self.add_editspace(self.tab1, self.docker)
