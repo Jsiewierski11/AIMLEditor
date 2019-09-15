@@ -5,6 +5,7 @@ from PyQt5.QtGui import QColor
 from PyQt5.QtCore import Qt, pyqtSlot, QFileInfo
 from GUI.EditorWidget import EditorWidget
 from GUI.DockerWidget import DockerWidget
+from GUI.TabController import TabController
 from Model.Data import *
 import Utils.Storage as Storage
 import Utils.AIMLHighlighter as HL
@@ -72,21 +73,25 @@ class EditorWindow(QMainWindow):
         docker = DockerWidget(self)
         self.addDockWidget(Qt.LeftDockWidgetArea, docker)
 
+        # Creating table to hold and controll tabs
+        self.tab_controller = TabController(self)
+        self.setCentralWidget(self.tab_controller)
+
         # Setting main editing area where Files will be displayed and can be edited
         # self.editSpace = QCodeEditor(docker)
-        #self.setCentralWidget(self.editSpace)
+        # self.setCentralWidget(self.editSpace)
 
 
         # create node editor widget (visualization of categories)
-        self.editSpace = EditorWidget(self)
-        self.editSpace.scene.addHasBeenModifiedListener(self.changeTitle)
-        self.setCentralWidget(self.editSpace)
+        # self.editSpace = EditorWidget(self)
+        # self.editSpace.scene.addHasBeenModifiedListener(self.changeTitle)
+        # self.setCentralWidget(self.editSpace)
 
         ########## making connections to slots ################
         docker.catCreated.connect(self.categoryCreated) # connecting signal from docker to slot
         docker.catUpdated.connect(self.categoryUpdated) # connecting signal from docker
-        self.editSpace.catClicked.connect(self.categoryClicked) # connecting signal from EditorWidget to slot
-        self.editSpace.childClicked.connect(self.addChildClicked) # connecting signal from EditorWidget
+        # self.editSpace.catClicked.connect(self.categoryClicked) # connecting signal from EditorWidget to slot
+        # self.editSpace.childClicked.connect(self.addChildClicked) # connecting signal from EditorWidget
 
 
         # status bar
