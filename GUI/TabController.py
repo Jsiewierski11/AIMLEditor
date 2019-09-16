@@ -13,12 +13,13 @@ class TabController(QWidget):
     catUpdated = pyqtSignal(Tag)
     childClicked = pyqtSignal(str)
     
-    def __init__(self, parent, docker):
+    def __init__(self, parent, docker, window):
         super(QWidget, self).__init__(parent)
         self.layout = QVBoxLayout(self)
         self.editSpace = None # Used for displaying source code
         self.docker = docker
         self.aiml = AIML()
+        self.window = window
         
         # Initialize tab screen
         self.tabs = QTabWidget()
@@ -31,7 +32,7 @@ class TabController(QWidget):
         self.tabs.addTab(self.tab2,"Graph Display")
         
         # Create first tab
-        self.add_editspace(self.tab1, self.docker)
+        self.add_editspace(self.tab1)
         
         # Add tabs to widget
         self.layout.addWidget(self.tabs)
@@ -39,11 +40,12 @@ class TabController(QWidget):
 
         # Make Connection
         self.docker.catCreated.connect(self.categoryCreated)
+        self.window.catCreated.connect(self.categoryCreated)
 
-    def add_editspace(self, tab, docker):
+    def add_editspace(self, tab):
         tab.layout = QVBoxLayout(self)
         # Setting main editing area where Files will be displayed and can be edited
-        self.editSpace = QCodeEditor(docker)
+        self.editSpace = QCodeEditor(self)
         self.tab1.layout.addWidget(self.editSpace)
         tab.setLayout(tab.layout)
 
@@ -53,6 +55,7 @@ class TabController(QWidget):
         print("In TabController slot")
         try:
             self.aiml.append(cat)
+            self.catCreated.emit(cat) 
         except Exception as ex:
             handleError(ex)
             print("exception caught!")

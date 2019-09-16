@@ -12,6 +12,7 @@ import Utils.AIMLHighlighter as HL
 from GUI.CodeEditor import *
 from GUI.QLabel_Clickable import *
 from GUI.Node.QDM.GraphicsScene import *
+from Utils.ErrorMessage import handleError
 
 
 class EditorWindow(QMainWindow):
@@ -79,7 +80,7 @@ class EditorWindow(QMainWindow):
 
         # Creating table to hold and control tabs
         # self.tab_controller = TabController(self)
-        self.editSpace = TabController(self, self.docker)
+        self.editSpace = TabController(self, self.docker, window=self)
         self.setCentralWidget(self.editSpace)
 
         # Setting main editing area where Files will be displayed and can be edited
@@ -217,8 +218,13 @@ class EditorWindow(QMainWindow):
             handleError(ex)
 
     def onFileExport(self):
-        fname, filter = QFileDialog.getSaveFileName(self, 'Export to file')
-        Storage.exportAIML(fname, self.editSpace.aiml)  # save as an aiml file
+        try:
+            fname, filter = QFileDialog.getSaveFileName(self, 'Export to file')
+            Storage.exportAIML(fname, self.editSpace.aiml)  # save as an aiml file
+        except Exception as ex:
+            print("Exception caught trying to export")
+            print(ex)
+            handleError(ex)
 
     def onFileImport(self):
         try:

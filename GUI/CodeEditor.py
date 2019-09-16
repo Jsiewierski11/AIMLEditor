@@ -210,7 +210,7 @@ class QCodeEditor(QPlainTextEdit):
                 self.font.setStyle(QFont.StyleNormal)
                 self.updateWidth()
 
-    def __init__(self, docker, DISPLAY_LINE_NUMBERS=True, HIGHLIGHT_CURRENT_LINE=True,
+    def __init__(self, tab_controller, DISPLAY_LINE_NUMBERS=True, HIGHLIGHT_CURRENT_LINE=True,
                  SyntaxHighlighter=None, *args):
         '''
         Parameters
@@ -231,7 +231,7 @@ class QCodeEditor(QPlainTextEdit):
 
         # connecting slot for category creation
         self.aiml = AIML()
-        self.make_connection(docker)        
+        self.make_connection(tab_controller)        
 
         self.setReadOnly(True)
 
@@ -269,8 +269,8 @@ class QCodeEditor(QPlainTextEdit):
             self.setExtraSelections([hi_selection])
 
     # function to make connection with signal in DockerWidget
-    def make_connection(self, docker):
-        docker.catCreated.connect(self.categoryCreated)
+    def make_connection(self, tab_controller):
+        tab_controller.catCreated.connect(self.categoryCreated)
 
     # slot function for a category being created and displaying on editSpace
     @pyqtSlot(Tag)
