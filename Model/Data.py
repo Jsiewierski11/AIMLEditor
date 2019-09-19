@@ -174,7 +174,10 @@ class Tag(Serializable):
     def __str__(self):
         attrib = (' ' + ' '.join('{}=\"{}\"'.format(
             key, val) for key, val in self.attrib.items())) if len(self.attrib) > 0 else ""
-        if len(self.tags) > 1:
+
+        if self.type == 'pattern':
+            tags = ' '.join(map(str, self.tags))
+        elif len(self.tags) > 1:
             tags = '\n' + indent('\n'.join(map(str, self.tags)),
                                  Common.indentation) + '\n'
         elif len(self.tags) > 0:
