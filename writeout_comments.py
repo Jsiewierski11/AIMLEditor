@@ -19,6 +19,7 @@ for child in root:
     print("child.text: {}".format(child.text))
     print(type(child.text))
     print(ET.iselement(child))
+    print("checking type: {}".format(type(child) == type.functionType))
     tag_obj = Storage.decode_tag(child.tag.lower())
     print(tag_obj)
     raise exception
