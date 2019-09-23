@@ -34,6 +34,7 @@ class Tag(Serializable):
                     "video": Video,
                     "filename": Filename,
                     "srai": Srai,
+                    "bot": Bot,
                     "!--": Comment}
 
     def decode_tag(self, tag_type):
@@ -245,7 +246,7 @@ class Pattern(Tag):
 class Template(Tag):
     def __init__(self):
         super().__init__("template", acceptable_tags=[
-            Set, Think, Condition, Oob, Random, Srai, Comment, str])
+            Set, Think, Condition, Oob, Random, Srai, Bot, Comment, str])
 
 
 class That(Tag):
@@ -276,9 +277,17 @@ class ConditionItem(Tag):
     def __init__(self, value=""):
         if value != "":
             super().__init__("li", attrib={
-                "value": value}, acceptable_tags=[Oob, Set, Comment, str])
+                "value": value}, acceptable_tags=[Oob, Set, Srai, Bot, Comment, str])
         else:
-            super().__init__("li", acceptable_tags=[Oob, Set, Comment, str])
+            super().__init__("li", acceptable_tags=[Oob, Set, Srai, Bot, Comment, str])
+
+class Bot(Tag):
+    def __init__(self, name=""):
+        if name != "":
+            super().__init__("bot", attrib={
+                "name": name}, acceptable_tags=[])
+        else:
+            super().__init__("bot", acceptable_tags=[])
 
 
 class Set(Tag):
