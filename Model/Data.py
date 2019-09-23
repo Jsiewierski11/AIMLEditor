@@ -8,9 +8,10 @@ from collections import OrderedDict
 
 
 class Tag(Serializable):
-    def __init__(self, type, acceptable_tags=[], attrib={}):
+    def __init__(self, type, single=False, acceptable_tags=[], attrib={}):
         super().__init__()
         self.type = type
+        self.single = single
         self.tags = []
         self.acceptable_tags = acceptable_tags
         self.attrib = attrib
@@ -191,6 +192,8 @@ class Tag(Serializable):
             # TODO: Figure out how ET stores the text in comments, need to use that
             #       To print out contents of the comment.
             return "<{} {} -->".format(str(self.type), tags)
+        elif self.single == True:
+            return "<{} {}/>".format(str(self.type), attrib)
         else:
             return "<{}{}>{}</{}>".format(str(self.type), attrib, tags, str(self.type))
 
@@ -282,12 +285,12 @@ class ConditionItem(Tag):
             super().__init__("li", acceptable_tags=[Oob, Set, Srai, Bot, Comment, str])
 
 class Bot(Tag):
-    def __init__(self, name=""):
+    def __init__(self, name="", single=True):
         if name != "":
-            super().__init__("bot", attrib={
+            super().__init__("bot", single=single, attrib={
                 "name": name}, acceptable_tags=[])
         else:
-            super().__init__("bot", acceptable_tags=[])
+            super().__init__("bot", single=single, acceptable_tags=[])
 
 
 class Set(Tag):
