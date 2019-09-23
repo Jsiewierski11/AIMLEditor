@@ -33,6 +33,7 @@ class Tag(Serializable):
                     "image": Image,
                     "video": Video,
                     "filename": Filename,
+                    "srai": Srai,
                     "!--": Comment}
 
     def decode_tag(self, tag_type):
@@ -244,12 +245,17 @@ class Pattern(Tag):
 class Template(Tag):
     def __init__(self):
         super().__init__("template", acceptable_tags=[
-            Set, Think, Condition, Oob, Random, Comment, str])
+            Set, Think, Condition, Oob, Random, Srai, Comment, str])
 
 
 class That(Tag):
     def __init__(self):
         super().__init__("that", acceptable_tags=[Comment, str])
+
+
+class Srai(Tag):
+    def __init__(self):
+        super().__init__("srai", acceptable_tags=[Comment, str])
 
 
 class Random(Tag):

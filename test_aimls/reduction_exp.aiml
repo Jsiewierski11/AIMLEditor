@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml version="2.0">
+    <category>
+        <pattern>YOU MAY THINK * BUT *</pattern>
+        <template><srai><star index="2" /></srai></template>
+    </category>
+    <category>
+        <pattern>BEARING IN MIND THAT *</pattern>
+        <template><srai><star /></srai></template>
+    </category>
+    <category>
+        <pattern>BEARING IN MIND *</pattern>
+        <template><srai><star /></srai></template>
+    </category>
+    <category>
+        <pattern>SINCE YOU * TO DO IT *</pattern>
+        <template><srai><star index="2" /></srai></template>
+    </category>
+</aiml>

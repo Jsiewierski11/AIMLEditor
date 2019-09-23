@@ -60,6 +60,7 @@ tag_list = {"aiml": AIML,
             "image": Image,
             "video": Video,
             "filename": Filename,
+            "srai": Srai,
             "!--": Comment}
 
 
