@@ -17,9 +17,7 @@ print(root.tag)
 for child in root:
     print("child.tag: {}".format(child.tag))
     print("child.text: {}".format(child.text))
-    print(type(child.text))
-    print(ET.iselement(child))
-    print("checking type: {}".format(type(child) == type.functionType))
+    # print("child.tags: {}".format(child.tags))
     tag_obj = Storage.decode_tag(child.tag.lower())
     print(tag_obj)
     raise exception

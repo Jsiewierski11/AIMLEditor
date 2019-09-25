@@ -7,6 +7,8 @@ from GUI.Node.Utils.Serializable import Serializable
 from collections import OrderedDict
 
 
+
+
 class Tag(Serializable):
     def __init__(self, type, single=False, acceptable_tags=[], attrib={}):
         super().__init__()
@@ -17,30 +19,30 @@ class Tag(Serializable):
         self.attrib = attrib
 
         self.tag_list = {"aiml": AIML,
-                    "topic": Topic,
-                    "category": Category,
-                    "pattern": Pattern,
-                    "template": Template,
-                    "condition": Condition,
-                    "li": ConditionItem,
-                    "random": Random,
-                    "set": Set,
-                    "think": Think,
-                    "that": That,
-                    "oob": Oob,
-                    "robot": Robot,
-                    "options": Options,
-                    "option": Option,
-                    "image": Image,
-                    "video": Video,
-                    "filename": Filename,
-                    "srai": Srai,
-                    "bot": Bot,
-                    "!--": Comment}
+            "topic": Topic,
+            "category": Category,
+            "pattern": Pattern,
+            "template": Template,
+            "condition": Condition,
+            "li": ConditionItem,
+            "random": Random,
+            "set": Set,
+            "think": Think,
+            "that": That,
+            "oob": Oob,
+            "robot": Robot,
+            "options": Options,
+            "option": Option,
+            "image": Image,
+            "video": Video,
+            "filename": Filename,
+            "srai": Srai,
+            "bot": Bot,
+            "comment": Comment}
 
     def decode_tag(self, tag_type):
-        if tag_type in self.tag_list:
-            return self.tag_list[tag_type]()
+        if tag_type in tag_list:
+            return tag_list[tag_type]()
         return False
 
     def serialize(self):
@@ -188,10 +190,10 @@ class Tag(Serializable):
         else:
             tags = ""
 
-        if self.type == '!--':
+        if self.type == 'comment':
             # TODO: Figure out how ET stores the text in comments, need to use that
             #       To print out contents of the comment.
-            return "<{} {} -->".format(str(self.type), tags)
+            return "<!-- {} -->".format(tags)
         elif self.single == True:
             return "<{} {}/>".format(str(self.type), attrib)
         else:
@@ -218,7 +220,7 @@ class AIML(Tag):
 
 class Comment(Tag):
     def __init__(self, version="2.0"):
-        super().__init__("!--", acceptable_tags=[ET.Comment, str])
+        super().__init__("comment", acceptable_tags=[str])
 
 class Topic(Tag):
     def __init__(self, name=""):

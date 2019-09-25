@@ -62,7 +62,7 @@ tag_list = {"aiml": AIML,
             "filename": Filename,
             "srai": Srai,
             "bot": Bot,
-            "!--": Comment}
+            "comment": Comment}
 
 
 def decode_tag(tag_type):
@@ -85,15 +85,17 @@ def decode_tag(tag_type):
 #       A document type declaration may be accessed by passing a custom  
 #       TreeBuilder instance to the XMLParser constructor. 
 def recursive_decoding(head, tag_xml):
-    # Make parser include comments
-    parser = ET.XMLParser(target=CommentedTreeBuilder())
+    # Use custom parser to include comments
+    # parser = ET.XMLParser(target=CommentedTreeBuilder())
     try:
         for child in tag_xml:
             tag_obj = decode_tag(child.tag.lower())
             if(tag_obj != False):
                 if child.text:
                     if child.text.strip():
+                        print("Appending text: {}\nto: {}".format(child.text.strip(), tag_obj))
                         tag_obj.append(child.text.strip())
+                        print("tag_obj: {}".format(tag_obj))
                 tag_obj.attrib = child.attrib
                 try:
                     head.append(tag_obj)
@@ -112,11 +114,11 @@ def recursive_decoding(head, tag_xml):
 
 
 def importAIML(filename):
-    # Make parser include comments
+    # Use custom parser to include comments
     parser = ET.XMLParser(target=CommentedTreeBuilder())
     print("parsing file into tree")
     try:
-        tree = ET.parse(filename+".aiml")
+        tree = ET.parse(filename+".aiml", parser)
     except Exception as ex:
         print(ex)
     try:

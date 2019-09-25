@@ -3,6 +3,6 @@ from xml.etree import ElementTree as ET
     
 class CommentedTreeBuilder(ET.TreeBuilder):
     def comment(self, data):
-        self.start(ET.Comment, {})
+        self.start("comment", {})
         self.data(data)
-        self.end(ET.Comment)
+        self.end("comment")
