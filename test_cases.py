@@ -112,16 +112,15 @@ class TestFunctions(unittest.TestCase):
         out = Storage.importAIML('./test_aimls/out')
         self.assertEqual(str(util), str(out))
 
-    # TODO: Make export comments work. Possibly need to add a comments tag
+    # NOTE: Fails due to whitespace mismatch. Is this a concern?
     def test_comments_util_import(self):
         imported = Storage.importAIML('./test_aimls/utils')
         Storage.exportAIML('./test_aimls/utils_exp', imported)
         exported = Storage.importAIML('./test_aimls/utils_exp')
         self.assertEqual(str(imported),str(exported))
 
-    # TODO: convert etree parser in Utils/Storage.py to new Custome Etree
+    # NOTE: Fails due to whitespace mismatch. Is this a concern?
     def test_import_jupiter(self):
-        # NOTE: This test fails only because of mismatches in whitespace
         imported = Storage.importAIML('./test_aimls/jupiter')
         exported = Storage.exportAIML('./test_aimls/jupiter_exp', imported)
         jup = open('./test_aimls/jupiter.aiml', 'r')

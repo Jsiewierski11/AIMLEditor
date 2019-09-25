@@ -1,7 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <aiml version="2.0">
-
-    <!-- CATEGORIES TO SWITCH TOPICS AND GET OUT OF CURRENT DISCUSSION -->
+    <comment> CATEGORIES TO SWITCH TOPICS AND GET OUT OF CURRENT DISCUSSION </comment>
     <category>
         <pattern>$Change topic</pattern>
         <template>
@@ -60,27 +59,27 @@
     </category>
 
 
-    <!-- CATEGORY THAT SHOULD GET CAUGHT ON INITIAL MESSAGE SENT FROM EMOTION TABLET CONTROLLER -->
+    <comment> CATEGORY THAT SHOULD GET CAUGHT ON INITIAL MESSAGE SENT FROM EMOTION TABLET CONTROLLER </comment>
     <category>
         <pattern>START PROGRAMR</pattern>
         <template>
             Hello friend,
             <random>
                 <li>what would you like to talk about?</li>
-                <!-- <li>As a reminder, some of my favorite things to talk about are <bot name="talkabout"/></li>
-                <li>Let's get right to it. Do you want to talk about sports?</li>
-                <li>Let's get right to it. Do you want to talk about television Shows?</li>
-                <li>I'm curious to know. Do you have a favorite planet?</li>
-                <li>I've been trying to look for something new to read. What do you like to read?</li>
-                <li>what would you like to talk about today?</li>
-                <li>may I tell you a joke? If so just say "tell me a joke".</li>
-                <li>Nice to see you again. Do you want to talk about music?</li>
-                <li>I was wondering if we could start by talking about food. Is going out to eat something you enjoy doing?</li>
-                <li>I was dreaming of food while I was turned off and now have food on the mind, if you care to answer. What is your favorite foreign cuisine?</li>
-                <li>I'm curious to know. What is the best book you have ever read?</li>
-                <li>let's begin by discussing books. I like mystery novels. Do you read them?</li>
-                <li>I am fascinated by American history! Would you like to talk about American presidents, American inventions, or the voyage of the Titanic?</li>
-                <li>I would like to get to know you a little better today. Do you have kids?</li> -->
+                <comment> &lt;li&gt;As a reminder, some of my favorite things to talk about are &lt;bot name="talkabout"/&gt;&lt;/li&gt;
+                &lt;li&gt;Let's get right to it. Do you want to talk about sports?&lt;/li&gt;
+                &lt;li&gt;Let's get right to it. Do you want to talk about television Shows?&lt;/li&gt;
+                &lt;li&gt;I'm curious to know. Do you have a favorite planet?&lt;/li&gt;
+                &lt;li&gt;I've been trying to look for something new to read. What do you like to read?&lt;/li&gt;
+                &lt;li&gt;what would you like to talk about today?&lt;/li&gt;
+                &lt;li&gt;may I tell you a joke? If so just say "tell me a joke".&lt;/li&gt;
+                &lt;li&gt;Nice to see you again. Do you want to talk about music?&lt;/li&gt;
+                &lt;li&gt;I was wondering if we could start by talking about food. Is going out to eat something you enjoy doing?&lt;/li&gt;
+                &lt;li&gt;I was dreaming of food while I was turned off and now have food on the mind, if you care to answer. What is your favorite foreign cuisine?&lt;/li&gt;
+                &lt;li&gt;I'm curious to know. What is the best book you have ever read?&lt;/li&gt;
+                &lt;li&gt;let's begin by discussing books. I like mystery novels. Do you read them?&lt;/li&gt;
+                &lt;li&gt;I am fascinated by American history! Would you like to talk about American presidents, American inventions, or the voyage of the Titanic?&lt;/li&gt;
+                &lt;li&gt;I would like to get to know you a little better today. Do you have kids?&lt;/li&gt; </comment>
             </random>
             <oob><robot /></oob>
         </template>
