@@ -1,6 +1,7 @@
 import pickle
 from Model.Data import *
 from PyQt5.QtWidgets import QErrorMessage
+import tempfile
 
 
 def handleError(error):
@@ -95,14 +96,18 @@ def recursive_decoding(head, tag_xml):
         print(ex)
 
 
-def importAIML(filename):
+def importAIML(filename, tempFile=False):
     # Use custom parser to include comments
     parser = ET.XMLParser(target=CommentedTreeBuilder())
     print("parsing file into tree")
     try:
-        tree = ET.parse(filename+".aiml", parser)
+        if tempFile:
+            tree = ET.parse(filename, parser)
+        else:
+            tree = ET.parse(filename+".aiml", parser)
     except Exception as ex:
         print(ex)
+        handleError(ex)
     try:
         print("getting root of the tree")
         root = tree.getroot()
@@ -121,4 +126,13 @@ def importAIML(filename):
         print(ex)
 
 def compileToAIML(str_contents):
-    pass
+    tmp = tempfile.NamedTemporaryFile()
+    print("opened temp file")
+    tmp.write(str_contents.encode('utf-8'))
+    tmp.seek(0)
+    print("wrote to temp file")
+    print("temp name being used: {}".format(tmp.name))
+    aiml = importAIML(tmp.name, tempFile=True)
+    print("Successfully parsed file")
+
+    return aiml

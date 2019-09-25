@@ -319,10 +319,13 @@ class EditorWindow(QMainWindow):
         # TODO: Search through text on display by categories to check syntanx than add to model
         try:
             str_to_parse = self.editSpace.editSpace.toPlainText() # Grabs text from the text display
-            print(str_to_parse)
+            print("text to compile:\n{}".format(str_to_parse))
+            aiml = Storage.compileToAIML(str_to_parse)
+            print("compiling complete")
+            self.editSpace.aiml = aiml 
             # fname, filter = QFileDialog.getSaveFileName(self, 'Export to file')
             # Storage.exportAIML(fname, self.editSpace.aiml)  # save as an aiml file
         except Exception as ex:
-            print("Exception caught trying to export")
+            print("Exception caught trying to compile project")
             print(ex)
             handleError(ex)

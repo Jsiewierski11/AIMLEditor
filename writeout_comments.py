@@ -1,9 +1,6 @@
 from Model.Data import *
 import Utils.Storage as Storage
 
-# TODO: Find a way to identify Comment tags when parsing the tree. 
-#       What attribute do we need to use/make?
-
 comment_handler = CommentedTreeBuilder()
 
 parser = ET.XMLParser(target=comment_handler)
