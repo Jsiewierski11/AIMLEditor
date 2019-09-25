@@ -135,3 +135,6 @@ def importAIML(filename):
         handleError(ex)
         print("exception caught in import of file (storage)!")
         print(ex)
+
+def compileToAIML(str_contents):
+    pass

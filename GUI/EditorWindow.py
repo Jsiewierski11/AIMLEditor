@@ -71,6 +71,9 @@ class EditorWindow(QMainWindow):
         editMenu.addSeparator()
         editMenu.addAction(self.createAct('&Add a Node', 'Ctrl+A', "Add a new node", self.onEditAdd))
 
+        compileMenu = menubar.addMenu('Compile')
+        compileMenu.addAction(self.createAct('Compile project', 'Ctrl+Shift+C', 'Compile project to export', self.onCompile))
+
 
         # create dockable widget to have as place to write content in categories
         # Creating docker that can create categories
@@ -308,3 +311,15 @@ class EditorWindow(QMainWindow):
             return
 
         self.centralWidget().scene.clipboard.deserializeFromClipboard(data)
+
+    def onCompile(self):
+        # TODO: Search through text on display by categories to check syntanx than add to model
+        try:
+            str_to_parse = self.editSpace.editSpace.toPlainText() # Grabs text from the text display
+            print(str_to_parse)
+            # fname, filter = QFileDialog.getSaveFileName(self, 'Export to file')
+            # Storage.exportAIML(fname, self.editSpace.aiml)  # save as an aiml file
+        except Exception as ex:
+            print("Exception caught trying to export")
+            print(ex)
+            handleError(ex)

@@ -233,7 +233,7 @@ class QCodeEditor(QPlainTextEdit):
         self.aiml = AIML()
         self.make_connection(tab_controller)        
 
-        self.setReadOnly(True)
+        self.setReadOnly(False)
 
         if DISPLAY_LINE_NUMBERS:
             self.number_bar = self.NumberBar(self)
