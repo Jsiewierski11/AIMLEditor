@@ -1,6 +1,4 @@
 import pickle
-# import xml.etree.ElementTree as ET
-# from Tree.CommentedTreeBuilder import *
 from Model.Data import *
 from PyQt5.QtWidgets import QErrorMessage
 
@@ -70,32 +68,16 @@ def decode_tag(tag_type):
         return tag_list[tag_type]()
     return False
 
-
-# head is the object that we are adding the categories to 
-# (either a topic, or the general aiml)
-# From python documentation:
-# https://docs.python.org/3/library/xml.etree.elementtree.html
-# --
-# NOTE: Not all elements of the XML input will end up as elements 
-#       of the parsed tree. Currently, this module skips over any XML comments, 
-#       processing instructions, and document type declarations in the input. 
-#       Nevertheless, trees built using this module’s API rather than parsing 
-#       from XML text can have comments and processing instructions in them;
-#       they will be included when generating XML output. 
-#       A document type declaration may be accessed by passing a custom  
-#       TreeBuilder instance to the XMLParser constructor. 
 def recursive_decoding(head, tag_xml):
-    # Use custom parser to include comments
-    # parser = ET.XMLParser(target=CommentedTreeBuilder())
     try:
         for child in tag_xml:
             tag_obj = decode_tag(child.tag.lower())
             if(tag_obj != False):
                 if child.text:
                     if child.text.strip():
-                        print("Appending text: {}\nto: {}".format(child.text.strip(), tag_obj))
+                        # print("Appending text: {}\nto: {}".format(child.text.strip(), tag_obj))
                         tag_obj.append(child.text.strip())
-                        print("tag_obj: {}".format(tag_obj))
+                        # print("tag_obj: {}".format(tag_obj))
                 tag_obj.attrib = child.attrib
                 try:
                     head.append(tag_obj)

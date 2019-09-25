@@ -191,8 +191,6 @@ class Tag(Serializable):
             tags = ""
 
         if self.type == 'comment':
-            # TODO: Figure out how ET stores the text in comments, need to use that
-            #       To print out contents of the comment.
             return "<!-- {} -->".format(tags)
         elif self.single == True:
             return "<{} {}/>".format(str(self.type), attrib)
