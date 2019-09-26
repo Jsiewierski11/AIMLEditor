@@ -112,8 +112,8 @@ class AIMLHIghlighter (QSyntaxHighlighter):
             # # Single-quoted string, possibly containing escape sequences
             # (r"'[^'\\]*(\\.[^'\\]*)*'", 0, STYLES['string']),
 
-            # From '#' until a newline
-            (r'<!--[\s\S*?]*-->', 0, STYLES['comment']),
+            # Comments '<!-- 'any text or whitespace' -->
+            (r'<!--(\s)*|(.)*-->', 0, STYLES['comment']),
 
             # Numeric literals
             (r'\b[+-]?[0-9]+[lL]?\b', 0, STYLES['numbers']),
