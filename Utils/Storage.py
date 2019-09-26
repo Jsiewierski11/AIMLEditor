@@ -111,15 +111,7 @@ def importAIML(filename, tempFile=False):
     try:
         print("getting root of the tree")
         root = tree.getroot()
-        aiml3 = None
-        if root.tag.lower() != "aiml":
-            print("This is not an AIML file.")
-            print(root.tag)
-        else:
-            aiml3 = AIML()
-            print("decoding file")
-            recursive_decoding(aiml3, root)
-        return aiml3
+        return decode_root(root)
     except Exception as ex:
         handleError(ex)
         print("exception caught in import of file (storage)!")
@@ -129,6 +121,14 @@ def parse_text(contents):
     try:
         print("getting root of the tree")
         root = ET.fromstring(contents)
+        return decode_root(root)
+    except Exception as ex:
+        handleError(ex)
+        print("exception caught in trying to parse the string")
+        print(ex)
+    
+def decode_root(root):
+    try:
         aiml3 = None
         if root.tag.lower() != "aiml":
             print("This is not an AIML file.")
@@ -140,12 +140,11 @@ def parse_text(contents):
         return aiml3
     except Exception as ex:
         handleError(ex)
-        print("exception caught in trying to parse the string")
-        print(ex)
+        print("exception caught trying to decode tree")
+        print(ex)    
 
 
 def compileToAIML(str_contents):
     aiml = parse_text(str_contents)
     print("Successfully parsed file")
-
     return aiml
