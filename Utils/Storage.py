@@ -84,9 +84,10 @@ def recursive_decoding(head, tag_xml):
                     head.append(tag_obj)
                 except Exception as ex:
                     print(ex)
+                    parents = child.findall('..')
+                    handleError('{} tag in invalid location \n Exception raised - {}.'.format(tag_obj.type, ex))
                 if child.tail:
                     if child.tail.strip():
-                        #TODO: remove the extra whitespaces in the text
                         head.append(child.tail.strip()) 
             else:
                 head.append(ET.tostring(child, encoding="unicode"))

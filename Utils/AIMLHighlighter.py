@@ -113,7 +113,7 @@ class AIMLHIghlighter (QSyntaxHighlighter):
             # (r"'[^'\\]*(\\.[^'\\]*)*'", 0, STYLES['string']),
 
             # Comments '<!-- 'any text or whitespace' -->
-            (r'<!--(\s)*|(.)*-->', 0, STYLES['comment']),
+            (r'<!--(\s*.*)|(.*\s*)-->', 0, STYLES['comment']),
 
             # Numeric literals
             (r'\b[+-]?[0-9]+[lL]?\b', 0, STYLES['numbers']),
