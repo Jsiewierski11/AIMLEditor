@@ -125,14 +125,27 @@ def importAIML(filename, tempFile=False):
         print("exception caught in import of file (storage)!")
         print(ex)
 
+def parse_text(contents):
+    try:
+        print("getting root of the tree")
+        root = ET.fromstring(contents)
+        aiml3 = None
+        if root.tag.lower() != "aiml":
+            print("This is not an AIML file.")
+            print(root.tag)
+        else:
+            aiml3 = AIML()
+            print("decoding file")
+            recursive_decoding(aiml3, root)
+        return aiml3
+    except Exception as ex:
+        handleError(ex)
+        print("exception caught in trying to parse the string")
+        print(ex)
+
+
 def compileToAIML(str_contents):
-    tmp = tempfile.NamedTemporaryFile()
-    print("opened temp file")
-    tmp.write(str_contents.encode('utf-8'))
-    tmp.seek(0)
-    print("wrote to temp file")
-    print("temp name being used: {}".format(tmp.name))
-    aiml = importAIML(tmp.name, tempFile=True)
+    aiml = parse_text(str_contents)
     print("Successfully parsed file")
 
     return aiml
