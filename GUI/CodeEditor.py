@@ -240,8 +240,8 @@ class QCodeEditor(QPlainTextEdit):
 
         if HIGHLIGHT_CURRENT_LINE:
             self.currentLineNumber = None
-            self.currentLineColor = self.palette().alternateBase()
-            # self.currentLineColor = QColor("#e8e8e8")
+            # self.currentLineColor = self.palette().alternateBase()
+            self.currentLineColor = QColor("#f6f79e")
             self.cursorPositionChanged.connect(self.highligtCurrentLine)
 
         if SyntaxHighlighter is None:  # add highlighter to textdocument
