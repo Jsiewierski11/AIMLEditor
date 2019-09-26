@@ -85,7 +85,8 @@ def recursive_decoding(head, tag_xml):
                 except Exception as ex:
                     print(ex)
                     parents = child.findall('..')
-                    handleError('{} tag in invalid location \n Exception raised - {}.'.format(tag_obj.type, ex))
+                    handleError('{} tag not allowed inside that parent tag. Tags placed missproperly don\'t get compiled' \
+                                ' and are left out during export (Needs to be updated!) \n Exception raised - {}.'.format(tag_obj.type, ex))
                 if child.tail:
                     if child.tail.strip():
                         head.append(child.tail.strip()) 
