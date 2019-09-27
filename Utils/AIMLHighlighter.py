@@ -113,7 +113,8 @@ class AIMLHIghlighter (QSyntaxHighlighter):
             # (r"'[^'\\]*(\\.[^'\\]*)*'", 0, STYLES['string']),
 
             # Comments '<!-- 'any text or whitespace' -->
-            (r'<!--(\s*.*)|(.*\s*)-->', 0, STYLES['comment']),
+            (r'<!--(\s*.*)|(.*\s*)-->', 0, STYLES['comment']), # This works in all cases except for multipile line comments
+            # (r'<!--(.*\s*)?-->', 0, STYLES['comment']), # Attempt to fix above issue
 
             # Numeric literals
             (r'\b[+-]?[0-9]+[lL]?\b', 0, STYLES['numbers']),
