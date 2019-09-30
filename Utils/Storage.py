@@ -125,7 +125,7 @@ def parse_text(contents):
         root = ET.fromstring(contents)
         return decode_root(root)
     except Exception as ex:
-        handleError(ex)
+        handleError("{} Check for a missing \'/\' or a missing closing tag.".format(ex))
         print("exception caught in trying to parse the string")
         print(ex)
     
