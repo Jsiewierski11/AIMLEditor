@@ -150,3 +150,10 @@ def compileToAIML(str_contents):
     aiml = parse_text(str_contents)
     print("Successfully parsed file")
     return aiml
+
+def count_categories(aiml):
+    num_cats = 0
+    for tag in aiml.tags:
+        if tag.type == 'category':
+            num_cats += 1
+    return num_cats
