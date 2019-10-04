@@ -246,10 +246,13 @@ class QCodeEditor(QPlainTextEdit):
 
         if SyntaxHighlighter is None:  # add highlighter to textdocument
             self.highlighter = HL.AIMLHIghlighter(self.document())  # add highlighter to textdocument
+        
+        self.setPlainText('\n\n\n\n\n\n\n\n\n\n')
+        
 
     def resizeEvent(self, *e):
         '''overload resizeEvent handler'''
-
+        print("Resized called")
         if self.DISPLAY_LINE_NUMBERS:  # resize number_bar widget
             cr = self.contentsRect()
             rec = QRect(cr.left(), cr.top(), self.number_bar.getWidth(), cr.height())
