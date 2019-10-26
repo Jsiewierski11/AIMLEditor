@@ -89,6 +89,8 @@ class AIMLHIghlighter (QSyntaxHighlighter):
         # artifact that was left from the code that this was based off of)
         self.tri_single = (QRegExp("'''"), 1, STYLES['string2'])
         self.tri_double = (QRegExp('"""'), 2, STYLES['string2'])
+
+        # NOTE: For multiline comments
         self.comments_start = (QRegExp("<!--"), 1, STYLES['comment'])
         self.comments_end = QRegExp("-->")
 
@@ -141,10 +143,9 @@ class AIMLHIghlighter (QSyntaxHighlighter):
 
         self.setCurrentBlockState(0)
 
-        # Do multi-line strings
+        # Do multi-line comments
         in_multiline = self.match_multiline(text, *self.comments_start, self.comments_end)
-        # if not in_multiline:
-        #     in_multiline = self.match_multiline(text, *self.tri_double)
+        
 
     def match_multiline(self, text, delimiter_start, in_state, style, delimiter_end,):
         """Do highlighting of comments. ``delimiter_start`` should be a tuple containing

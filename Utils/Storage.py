@@ -120,9 +120,10 @@ def importAIML(filename, tempFile=False):
         print(ex)
 
 def parse_text(contents):
+    print("getting root of the tree")
     try:
-        print("getting root of the tree")
         root = ET.fromstring(contents)
+        print(root.text)
         return decode_root(root)
     except Exception as ex:
         handleError("{} Check for a missing \'/\' or a missing closing tag.".format(ex))
@@ -145,11 +146,15 @@ def decode_root(root):
         print("exception caught trying to decode tree")
         print(ex)    
 
-
 def compileToAIML(str_contents):
-    aiml = parse_text(str_contents)
-    print("Successfully parsed file")
-    return aiml
+    try:
+        aiml = parse_text(str_contents)
+        print("Successfully parsed file")
+        return aiml
+    except Exception as ex:
+        handleError(ex)
+        print("exception trying to compile project to AIML")
+        print(ex)
 
 def count_categories(aiml):
     num_cats = 0

@@ -316,9 +316,9 @@ class EditorWindow(QMainWindow):
         self.centralWidget().scene.clipboard.deserializeFromClipboard(data)
 
     def onCompile(self):
+        str_to_parse = self.editSpace.editSpace.toPlainText() # Grabs text from the text display
+        print("text to compile:\n{}".format(str_to_parse))
         try:
-            str_to_parse = self.editSpace.editSpace.toPlainText() # Grabs text from the text display
-            print("text to compile:\n{}".format(str_to_parse))
             aiml = Storage.compileToAIML(str_to_parse)
             print("compiling complete")
             self.editSpace.aiml = aiml 
