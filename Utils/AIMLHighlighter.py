@@ -90,7 +90,7 @@ class AIMLHIghlighter (QSyntaxHighlighter):
         self.tri_single = (QRegExp("'''"), 1, STYLES['string2'])
         self.tri_double = (QRegExp('"""'), 2, STYLES['string2'])
         self.comments_start = (QRegExp("<!--"), 1, STYLES['comment'])
-        self.comments_end = (QRegExp("-->"), 1, STYLES['comment'])
+        self.comments_end = QRegExp("-->")
 
         rules = []
 
@@ -114,9 +114,6 @@ class AIMLHIghlighter (QSyntaxHighlighter):
             # # Single-quoted string, possibly containing escape sequences
             # (r"'[^'\\]*(\\.[^'\\]*)*'", 0, STYLES['string']),
 
-            # Comments '<!-- 'any text or whitespace' -->
-            # (r'<!--(\s*.*)|(.*\s*)-->', 0, STYLES['comment']), # This works in all cases except for multipile line comments
-            # (r'<!--[^"\\]*(\\.[^"\\]*)*-->', 0, STYLES['comment']), # Attempt to fix above issue
 
             # Numeric literals
             (r'\b[+-]?[0-9]+[lL]?\b', 0, STYLES['numbers']),
@@ -145,16 +142,17 @@ class AIMLHIghlighter (QSyntaxHighlighter):
         self.setCurrentBlockState(0)
 
         # Do multi-line strings
-        in_multiline = self.match_multiline(text, self.comments_end, self.comments_end)
+        in_multiline = self.match_multiline(text, *self.comments_start, self.comments_end)
         # if not in_multiline:
         #     in_multiline = self.match_multiline(text, *self.tri_double)
 
-    def match_multiline(self, text, delimiter_start, delimiter_end, in_state=0, style=STYLES['comment']):
-        """Do highlighting of multi-line strings. ``delimiter`` should be a
-        ``QRegExp`` for triple-single-quotes or triple-double-quotes, and
+    def match_multiline(self, text, delimiter_start, in_state, style, delimiter_end,):
+        """Do highlighting of comments. ``delimiter_start`` should be a tuple containing
+        ``QRegExp`` for the beginning of comments, and
         ``in_state`` should be a unique integer to represent the corresponding
         state changes when inside those strings. Returns True if we're still
-        inside a multi-line string when this function is finished.
+        inside a multi-line string when this function is finished. delimiter_end is a ``QRegExp`` for 
+        the end of comments.
         """
         # If inside triple-single quotes, start at 0
         if self.previousBlockState() == in_state:
@@ -172,7 +170,7 @@ class AIMLHIghlighter (QSyntaxHighlighter):
             end = delimiter_end.indexIn(text, start + add)
             # Ending delimiter on this line?
             if end >= add:
-                length = end - start + add + delimiter_start.matchedLength()
+                length = end - start + add + delimiter_end.matchedLength()
                 self.setCurrentBlockState(0)
             # No; multi-line string
             else:
