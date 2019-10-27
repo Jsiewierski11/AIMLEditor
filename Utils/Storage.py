@@ -61,6 +61,7 @@ tag_list = {"aiml": AIML,
             "filename": Filename,
             "srai": Srai,
             "bot": Bot,
+            "start": Star,
             "comment": Comment}
 
 

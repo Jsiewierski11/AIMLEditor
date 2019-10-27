@@ -1,6 +1,6 @@
 from textwrap import indent
 from Tree.CommentedTreeBuilder import *
-import Model.Common as Common
+import Model.Formatting as Formatting
 from PyQt5.QtCore import QUuid
 from GUI.Node.Utils.Serializable import Serializable
 from collections import OrderedDict
@@ -179,11 +179,11 @@ class Tag(Serializable):
         attrib = (' ' + ' '.join('{}=\"{}\"'.format(
             key, val) for key, val in self.attrib.items())) if len(self.attrib) > 0 else ""
 
-        if self.type == 'pattern':
+        if self.type == 'pattern' or self.single == True:
             tags = ' '.join(map(str, self.tags))
         elif len(self.tags) > 1:
             tags = '\n' + indent('\n'.join(map(str, self.tags)),
-                                 Common.indentation) + '\n'
+                                         Formatting.indentation) + '\n'
         elif len(self.tags) > 0:
             tags = '\n'.join(map(str, self.tags))
         else:
@@ -192,16 +192,31 @@ class Tag(Serializable):
         if self.type == 'comment':
             return "<!-- {} -->".format(tags)
         elif self.single == True:
-            return "<{} {}/>".format(str(self.type), attrib)
+            if len(attrib) > 0:
+                return "<{} {}/>".format(str(self.type), attrib)
+            else:
+                return "<{}/>".format(str(self.type))
         else:
             return "<{}{}>{}</{}>".format(str(self.type), attrib, tags, str(self.type))
+
+    def map_to_string(self):
+        tags = ''
+        for tag in self.tags:
+            if tag == "star":
+                print('star tag')
+                tags += ''.join(str(tag))
+            else:
+                tags += '\n' + indent(''.join(str(tag)),
+                                            Formatting.indentation) + '\n'
+        return tags
+
 
     def getContents(self):
         attrib = (' ' + ' '.join('{}=\"{}\"'.format(
             key, val) for key, val in self.attrib.items())) if len(self.attrib) > 0 else ""
         if len(self.tags) > 1:
             tags = '\n' + indent('\n'.join(map(str, self.tags)),
-                                 Common.indentation) + '\n'
+                                 Formatting.indentation) + '\n'
             tags = tags.strip()
         elif len(self.tags) > 0:
             tags = '\n'.join(map(str, self.tags))
@@ -290,6 +305,10 @@ class Bot(Tag):
                 "name": name}, acceptable_tags=[])
         else:
             super().__init__("bot", single=single, acceptable_tags=[])
+
+class Star(Tag):
+    def __init__(self, single=True):
+        super().__init__("star", single=single, attrib={}, acceptable_tags=[Comment, star])
 
 
 class Set(Tag):
