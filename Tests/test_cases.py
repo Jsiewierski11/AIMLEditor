@@ -1,16 +1,76 @@
 import unittest
 import Utils.Storage as Storage
 from Model.Data import *
-from Tests.aiml_creator import AimlCreator
-import pdb
 # import xml.etree.ElementTree as ET
 # from Tree.CommentedTreeBuilder import *
 
+def make_aiml():
+    # create AIML structure
+    aiml = AIML().append(
+        Category().append(
+            Pattern().append("START SESSION 1 *")
+        ).append(
+            Template().append(
+                Think().append(
+                    Set("username").append("star")
+                ).append(
+                    Set("topic").append("Session 1")
+                )
+            ).append("Ok. Let's begin our session. How are you doing today <star/>?").append(
+                Oob().append(Robot())
+            )
+        )
+    ).append(
+        Topic("session").append(
+            Category().append(
+                Pattern().append("*")
+            ).append(
+                Template().append(
+                    Think().append(Set("data").append("<star/>"))
+                ).append(
+                    Condition("getsetimnet").append(
+                        ConditionItem("verypositive").append("I am happy").append(
+                            Oob().append(
+                                Robot().append(
+                                    Options().append(
+                                        Option("Yes")
+                                    ).append(
+                                        Option("No")
+                                    )
+                                )
+                            )
+                        )
+                    ).append(
+                        ConditionItem("positive").append(
+                            "I am not as happy")
+                    )
+                )
+            )
+        )
+    )
+    return aiml
 
+def make_aiml2():
+    aiml = AIML().append(
+                    Category().append(
+                        Pattern().append("YOU CAN DO BETTER")
+                    ).append(
+                        Template().append("Ok I will try.").append(Oob().append(Robot()))
+                        )
+                ).append(
+                    Category().append(
+                        Pattern().append("WHAT DO YOU WANT TO TALK ABOUT")
+                    ).append(
+                        Template().append("I'll talk about whatever with you.")
+                        .append(
+                            Oob().append(Robot())
+                        )
+                    )
+    )
+    return aiml
 
 class TestFunctions(unittest.TestCase):
 
-    
     def test_create_simple_category(self):
         cat = Category() #Create category obj
         pattern = Pattern() #Create pattern obj
@@ -74,15 +134,13 @@ class TestFunctions(unittest.TestCase):
         self.assertEqual(jup_contents, jup2_contents)
     '''
 
-    
-    # def test_compile(self):
-    #     ac = AimlCreator()
-    #     expected_aiml = ac.make_aiml2()
-    #     print('here')
-    #     test_aiml = Storage.compileToAIML(expected_aiml)
-    #     self.assertEqual(str(test_aiml), str(expected_aiml))
-    
+    def test_compile(self):
+        expected_aiml = make_aiml()
+        test_aiml = compileToAIML(aiml)
+        self.assertEqual(test_aiml, expected_aiml)
+        
 
     
 if __name__ == '__main__':
     unittest.main()
+    # make_aiml2()
