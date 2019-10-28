@@ -182,8 +182,9 @@ class Tag(Serializable):
         if self.type == 'pattern' or self.single == True:
             tags = ' '.join(map(str, self.tags))
         elif len(self.tags) > 1:
-            tags = '\n' + indent('\n'.join(map(str, self.tags)),
-                                         Formatting.indentation) + '\n'
+            tags = self.map_to_string()
+            # tags = '\n' + indent('\n'.join(map(str, self.tags)),
+            #                              Formatting.indentation) + '\n'
         elif len(self.tags) > 0:
             tags = '\n'.join(map(str, self.tags))
         else:
@@ -202,12 +203,15 @@ class Tag(Serializable):
     def map_to_string(self):
         tags = ''
         for tag in self.tags:
-            if tag == "star":
-                print('star tag')
-                tags += ''.join(str(tag))
+            if type(tag) is str:
+                tags += tag
             else:
-                tags += '\n' + indent(''.join(str(tag)),
-                                            Formatting.indentation) + '\n'
+                if tag.type == "star":
+                    # print('star tag')
+                    tags +=  ''.join(str(tag))
+                else:
+                    tags += '\n' + indent(''.join(str(tag)),
+                                Formatting.indentation) + '\n'
         return tags
 
 
