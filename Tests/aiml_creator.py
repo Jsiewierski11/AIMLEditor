@@ -4,7 +4,7 @@ class AimlCreator(object):
     def __init__(self):
         pass
 
-    def make_aiml(self):
+    def make_aiml1(self):
         # create AIML structure
         aiml = AIML().append(
             Category().append(

@@ -181,12 +181,12 @@ class Tag(Serializable):
 
         if self.type == 'pattern' or self.single == True:
             tags = ' '.join(map(str, self.tags))
-        elif len(self.tags) > 1:
+        elif len(self.tags) > 0:
             tags = self.map_to_string()
             # tags = '\n' + indent('\n'.join(map(str, self.tags)),
             #                              Formatting.indentation) + '\n'
-        elif len(self.tags) > 0:
-            tags = '\n'.join(map(str, self.tags))
+        # elif len(self.tags) > 0:
+        #     tags = '\n'.join(map(str, self.tags))
         else:
             tags = ""
 
