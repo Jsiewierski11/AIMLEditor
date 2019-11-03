@@ -316,14 +316,14 @@ class Set(Tag):
     def __init__(self, name=""):
         if name != "":
             super().__init__("set", attrib={
-                'name': name}, acceptable_tags=[Comment, str])
+                'name': name}, acceptable_tags=[Star, Comment, str])
         else:
-            super().__init__("set", acceptable_tags=[Comment, str])
+            super().__init__("set", acceptable_tags=[Star, Comment, str])
 
 
 class Think(Tag):
     def __init__(self):
-        super().__init__("think", acceptable_tags=[Set, Comment, str])
+        super().__init__("think", acceptable_tags=[Set, Star, Comment, str])
 
 
 class Oob(Tag):

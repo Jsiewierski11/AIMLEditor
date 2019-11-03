@@ -123,7 +123,7 @@ class EditorWindow(QMainWindow):
 
     @pyqtSlot(str)
     def addChildClicked(self, thatStr):
-        print("In slot in Editor Window")
+        print("In slot in Editor Window - addChildClicked()")
         self.childClicked.emit(thatStr) # Emitting signal to Docker Widget
 
     @pyqtSlot(Tag)

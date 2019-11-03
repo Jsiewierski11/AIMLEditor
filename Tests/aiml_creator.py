@@ -16,7 +16,7 @@ class AimlCreator(object):
                     ).append(
                         Set("topic").append("Session 1")
                     )
-                ).append("Ok. Let's begin our session. How are you doing today <star/>?").append(
+                ).append("Ok. Let's begin our session. How are you doing today?").append(Star()).append(
                     Oob().append(Robot())
                 )
             )
@@ -26,7 +26,7 @@ class AimlCreator(object):
                     Pattern().append("*")
                 ).append(
                     Template().append(
-                        Think().append(Set("data").append("<star/>"))
+                        Think().append(Set("data").append(Star()))
                     ).append(
                         Condition("getsetimnet").append(
                             ConditionItem("verypositive").append("I am happy").append(
@@ -77,3 +77,4 @@ class AimlCreator(object):
                             Template().append("Hey there").append(Star()).append(Oob().append(Robot()))
                         )
                 )
+        return aiml
