@@ -68,3 +68,12 @@ class AimlCreator(object):
                         )
         )
         return aiml
+
+    def make_cat_star(self):
+        aiml = AIML().append(
+                        Category().append(
+                            Pattern().append("HELLO FRIEND")
+                        ).append(
+                            Template().append("Hey there").append(Star()).append(Oob().append(Robot()))
+                        )
+                )

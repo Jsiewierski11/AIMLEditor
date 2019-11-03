@@ -37,6 +37,7 @@ class Tag(Serializable):
             "filename": Filename,
             "srai": Srai,
             "bot": Bot,
+            "star": Star,
             "comment": Comment}
 
     def decode_tag(self, tag_type):
@@ -183,10 +184,6 @@ class Tag(Serializable):
             tags = ' '.join(map(str, self.tags))
         elif len(self.tags) > 0:
             tags = self.map_to_string()
-            # tags = '\n' + indent('\n'.join(map(str, self.tags)),
-            #                              Formatting.indentation) + '\n'
-        # elif len(self.tags) > 0:
-        #     tags = '\n'.join(map(str, self.tags))
         else:
             tags = ""
 
@@ -204,11 +201,11 @@ class Tag(Serializable):
         tags = ''
         for tag in self.tags:
             if type(tag) is str:
-                tags += tag
+                tags += tag + ' '
             else:
                 if tag.type == "star":
                     # print('star tag')
-                    tags +=  ''.join(str(tag))
+                    tags += ''.join(str(tag))
                 else:
                     tags += '\n' + indent(''.join(str(tag)),
                                 Formatting.indentation) + '\n'
@@ -267,7 +264,7 @@ class Pattern(Tag):
 class Template(Tag):
     def __init__(self):
         super().__init__("template", acceptable_tags=[
-            Set, Think, Condition, Oob, Random, Srai, Bot, Comment, str])
+            Set, Think, Condition, Oob, Random, Srai, Bot, Star, Comment, str])
 
 
 class That(Tag):
@@ -312,7 +309,7 @@ class Bot(Tag):
 
 class Star(Tag):
     def __init__(self, single=True):
-        super().__init__("star", single=single, attrib={}, acceptable_tags=[Comment, star])
+        super().__init__("star", single=single, attrib={}, acceptable_tags=[Comment])
 
 
 class Set(Tag):
