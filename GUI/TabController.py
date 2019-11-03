@@ -52,7 +52,7 @@ class TabController(QWidget):
     # slot function for a category being created and displaying on editSpace
     @pyqtSlot(Tag)
     def categoryCreated(self, cat):
-        print("In TabController slot")
+        print("In TabController slot - categoryCreated()")
         try:
             self.aiml.append(cat)
             self.catCreated.emit(cat) 

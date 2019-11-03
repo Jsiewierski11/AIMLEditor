@@ -201,7 +201,7 @@ class Tag(Serializable):
         tags = ''
         for tag in self.tags:
             if type(tag) is str:
-                tags += tag + ' '
+                tags += '\n\t' + tag + ' '
             else:
                 if tag.type == "star":
                     # print('star tag')

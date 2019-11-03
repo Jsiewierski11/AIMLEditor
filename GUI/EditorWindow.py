@@ -116,7 +116,7 @@ class EditorWindow(QMainWindow):
     # slot function for a category being created and displaying on editSpace
     @pyqtSlot(Tag)
     def categoryCreated(self, cat):
-        print("slot in EditorWindow")
+        print("slot in EditorWindow - categoryCreated()")
         print(str(cat))
         # emitting signal to send category received from docker to EditorWidget slot
         self.catCreated.emit(cat) 

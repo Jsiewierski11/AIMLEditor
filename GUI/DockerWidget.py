@@ -473,7 +473,6 @@ class DockerWidget(QDockWidget):
             self.think.append(thinkText)
             self.template.append(self.think)
 
-        # self.template.append(templateText)
         self.cat.append(self.pattern)
 
         if thatText != '':
