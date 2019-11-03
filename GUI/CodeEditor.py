@@ -200,7 +200,7 @@ class QCodeEditor(QPlainTextEdit):
     @pyqtSlot(Tag)
     def categoryCreated(self, cat):
         try:
-            print("made it to slot")
+            print("made it to slot in CodeEditor - categoryCreated()")
             if self.aiml is not None:
                 print("Ok to add category")
                 self.aiml.append(cat)

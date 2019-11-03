@@ -97,7 +97,7 @@ class EditorWindow(QMainWindow):
         # self.setCentralWidget(self.editSpace)
 
         ########## making connections to slots ################
-        self.docker.catCreated.connect(self.categoryCreated) # connecting signal from docker to slot
+        # self.docker.catCreated.connect(self.categoryCreated) # connecting signal from docker to slot
         self.docker.catUpdated.connect(self.categoryUpdated) # connecting signal from docker
         self.editSpace.catClicked.connect(self.categoryClicked) # connecting signal from EditorWidget to slot
         self.editSpace.childClicked.connect(self.addChildClicked) # connecting signal from EditorWidget
