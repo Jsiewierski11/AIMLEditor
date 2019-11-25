@@ -16,6 +16,7 @@ class Tag(Serializable):
         self.tags = []
         self.acceptable_tags = acceptable_tags
         self.attrib = attrib
+        self.parent = None # This is only used in map_to_string() and is set in append
 
         self.tag_list = {"aiml": AIML,
             "topic": Topic,
@@ -204,13 +205,13 @@ class Tag(Serializable):
                 tags += '\n\t' + tag + ' '
             else:
                 if tag.type == "star":
-                    # print('star tag')
                     tags += ''.join(str(tag))
+                elif tag.type == "srai":
+                    tags += ''.join(str(tag)) 
                 else:
                     tags += '\n' + indent(''.join(str(tag)),
                                 Formatting.indentation) + '\n'
         return tags
-
 
     def getContents(self):
         attrib = (' ' + ' '.join('{}=\"{}\"'.format(

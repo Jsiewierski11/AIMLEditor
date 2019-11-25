@@ -59,7 +59,6 @@ class TestFunctions(unittest.TestCase):
 
     # TODO: Figure out a consistent whitespace formatting
     
-
     # NOTE: Fails due to whitespace mismatch. Is this a concern?
     def test_comments_util_import(self):
         imported = Storage.importAIML('./test_aimls/utils')
@@ -70,7 +69,6 @@ class TestFunctions(unittest.TestCase):
         self.assertEqual(str(imported),str(exported))
 
     '''
-
     # NOTE: Fails due to whitespace mismatch. Is this a concern?
     def test_import_jupiter(self):
         imported = Storage.importAIML('./test_aimls/jupiter')
