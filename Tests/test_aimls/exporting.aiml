@@ -2,16 +2,23 @@
 <aiml version="2.0">
     <category>
         <pattern>YOU CAN DO BETTER</pattern>
+
         <template>
-            Ok I will try.
-            <oob><robot></robot></oob>
+        	Ok I will try. 
+            <oob>
+                <robot></robot>
+            </oob>
         </template>
     </category>
+
     <category>
         <pattern>WHAT DO YOU WANT TO TALK ABOUT</pattern>
+
         <template>
-            I'll talk about whatever with you.
-            <oob><robot></robot></oob>
+        	I'll talk about whatever with you. 
+            <oob>
+                <robot></robot>
+            </oob>
         </template>
     </category>
 </aiml>

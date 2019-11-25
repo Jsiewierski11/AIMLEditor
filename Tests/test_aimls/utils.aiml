@@ -8,6 +8,7 @@
             <oob><robot></robot></oob>
         </template>
     </category>
+
     <category>
         <pattern>CHANGE TOPIC</pattern>
         <template><srai>Change topic</srai></template>
@@ -17,6 +18,7 @@
         <pattern>LET US CHANGE THE SUBJECT</pattern>
         <template><srai>Change topic</srai></template>
     </category>
+
     <category>
         <pattern>$Let us change the subject</pattern>
         <template><srai>Change topic</srai></template>
@@ -26,6 +28,7 @@
         <pattern>LET US CHANGE THE TOPIC</pattern>
         <template><srai>Change topic</srai></template>
     </category>
+
     <category>
         <pattern>$Let us change the topic</pattern>
         <template><srai>Change topic</srai></template>
@@ -35,6 +38,7 @@
         <pattern>LET US TALK ABOUT SOMETHING ELSE</pattern>
         <template><srai>Change topic</srai></template>
     </category>
+
     <category>
         <pattern>$Let us talk about something else</pattern>
         <template><srai>Change topic</srai></template>
@@ -44,6 +48,7 @@
         <pattern>CHANGE THE SUBJECT</pattern>
         <template><srai>Change topic</srai></template>
     </category>
+
     <category>
         <pattern>$Change the subject</pattern>
         <template><srai>Change topic</srai></template>
@@ -53,11 +58,11 @@
         <pattern>CAN WE CHANGE THE SUBJECT</pattern>
         <template><srai>Change topic</srai></template>
     </category>
+
     <category>
         <pattern>$Can we change the subject</pattern>
         <template><srai>Change topic</srai></template>
     </category>
-
 
     <!-- CATEGORY THAT SHOULD GET CAUGHT ON INITIAL MESSAGE SENT FROM EMOTION TABLET CONTROLLER -->
     <category>
