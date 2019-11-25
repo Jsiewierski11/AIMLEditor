@@ -1,4 +1,7 @@
 import unittest
+import os, sys
+
+sys.path.append(os.path.abspath('..'))
 import Utils.Storage as Storage
 from Model.Data import *
 from Tests.aiml_creator import AimlCreator
