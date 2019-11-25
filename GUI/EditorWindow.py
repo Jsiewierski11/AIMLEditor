@@ -318,6 +318,9 @@ class EditorWindow(QMainWindow):
     def onCompile(self):
         str_to_parse = self.editSpace.editSpace.toPlainText() # Grabs text from the text display
         print("text to compile:\n{}".format(str_to_parse))
+        if str_to_parse.isspace():
+            handleError("There is nothing to compile. You must at least one tag pair to successfully compile your work.")
+            return
         try:
             aiml = Storage.compileToAIML(str_to_parse)
             print("compiling complete")
