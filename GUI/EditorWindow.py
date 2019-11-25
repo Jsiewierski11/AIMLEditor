@@ -308,7 +308,7 @@ class EditorWindow(QMainWindow):
             print("Pasting of not valid json data!", e)
             return
 
-        # check if the json data are correct
+        # check if the json data is correct
         if 'nodes' not in data:
             print("JSON does not contain any nodes!")
             return
@@ -319,12 +319,13 @@ class EditorWindow(QMainWindow):
         str_to_parse = self.editSpace.editSpace.toPlainText() # Grabs text from the text display
         print("text to compile:\n{}".format(str_to_parse))
         if str_to_parse.isspace():
-            handleError("There is nothing to compile. You must at least one tag pair to successfully compile your work.")
+            handleError("There is nothing to compile. You must at least have one tag pair to successfully compile your work.")
             return
         try:
             aiml = Storage.compileToAIML(str_to_parse)
             print("compiling complete")
-            self.editSpace.aiml = aiml 
+            self.editSpace.aiml = aiml
+            # self.editSpace.editSpace
             self.editSpace.tabs.setStyleSheet('')
         except Exception as ex:
             print("Exception caught trying to compile project")
