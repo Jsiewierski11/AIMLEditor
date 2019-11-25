@@ -153,7 +153,7 @@ class QCodeEditor(QPlainTextEdit):
         # connecting slot for category creation
         self.aiml = AIML()
         self.make_connection(tab_controller)   
-        self.textChanged.connect(self.editsMade)     
+           
 
         self.setReadOnly(False)
 
@@ -170,10 +170,6 @@ class QCodeEditor(QPlainTextEdit):
             self.highlighter = HL.AIMLHIghlighter(self.document())  # add highlighter to textdocument
         
         self.setPlainText('\n\n\n\n\n\n\n\n\n\n')
-
-
-    def editsMade(self):
-        print("Text has been changed!!")
         
 
     def resizeEvent(self, *e):

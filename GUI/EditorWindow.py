@@ -322,6 +322,7 @@ class EditorWindow(QMainWindow):
             aiml = Storage.compileToAIML(str_to_parse)
             print("compiling complete")
             self.editSpace.aiml = aiml 
+            self.editSpace.tabs.setStyleSheet('')
         except Exception as ex:
             print("Exception caught trying to compile project")
             print(ex)

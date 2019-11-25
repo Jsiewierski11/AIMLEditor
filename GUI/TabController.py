@@ -41,6 +41,12 @@ class TabController(QWidget):
         # Make Connection
         self.docker.catCreated.connect(self.categoryCreated)
         self.window.catCreated.connect(self.categoryCreated)
+        self.editSpace.textChanged.connect(self.editsMade)  
+
+
+    def editsMade(self):
+        self.tabs.setStyleSheet('QTabBar::tab {background-color: red;}')
+        print("Text has been changed!!")
 
     def add_editspace(self, tab):
         tab.layout = QVBoxLayout(self)
