@@ -7,6 +7,10 @@ def handleError(error):
     em.showMessage(str(error))
 
 def handleCompileMsg():
-    msg_box = QMessageBox(QMessageBox.Question, 'Compile Code!', 'There are changes to your code that have not been compiled. \
-                                                 If you do not compile your code before exporting you will lose those changes.')
-    msg_box.exec_()
+    msg_box = QMessageBox(QMessageBox.Warning, 'Compile Code!', 'There are changes to your code that have not been compiled. \
+                                                If you do not compile your code before exporting you will lose those changes. \
+                                                Would you like to compile before you export?')
+    msg_box.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
+    
+    retval = msg_box.exec_()
+    return retval

@@ -1,6 +1,6 @@
 import os
 import json
-from PyQt5.QtWidgets import QMainWindow, QLabel, QAction, QMessageBox, QApplication, QFileDialog, QTextEdit, QVBoxLayout
+from PyQt5.QtWidgets import QMainWindow, QLabel, QAction, QMessageBox, QApplication, QFileDialog, QTextEdit, QVBoxLayout, QMessageBox
 from PyQt5.QtGui import QColor
 from PyQt5.QtCore import Qt, pyqtSlot, QFileInfo
 from GUI.EditorWidget import EditorWidget
@@ -223,6 +223,19 @@ class EditorWindow(QMainWindow):
             handleError(ex)
 
     def onFileExport(self):
+        # Check for uncompiled changes
+        retval = None
+        if self.editSpace.up_to_date is False:
+            print("Code is not compiled. Compile before export.")
+            retval = handleCompileMsg()
+        
+        if retval == QMessageBox.Yes:
+            print('Compiling code before exporting')
+            try:
+                self.onCompile()
+            except Exception as ex:
+                print('Couldn\'t compile before exporting')
+                return
         try:
             fname, filter = QFileDialog.getSaveFileName(self, 'Export to file')
             Storage.exportAIML(fname, self.editSpace.editSpace.aiml) # save as an aiml file
@@ -318,12 +331,6 @@ class EditorWindow(QMainWindow):
         self.centralWidget().scene.clipboard.deserializeFromClipboard(data)
 
     def onCompile(self):
-        # Check for uncompiled changes
-        if self.editSpace.up_to_date is False:
-            print("Code is not compiled. Compile before export.")
-            handleCompileMsg()
-            return
-
         str_to_parse = self.editSpace.editSpace.toPlainText() # Grabs text from the text display
         print("text to compile:\n{}".format(str_to_parse))
         if str_to_parse.isspace():
