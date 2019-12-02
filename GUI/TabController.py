@@ -18,8 +18,8 @@ class TabController(QWidget):
         self.layout = QVBoxLayout(self)
         self.editSpace = None # Used for displaying source code
         self.docker = docker
-        # self.aiml = AIML()
         self.window = window
+        self.up_to_date = True
         
         # Initialize tab screen
         self.tabs = QTabWidget()
@@ -45,6 +45,7 @@ class TabController(QWidget):
 
     def editsMade(self):
         self.tabs.setStyleSheet('QTabBar::tab {background-color: red;}')
+        self.up_to_date = False
         print("Text has been changed!!")
 
     def add_editspace(self, tab):
@@ -59,7 +60,6 @@ class TabController(QWidget):
     def categoryCreated(self, cat):
         print("In TabController slot - categoryCreated()")
         try:
-            # self.aiml.append(cat)
             self.catCreated.emit(cat) 
         except Exception as ex:
             handleError(ex)

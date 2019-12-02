@@ -12,7 +12,7 @@ import Utils.AIMLHighlighter as HL
 from GUI.CodeEditor import *
 from GUI.QLabel_Clickable import *
 from GUI.Node.QDM.GraphicsScene import *
-from Utils.ErrorMessage import handleError
+from Utils.ErrorMessage import handleError, handleCompileMsg
 
 
 class EditorWindow(QMainWindow):
@@ -51,7 +51,7 @@ class EditorWindow(QMainWindow):
         # initialize Menu
         fileMenu = menubar.addMenu('&File')
         
-        #NOTE: These are uneeded menu options since we do not have the graph view
+        #NOTE: These are unneeded menu options since we do not have the graph view
         # fileMenu.addAction(self.createAct('&New', 'Ctrl+N', "Create new graph", self.onFileNew))
         # fileMenu.addSeparator()
         # fileMenu.addAction(self.createAct('&Open', 'Ctrl+O', "Open file", self.onFileOpen))
@@ -318,6 +318,12 @@ class EditorWindow(QMainWindow):
         self.centralWidget().scene.clipboard.deserializeFromClipboard(data)
 
     def onCompile(self):
+        # Check for uncompiled changes
+        if self.editSpace.up_to_date is False:
+            print("Code is not compiled. Compile before export.")
+            handleCompileMsg()
+            return
+
         str_to_parse = self.editSpace.editSpace.toPlainText() # Grabs text from the text display
         print("text to compile:\n{}".format(str_to_parse))
         if str_to_parse.isspace():
@@ -327,7 +333,7 @@ class EditorWindow(QMainWindow):
             aiml = Storage.compileToAIML(str_to_parse)
             print("compiling complete")
             self.editSpace.editSpace.aiml = aiml
-            # self.editSpace.editSpace
+            self.editSpace.up_to_date = True
             self.editSpace.tabs.setStyleSheet('')
         except Exception as ex:
             print("Exception caught trying to compile project")
