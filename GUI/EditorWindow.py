@@ -50,11 +50,13 @@ class EditorWindow(QMainWindow):
         
         # initialize Menu
         fileMenu = menubar.addMenu('&File')
+        
+        #NOTE: These are uneeded menu options since we do not have the graph view
         # fileMenu.addAction(self.createAct('&New', 'Ctrl+N', "Create new graph", self.onFileNew))
         # fileMenu.addSeparator()
-        fileMenu.addAction(self.createAct('&Open', 'Ctrl+O', "Open file", self.onFileOpen))
-        fileMenu.addAction(self.createAct('&Save', 'Ctrl+S', "Save file", self.onFileSave))
-        fileMenu.addAction(self.createAct('Save &As...', 'Ctrl+Shift+S', "Save file as...", self.onFileSaveAs))
+        # fileMenu.addAction(self.createAct('&Open', 'Ctrl+O', "Open file", self.onFileOpen))
+        # fileMenu.addAction(self.createAct('&Save', 'Ctrl+S', "Save file", self.onFileSave))
+        # fileMenu.addAction(self.createAct('Save &As...', 'Ctrl+Shift+S', "Save file as...", self.onFileSaveAs))
         fileMenu.addAction(self.createAct('&Export', 'Ctrl+Shift+E', 'Export File', self.onFileExport))
         fileMenu.addAction(self.createAct('&Import', 'Ctrl+Shift+I', 'Import File', self.onFileImport))
         fileMenu.addSeparator()
