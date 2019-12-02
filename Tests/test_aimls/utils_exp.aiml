@@ -17,78 +17,67 @@
     <category>
         <pattern>CHANGE TOPIC</pattern>
 
-        <template><srai>
-        	Change topic </srai></template>
+        <template><srai>Change topic</srai></template>
     </category>
 
     <category>
         <pattern>LET US CHANGE THE SUBJECT</pattern>
 
-        <template><srai>
-        	Change topic </srai></template>
+        <template><srai>Change topic</srai></template>
     </category>
 
     <category>
         <pattern>$Let us change the subject</pattern>
 
-        <template><srai>
-        	Change topic </srai></template>
+        <template><srai>Change topic</srai></template>
     </category>
 
     <category>
         <pattern>LET US CHANGE THE TOPIC</pattern>
 
-        <template><srai>
-        	Change topic </srai></template>
+        <template><srai>Change topic</srai></template>
     </category>
 
     <category>
         <pattern>$Let us change the topic</pattern>
 
-        <template><srai>
-        	Change topic </srai></template>
+        <template><srai>Change topic</srai></template>
     </category>
 
     <category>
         <pattern>LET US TALK ABOUT SOMETHING ELSE</pattern>
 
-        <template><srai>
-        	Change topic </srai></template>
+        <template><srai>Change topic</srai></template>
     </category>
 
     <category>
         <pattern>$Let us talk about something else</pattern>
 
-        <template><srai>
-        	Change topic </srai></template>
+        <template><srai>Change topic</srai></template>
     </category>
 
     <category>
         <pattern>CHANGE THE SUBJECT</pattern>
 
-        <template><srai>
-        	Change topic </srai></template>
+        <template><srai>Change topic</srai></template>
     </category>
 
     <category>
         <pattern>$Change the subject</pattern>
 
-        <template><srai>
-        	Change topic </srai></template>
+        <template><srai>Change topic</srai></template>
     </category>
 
     <category>
         <pattern>CAN WE CHANGE THE SUBJECT</pattern>
 
-        <template><srai>
-        	Change topic </srai></template>
+        <template><srai>Change topic</srai></template>
     </category>
 
     <category>
         <pattern>$Can we change the subject</pattern>
 
-        <template><srai>
-        	Change topic </srai></template>
+        <template><srai>Change topic</srai></template>
     </category>
 
     <!-- 
@@ -100,8 +89,7 @@
         <template>
         	Hello friend, 
             <random>
-                <li>
-                	what would you like to talk about? </li>
+                <li>what would you like to talk about?</li>
 
                 <!-- 
                 	<li>As a reminder, some of my favorite things to talk about are <bot name="talkabout"/></li>

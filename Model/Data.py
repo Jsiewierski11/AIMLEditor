@@ -181,7 +181,7 @@ class Tag(Serializable):
         attrib = (' ' + ' '.join('{}=\"{}\"'.format(
             key, val) for key, val in self.attrib.items())) if len(self.attrib) > 0 else ""
 
-        if self.type == 'pattern' or self.single == True:
+        if self.type == 'pattern' or self.type == 'srai' or self.type == 'li' or self.single == True:
             tags = ' '.join(map(str, self.tags))
         elif len(self.tags) > 0:
             tags = self.map_to_string()
