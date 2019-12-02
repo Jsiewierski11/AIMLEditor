@@ -18,7 +18,7 @@ class TabController(QWidget):
         self.layout = QVBoxLayout(self)
         self.editSpace = None # Used for displaying source code
         self.docker = docker
-        self.aiml = AIML()
+        # self.aiml = AIML()
         self.window = window
         
         # Initialize tab screen
@@ -59,7 +59,7 @@ class TabController(QWidget):
     def categoryCreated(self, cat):
         print("In TabController slot - categoryCreated()")
         try:
-            self.aiml.append(cat)
+            # self.aiml.append(cat)
             self.catCreated.emit(cat) 
         except Exception as ex:
             handleError(ex)

@@ -223,7 +223,7 @@ class EditorWindow(QMainWindow):
     def onFileExport(self):
         try:
             fname, filter = QFileDialog.getSaveFileName(self, 'Export to file')
-            Storage.exportAIML(fname, self.editSpace.aiml)  # save as an aiml file
+            Storage.exportAIML(fname, self.editSpace.editSpace.aiml) # save as an aiml file
         except Exception as ex:
             print("Exception caught trying to export")
             print(ex)
@@ -247,7 +247,7 @@ class EditorWindow(QMainWindow):
                             print("tag is a category")
                             self.catCreated.emit(tag)  # emitting signal to EditorWidget
                             numCats = numCats + 1
-                    self.editSpace.aiml.append(cat)
+                    self.editSpace.editSpace.aiml.append(cat)
                 elif cat.type == "comment":
                     print("found comment tag")
                     self.catCreated.emit(cat)
@@ -324,7 +324,7 @@ class EditorWindow(QMainWindow):
         try:
             aiml = Storage.compileToAIML(str_to_parse)
             print("compiling complete")
-            self.editSpace.aiml = aiml
+            self.editSpace.editSpace.aiml = aiml
             # self.editSpace.editSpace
             self.editSpace.tabs.setStyleSheet('')
         except Exception as ex:
