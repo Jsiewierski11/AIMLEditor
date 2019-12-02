@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aiml version="2.0">
-    <!-- 
-    	CATEGORIES TO SWITCH TOPICS AND GET OUT OF CURRENT DISCUSSION  -->
+    <!-- CATEGORIES TO SWITCH TOPICS AND GET OUT OF CURRENT DISCUSSION -->
 
     <category>
         <pattern>$Change topic</pattern>
 
         <template>
-        	Ok. What would you like to talk about? 
+        Ok. What would you like to talk about? 
             <oob>
                 <robot></robot>
             </oob>
@@ -17,82 +16,102 @@
     <category>
         <pattern>CHANGE TOPIC</pattern>
 
-        <template><srai>Change topic</srai></template>
+        <template>
+            <srai>Change topic</srai>
+        </template>
     </category>
 
     <category>
         <pattern>LET US CHANGE THE SUBJECT</pattern>
 
-        <template><srai>Change topic</srai></template>
+        <template>
+            <srai>Change topic</srai>
+        </template>
     </category>
 
     <category>
         <pattern>$Let us change the subject</pattern>
 
-        <template><srai>Change topic</srai></template>
+        <template>
+            <srai>Change topic</srai>
+        </template>
     </category>
 
     <category>
         <pattern>LET US CHANGE THE TOPIC</pattern>
 
-        <template><srai>Change topic</srai></template>
+        <template>
+            <srai>Change topic</srai>
+        </template>
     </category>
 
     <category>
         <pattern>$Let us change the topic</pattern>
 
-        <template><srai>Change topic</srai></template>
+        <template>
+            <srai>Change topic</srai>
+        </template>
     </category>
 
     <category>
         <pattern>LET US TALK ABOUT SOMETHING ELSE</pattern>
 
-        <template><srai>Change topic</srai></template>
+        <template>
+            <srai>Change topic</srai>
+        </template>
     </category>
 
     <category>
         <pattern>$Let us talk about something else</pattern>
 
-        <template><srai>Change topic</srai></template>
+        <template>
+            <srai>Change topic</srai>
+        </template>
     </category>
 
     <category>
         <pattern>CHANGE THE SUBJECT</pattern>
 
-        <template><srai>Change topic</srai></template>
+        <template>
+            <srai>Change topic</srai>
+        </template>
     </category>
 
     <category>
         <pattern>$Change the subject</pattern>
 
-        <template><srai>Change topic</srai></template>
+        <template>
+            <srai>Change topic</srai>
+        </template>
     </category>
 
     <category>
         <pattern>CAN WE CHANGE THE SUBJECT</pattern>
 
-        <template><srai>Change topic</srai></template>
+        <template>
+            <srai>Change topic</srai>
+        </template>
     </category>
 
     <category>
         <pattern>$Can we change the subject</pattern>
 
-        <template><srai>Change topic</srai></template>
+        <template>
+            <srai>Change topic</srai>
+        </template>
     </category>
 
-    <!-- 
-    	CATEGORY THAT SHOULD GET CAUGHT ON INITIAL MESSAGE SENT FROM EMOTION TABLET CONTROLLER  -->
+    <!-- CATEGORY THAT SHOULD GET CAUGHT ON INITIAL MESSAGE SENT FROM EMOTION TABLET CONTROLLER -->
 
     <category>
         <pattern>START PROGRAMR</pattern>
 
         <template>
-        	Hello friend, 
+        Hello friend, 
             <random>
                 <li>what would you like to talk about?</li>
 
-                <!-- 
-                	<li>As a reminder, some of my favorite things to talk about are <bot name="talkabout"/></li>
+                <!-- <li>As a reminder, some of my favorite things to talk about are <bot name="talkabout"/></li>
                                 <li>Let's get right to it. Do you want to talk about sports?</li>
                                 <li>Let's get right to it. Do you want to talk about television Shows?</li>
                                 <li>I'm curious to know. Do you have a favorite planet?</li>
@@ -105,7 +124,7 @@
                                 <li>I'm curious to know. What is the best book you have ever read?</li>
                                 <li>let's begin by discussing books. I like mystery novels. Do you read them?</li>
                                 <li>I am fascinated by American history! Would you like to talk about American presidents, American inventions, or the voyage of the Titanic?</li>
-                                <li>I would like to get to know you a little better today. Do you have kids?</li>  -->
+                                <li>I would like to get to know you a little better today. Do you have kids?</li> -->
             </random>
 
             <oob>

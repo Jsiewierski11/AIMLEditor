@@ -145,7 +145,7 @@ class Tag(Serializable):
         return newCat
 
     """
-    Finds nth occurrence (if no parameter given for n the finds the first occurence) of Tag, type, in array tags of Parent Tag.
+    Finds nth occurrence (if no parameter given for n then finds the first occurence) of Tag, type, in array tags of Parent Tag.
     If wanting to find the text that the tag contains pass through text as the type.
     """
     def findTag(self, tagType, n=1):
@@ -179,10 +179,12 @@ class Tag(Serializable):
 
     def __str__(self):
         attrib = (' ' + ' '.join('{}=\"{}\"'.format(
-            key, val) for key, val in self.attrib.items())) if len(self.attrib) > 0 else ""
+                key, val) for key, val in self.attrib.items())) if len(self.attrib) > 0 else ""
 
-        if self.type == 'pattern' or self.type == 'srai' or self.type == 'li' or self.single == True:
-            tags = ' '.join(map(str, self.tags))
+        if self.type == 'pattern' or self.type == 'srai' or \
+           self.type == 'li' or self.type == 'comment' or \
+           self.single == True:
+            tags = "".join(map(str, self.tags))
         elif len(self.tags) > 0:
             tags = self.map_to_string()
         else:
@@ -206,8 +208,6 @@ class Tag(Serializable):
             else:
                 if tag.type == "star":
                     tags += ''.join(str(tag))
-                elif tag.type == "srai":
-                    tags += ''.join(str(tag)) 
                 else:
                     tags += '\n' + indent(''.join(str(tag)),
                                 Formatting.indentation) + '\n'
@@ -232,9 +232,11 @@ class AIML(Tag):
     def __init__(self, version="2.0"):
         super().__init__("aiml", acceptable_tags=[Category, Topic, Comment], attrib={'version': version})
 
+
 class Comment(Tag):
     def __init__(self, version="2.0"):
         super().__init__("comment", acceptable_tags=[str])
+
 
 class Topic(Tag):
     def __init__(self, name=""):
@@ -300,6 +302,7 @@ class ConditionItem(Tag):
         else:
             super().__init__("li", acceptable_tags=[Oob, Set, Srai, Bot, Comment, str])
 
+
 class Bot(Tag):
     def __init__(self, name="", single=True):
         if name != "":
@@ -307,6 +310,7 @@ class Bot(Tag):
                 "name": name}, acceptable_tags=[])
         else:
             super().__init__("bot", single=single, acceptable_tags=[])
+
 
 class Star(Tag):
     def __init__(self, single=True):
