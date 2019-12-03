@@ -204,16 +204,26 @@ class Tag(Serializable):
 
     def map_to_string(self):
         tags = ''
-        for tag in self.tags:
+        for index, tag in enumerate(self.tags):
             if type(tag) is str:
                 tags += '\n' + indent(tag, Formatting.indentation)
             else:
                 if tag.type == "star":
                     tags += ''.join(str(tag))
                 elif tag.type == "pattern" or tag.type == "that" or \
-                     tag.type == "li" or tag.type == "random":
-                    tags += '\n' + indent(''.join(str(tag)),
-                                Formatting.indentation)
+                     tag.type == "li" or tag.type == "random" or tag.type == "comment":
+                    if index < len(self.tags)-1:
+                        if self.tags[index+1].type != "li" and self.tags[index+1].type != "comment" and \
+                        self.tags[index+1].type != "template" and self.tags[index+1].type != "oob" and \
+                        self.tags[index+1].type != "category":
+                            tags += '\n' + indent(''.join(str(tag)),
+                                    Formatting.indentation) + '\n'
+                        else:
+                            tags += '\n' + indent(''.join(str(tag)),
+                                        Formatting.indentation)
+                    else:
+                        tags += '\n' + indent(''.join(str(tag)),
+                                    Formatting.indentation)
                 else:
                     tags += '\n' + indent(''.join(str(tag)),
                                 Formatting.indentation) + '\n'

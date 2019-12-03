@@ -192,7 +192,7 @@
             GENDER: <srai>GENDER</srai>
             STATUS: <srai>STATUS</srai>
             BIRTHDATE: <srai>BIRTHDATE</srai>
-            <uppercase><bot name="master"/></uppercase>: <srai>BOTMASTER</srai>
+            <bot name="master"/>: <srai>BOTMASTER</srai>
             CITY: <srai>CITY</srai>
             STATE: <srai>STATE</srai>
             COUNTRY: <srai>COUNTRY</srai>
