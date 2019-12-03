@@ -17,7 +17,9 @@ class TestFunctions(unittest.TestCase):
         pattern = Pattern() #Create pattern obj
         pattern.append("HELLO *") #Adding text to patter obj
         cat.append(pattern) #Placing pattern inside category obj
-        self.assertEqual(str(cat), '<category>\n    <pattern>HELLO *</pattern>\n</category>')
+        template = Template()
+        cat.append(template)
+        self.assertEqual(str(cat), '<category>\n    <pattern>HELLO *</pattern>\n    <template></template>\n</category>')
     
     def test_save_restore_aiml(self):
         ac = AimlCreator()
@@ -59,6 +61,7 @@ class TestFunctions(unittest.TestCase):
 
     # TODO: Figure out a consistent whitespace formatting
     
+    
     # NOTE: Fails due to whitespace mismatch. Is this a concern?
     def test_comments_util_import(self):
         imported = Storage.importAIML('./test_aimls/utils')
@@ -68,17 +71,17 @@ class TestFunctions(unittest.TestCase):
         print(f'EXPECTED:\n{exported}')
         self.assertEqual(str(imported),str(exported))
 
-    '''
+    
     # NOTE: Fails due to whitespace mismatch. Is this a concern?
-    def test_import_jupiter(self):
-        imported = Storage.importAIML('./test_aimls/jupiter')
-        exported = Storage.exportAIML('./test_aimls/jupiter_exp', imported)
-        jup = open('./test_aimls/jupiter.aiml', 'r')
-        jup_contents = jup.read()
-        jup_exp = open('./test_aimls/jupiter_exp.aiml', 'r')
-        jup2_contents = jup_exp.read()
-        self.assertEqual(jup_contents, jup2_contents)
-    '''
+    # def test_import_jupiter(self):
+    #     imported = Storage.importAIML('./test_aimls/jupiter')
+    #     exported = Storage.exportAIML('./test_aimls/jupiter_exp', imported)
+    #     jup = open('./test_aimls/jupiter.aiml', 'r')
+    #     jup_contents = jup.read()
+    #     jup_exp = open('./test_aimls/jupiter_exp.aiml', 'r')
+    #     jup2_contents = jup_exp.read()
+    #     self.assertEqual(jup_contents, jup2_contents)
+    
 
     # def test_map_to_string(self):
     #     ac = AimlCreator()

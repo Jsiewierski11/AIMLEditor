@@ -183,7 +183,8 @@ class Tag(Serializable):
 
         # FIXME: Multiline comments are being indented for some reason.
         if self.type == 'pattern' or self.type == 'srai' or \
-           self.type == 'li' or self.type == 'comment' or\
+           self.type == 'li' or self.type == 'comment' or \
+           self.type == 'that' or self.type == 'set' or \
            self.single == True:
             tags = "".join(map(str, self.tags))
         elif len(self.tags) > 0:
@@ -205,10 +206,14 @@ class Tag(Serializable):
         tags = ''
         for tag in self.tags:
             if type(tag) is str:
-                tags += '\n\t' + tag + ' '
+                tags += '\n' + Formatting.indentation + tag + ' '
             else:
                 if tag.type == "star":
                     tags += ''.join(str(tag))
+                elif tag.type == "pattern" or tag.type == "that" or \
+                     tag.type == "comment" or tag.type == "li":
+                    tags += '\n' + indent(''.join(str(tag)),
+                                Formatting.indentation)
                 else:
                     tags += '\n' + indent(''.join(str(tag)),
                                 Formatting.indentation) + '\n'
