@@ -72,15 +72,18 @@ class TestFunctions(unittest.TestCase):
         self.assertEqual(str(imported),str(exported))
 
     
-    # NOTE: Fails due to whitespace mismatch. Is this a concern?
-    # def test_import_jupiter(self):
-    #     imported = Storage.importAIML('./test_aimls/jupiter')
-    #     exported = Storage.exportAIML('./test_aimls/jupiter_exp', imported)
-    #     jup = open('./test_aimls/jupiter.aiml', 'r')
-    #     jup_contents = jup.read()
-    #     jup_exp = open('./test_aimls/jupiter_exp.aiml', 'r')
-    #     jup2_contents = jup_exp.read()
-    #     self.assertEqual(jup_contents, jup2_contents)
+    def test_import_jupiter(self):
+        imported = Storage.importAIML('./test_aimls/jupiter')
+        Storage.exportAIML('./test_aimls/jupiter_exp', imported)
+        exported = Storage.importAIML('./test_aimls/jupiter_exp')
+        self.assertEqual(str(imported),str(exported))
+
+        # NOTE: This way of reading a file and checking for assertion fails. Why?
+        # jup = open('./test_aimls/jupiter.aiml', 'r')
+        # jup_contents = jup.read()
+        # jup_exp = open('./test_aimls/jupiter_exp.aiml', 'r')
+        # jup2_contents = jup_exp.read()
+        # self.assertEqual(jup_contents, jup2_contents)
     
 
     # def test_map_to_string(self):

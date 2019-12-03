@@ -185,7 +185,7 @@ class Tag(Serializable):
         if self.type == 'pattern' or self.type == 'srai' or \
            self.type == 'li' or self.type == 'comment' or \
            self.type == 'that' or self.type == 'set' or \
-           self.single == True:
+           self.type == 'filename' or self.single == True:
             tags = "".join(map(str, self.tags))
         elif len(self.tags) > 0:
             tags = self.map_to_string()
@@ -206,14 +206,16 @@ class Tag(Serializable):
         tags = ''
         for tag in self.tags:
             if type(tag) is str:
-                tags += '\n' + Formatting.indentation + tag + ' '
+                tags += '\n' + indent(tag, Formatting.indentation)
             else:
                 if tag.type == "star":
                     tags += ''.join(str(tag))
                 elif tag.type == "pattern" or tag.type == "that" or \
-                     tag.type == "comment" or tag.type == "li":
+                     tag.type == "li" or tag.type == "random":
                     tags += '\n' + indent(''.join(str(tag)),
                                 Formatting.indentation)
+                elif tag.type == "set":
+                    tags += ' ' + indent(''.join(str(tag)), Formatting.indentation) + ' '
                 else:
                     tags += '\n' + indent(''.join(str(tag)),
                                 Formatting.indentation) + '\n'
