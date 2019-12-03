@@ -228,6 +228,9 @@ class EditorWindow(QMainWindow):
         if self.editSpace.up_to_date is False:
             print("Code is not compiled. Compile before export.")
             retval = handleCompileMsg()
+
+        if retval == QMessageBox.Cancel:
+            return
         
         if retval == QMessageBox.Yes:
             print('Compiling code before exporting')
