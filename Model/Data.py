@@ -215,7 +215,7 @@ class Tag(Serializable):
                     if index < len(self.tags)-1:
                         if self.tags[index+1].type != "li" and self.tags[index+1].type != "comment" and \
                         self.tags[index+1].type != "template" and self.tags[index+1].type != "oob" and \
-                        self.tags[index+1].type != "category":
+                        self.tags[index+1].type != "category" and self.tags[index+1].type != "that":
                             tags += '\n' + indent(''.join(str(tag)),
                                     Formatting.indentation) + '\n'
                         else:
