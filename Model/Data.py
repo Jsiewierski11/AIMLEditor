@@ -214,8 +214,6 @@ class Tag(Serializable):
                      tag.type == "li" or tag.type == "random":
                     tags += '\n' + indent(''.join(str(tag)),
                                 Formatting.indentation)
-                elif tag.type == "set":
-                    tags += ' ' + indent(''.join(str(tag)), Formatting.indentation) + ' '
                 else:
                     tags += '\n' + indent(''.join(str(tag)),
                                 Formatting.indentation) + '\n'
