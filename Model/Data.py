@@ -181,8 +181,9 @@ class Tag(Serializable):
         attrib = (' ' + ' '.join('{}=\"{}\"'.format(
                 key, val) for key, val in self.attrib.items())) if len(self.attrib) > 0 else ""
 
+        # FIXME: Multiline comments are being indented for some reason.
         if self.type == 'pattern' or self.type == 'srai' or \
-           self.type == 'li' or self.type == 'comment' or \
+           self.type == 'li' or self.type == 'comment' or\
            self.single == True:
             tags = "".join(map(str, self.tags))
         elif len(self.tags) > 0:
@@ -235,7 +236,10 @@ class AIML(Tag):
 
 class Comment(Tag):
     def __init__(self, version="2.0"):
-        super().__init__("comment", acceptable_tags=[str])
+        super().__init__("comment", acceptable_tags=[str, AIML, Category, Topic, Pattern, Template,  
+                                                     That, Srai, Random, Condition, ConditionItem, Bot, 
+                                                     Star, Set, Think, Oob, Robot, Option, Options, 
+                                                     Video, Image, Filename])
 
 
 class Topic(Tag):

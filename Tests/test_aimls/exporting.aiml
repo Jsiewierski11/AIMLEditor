@@ -4,7 +4,7 @@
         <pattern>YOU CAN DO BETTER</pattern>
 
         <template>
-        Ok I will try. 
+        	Ok I will try. 
             <oob>
                 <robot></robot>
             </oob>
@@ -15,7 +15,7 @@
         <pattern>WHAT DO YOU WANT TO TALK ABOUT</pattern>
 
         <template>
-        I'll talk about whatever with you. 
+        	I'll talk about whatever with you. 
             <oob>
                 <robot></robot>
             </oob>
