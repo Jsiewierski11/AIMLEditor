@@ -241,6 +241,9 @@ class EditorWindow(QMainWindow):
                 return
         try:
             fname, filter = QFileDialog.getSaveFileName(self, 'Export to file')
+            if fname == "":
+                print("Cancel clicked")
+                return
             Storage.exportAIML(fname, self.editSpace.editSpace.aiml) # save as an aiml file
         except Exception as ex:
             print("Exception caught trying to export")
