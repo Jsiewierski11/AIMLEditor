@@ -72,7 +72,7 @@ def decode_tag(tag_type):
 def recursive_decoding(head, tag_xml):
     try:
         for child in tag_xml:
-            print(f"Recursive_decoding. tag type: {child.tag}")
+            # print(f"Recursive_decoding. tag type: {child.tag}")
             tag_obj = decode_tag(child.tag.lower())
             if(tag_obj != False):
                 if child.text:
