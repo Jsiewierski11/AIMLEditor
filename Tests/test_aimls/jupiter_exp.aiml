@@ -24,7 +24,7 @@
     </category>
 
     <category>
-        <pattern>#<set>YES</set>^</pattern>
+        <pattern># <set>YES</set> ^</pattern>
         <that>DID YOU KNOW THAT ABOUT JUPITER?</that>
         <template>
             Its age isn't the only interesting thing about Jupiter. I have a short video about it that contains fascinating information about both Jupiter and its moons. Should we watch this primer on Jupiter?
@@ -35,7 +35,7 @@
     </category>
 
     <category>
-        <pattern>#<set>NO</set>^</pattern>
+        <pattern># <set>NO</set> ^</pattern>
         <that>DID YOU KNOW THAT ABOUT JUPITER?</that>
         <template>
             Its age isn't the only interesting thing about Jupiter. I have a short video about it that contains fascinating information about both Jupiter and its moons. Should we watch this primer on Jupiter?
@@ -46,7 +46,7 @@
     </category>
 
     <category>
-        <pattern>#<set>YES</set>^</pattern>
+        <pattern># <set>YES</set> ^</pattern>
         <that>SHOULD WE WATCH THIS PRIMER ON JUPITER?</that>
         <template>
             What was the most interesting thing you learned from this video?
@@ -72,7 +72,7 @@
     </category>
 
     <category>
-        <pattern>#<set>NO</set>^</pattern>
+        <pattern># <set>NO</set> ^</pattern>
         <that>SHOULD WE WATCH THIS PRIMER ON JUPITER?</that>
         <template>
             What do you say we talk about a scientific discovery a little closer to earth?

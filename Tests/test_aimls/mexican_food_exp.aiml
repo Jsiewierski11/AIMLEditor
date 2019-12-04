@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aiml version="2.0">
     <category>
-        <pattern>#<set>YES</set>^</pattern>
+        <pattern># <set>YES</set> ^</pattern>
         <that>Shall we talk about a different cuisine?</that>
         <template>
             Would you like to talk about a American Food or Foreign food?
@@ -26,7 +26,7 @@
     </category>
 
     <category>
-        <pattern>#<set>YES</set>^</pattern>
+        <pattern># <set>YES</set> ^</pattern>
         <that>Do you like Mexican food?</that>
         <template>
             <think>
@@ -86,7 +86,7 @@
         </category>
 
         <category>
-            <pattern>#<set>NO</set>^</pattern>
+            <pattern># <set>NO</set> ^</pattern>
             <that>HAVE YOU HEARD OF CASA BONITA?</that>
             <template>
                 I guess I would describe Casa Bonita as a cross between Disneyland and a restaurant. It's a Denver staple! They have cliff divers and a whole cast of characters that entertain you while you eat. Would you like to go on a video tour of Casa Bonita?
@@ -97,7 +97,7 @@
         </category>
 
         <category>
-            <pattern>#<set>YES</set>^</pattern>
+            <pattern># <set>YES</set> ^</pattern>
             <that>HAVE YOU HEARD OF CASA BONITA?</that>
             <template>
                 It's a Denver staple! Would you like to go on a video tour of Casa Bonita?
@@ -108,7 +108,7 @@
         </category>
 
         <category>
-            <pattern>#<set>YES</set>^</pattern>
+            <pattern># <set>YES</set> ^</pattern>
             <that>WOULD YOU LIKE TO GO ON A VIDEO TOUR OF CASA BONITA?</that>
             <template>
                 Do you think you would enjoy dining here?
@@ -123,7 +123,7 @@
         </category>
 
         <category>
-            <pattern>#<set>YES</set>^</pattern>
+            <pattern># <set>YES</set> ^</pattern>
             <that>DO YOU THINK YOU WOULD ENJOY DINING HERE?</that>
             <template>
                 Good dinner and a show? That sounds like an incredible night. If I made you pick just one mexican dish to eat for the rest of your life, would you prefer to eat fajitas or tacos?
@@ -134,7 +134,7 @@
         </category>
 
         <category>
-            <pattern>#<set>NO</set>^</pattern>
+            <pattern># <set>NO</set> ^</pattern>
             <that>DO YOU THINK YOU WOULD ENJOY DINING HERE?</that>
             <template>
                 That's fair! It's a little bit overwhelming and, if I'm being honest, I've also heard the food isn't very good. Sounds like you'd prefer to go to a classier joint?
@@ -145,7 +145,7 @@
         </category>
 
         <category>
-            <pattern>#<set>NO</set>^</pattern>
+            <pattern># <set>NO</set> ^</pattern>
             <that>WOULD YOU LIKE TO GO ON A VIDEO TOUR OF CASA BONITA?</that>
             <template>
                 Sounds like you'd prefer to go to a classier joint?
@@ -156,7 +156,7 @@
         </category>
 
         <category>
-            <pattern>#<set>YES</set>^</pattern>
+            <pattern># <set>YES</set> ^</pattern>
             <that>A HUMAN OF FINE TASTE, I SEE. HAVE YOU HEARD OF CASA BONITA?</that>
             <template>
                 What do you think of Casa Bonita?
@@ -188,7 +188,7 @@
         </category>
 
         <category>
-            <pattern>#<set>NO</set>^</pattern>
+            <pattern># <set>NO</set> ^</pattern>
             <that>HAVE YOU EATEN THERE BEFORE?</that>
             <template>
                 Do you think you would be interested in dining at Casa Bonita?
@@ -199,7 +199,7 @@
         </category>
 
         <category>
-            <pattern>#<set>YES</set>^</pattern>
+            <pattern># <set>YES</set> ^</pattern>
             <that>DO YOU THINK YOU WOULD BE INTERESTED IN DINING AT CASA BONITA?</that>
             <template>
                 Good dinner and a show? That sounds like an incredible night. If I made you pick just one mexican dish to eat for the rest of your life, would you prefer to eat fajitas or tacos?
@@ -210,7 +210,7 @@
         </category>
 
         <category>
-            <pattern>#<set>NO</set>^</pattern>
+            <pattern># <set>NO</set> ^</pattern>
             <that>DO YOU THINK YOU WOULD BE INTERESTED IN DINING AT CASA BONITA?</that>
             <template>
                 That's fair! It's a little bit overwhelming and, if I'm being honest, I've also heard the food isn't very good. Sounds like you'd prefer to go to a classier joint?
@@ -221,7 +221,7 @@
         </category>
 
         <category>
-            <pattern>#<set>YES</set>^</pattern>
+            <pattern># <set>YES</set> ^</pattern>
             <that>HAVE YOU EATEN THERE BEFORE?</that>
             <template>
                 And how was the food at Casa Bonita?
@@ -253,7 +253,7 @@
         </category>
 
         <category>
-            <pattern>#<set>DON'T KNOW</set>^</pattern>
+            <pattern># <set>DON'T KNOW</set> ^</pattern>
             <that>WHAT DO YOU THINK OF CASA BONITA?</that>
             <template>
                 That's fair! It's a little bit overwhelming and, if I'm being honest, I've also heard the food isn't very good. Sounds like you'd prefer to go to a classier joint?
@@ -264,7 +264,7 @@
         </category>
 
         <category>
-            <pattern>#<set>YES</set>^</pattern>
+            <pattern># <set>YES</set> ^</pattern>
             <that>Sounds like you'd prefer to go to a classier joint?</that>
             <template>
                 I found a very short video about three fine dining mexican restaurants. Would you like to see some of the best choices the United States has to offer?
@@ -275,7 +275,7 @@
         </category>
 
         <category>
-            <pattern>#<set>NO</set>^</pattern>
+            <pattern># <set>NO</set> ^</pattern>
             <that>WOULD YOU LIKE TO SEE SOME OF THE BEST CHOICES THE UNITED STATES HAS TO OFFER?</that>
             <template>
                 That's ok! Sometimes I get tired of watching all these videos too. If I made you pick just one mexican dish to eat for the rest of your life, would you prefer to eat fajitas or tacos?
@@ -308,7 +308,7 @@
         </category>
 
         <category>
-            <pattern>#<set>YES</set>^</pattern>
+            <pattern># <set>YES</set> ^</pattern>
             <that>Isn't it wonderful how fajitas come out of the kitchen sizzling?</that>
             <template>
                 Fajitas are a perfect example of Tex-mex cuisine. Do you know anything about the history of fajitas?
@@ -319,7 +319,7 @@
         </category>
 
         <category>
-            <pattern>#<set>YES</set>^</pattern>
+            <pattern># <set>YES</set> ^</pattern>
             <that>DO YOU KNOW ANYTHING ABOUT THE HISTORY OF FAJITAS?</that>
             <template>
                 So then you must know about Ninfa's restaurant, yes?
@@ -330,7 +330,7 @@
         </category>
 
         <category>
-            <pattern>#<set>NO</set>^</pattern>
+            <pattern># <set>NO</set> ^</pattern>
             <that>SO THEN YOU MUST KNOW ABOUT NINFA'S RESTAURANT, YES?</that>
             <template>
                 Ninfa's, established by Mama Maria Ninfa Rodriguez Laurenzo, was the first place to prepare and sell the dish that we would recognize as fajitas. The restaurant opened in the nineteen seventies and is still open today. It's in Houston! Do you have any interest in eating there?
@@ -341,7 +341,7 @@
         </category>
 
         <category>
-            <pattern>#<set>YES</set>^</pattern>
+            <pattern># <set>YES</set> ^</pattern>
             <that>DO YOU HAVE ANY INTEREST IN EATING THERE?</that>
             <template>
                 Me too! The history of food is fascinating. I love thinking about it. Shall we talk about a different cuisine now?
@@ -352,7 +352,7 @@
         </category>
 
         <category>
-            <pattern>#<set>NO</set>^</pattern>
+            <pattern># <set>NO</set> ^</pattern>
             <that>DO YOU HAVE ANY INTEREST IN EATING THERE?</that>
             <template>
                 Why not?
@@ -363,7 +363,7 @@
         </category>
 
         <category>
-            <pattern>#<set>DON'T KNOW</set>^</pattern>
+            <pattern># <set>DON'T KNOW</set> ^</pattern>
             <that>DO YOU HAVE ANY INTEREST IN EATING THERE?</that>
             <template>
                 Why not?
@@ -381,7 +381,7 @@
         </category>
 
         <category>
-            <pattern>#<set>YES</set>^</pattern>
+            <pattern># <set>YES</set> ^</pattern>
             <that>SO THEN YOU MUST KNOW ABOUT NINFA'S RESTAURANT, YES?</that>
             <template>
                 How did you know that?
@@ -392,7 +392,7 @@
         </category>
 
         <category>
-            <pattern>#<set>NO</set>^</pattern>
+            <pattern># <set>NO</set> ^</pattern>
             <that>Do you know anything about the history of fajitas?</that>
             <template>
                 During the early nineteen hundreds, mexican cowboys working in Texas were given some of the less desirable cuts of meat after the cows were butchered. They grilled skirt steak over open flame and cut it in to strips. Of course, it wasn't until much later when a restaurant called Ninfa's in Houston started cooking what we know as fajitas. Did you have any idea that fajitas were so recent a culinary invention?
@@ -403,7 +403,7 @@
         </category>
 
         <category>
-            <pattern>#<set>NO</set>^</pattern>
+            <pattern># <set>NO</set> ^</pattern>
             <that>DID YOU HAVE ANY IDEA THAT FAJITAS WERE SO RECENT A CULINARY INVENTION?</that>
             <template>
                 I guess it goes to show that there are still plenty of things waiting to be discovered. What do you say we explore something else? Shall we talk about a different cuisine?
@@ -414,7 +414,7 @@
         </category>
 
         <category>
-            <pattern>#<set>YES</set>^</pattern>
+            <pattern># <set>YES</set> ^</pattern>
             <that>DID YOU HAVE ANY IDEA THAT FAJITAS WERE SO RECENT A CULINARY INVENTION?</that>
             <template>
                 How did you know that?
@@ -487,7 +487,7 @@
         </category>
 
         <category>
-            <pattern>#<set>No</set>^</pattern>
+            <pattern># <set>No</set> ^</pattern>
             <that>WANT TO DROOL OVER SOME STREET FOOD WITH ME?</that>
             <template>
                 Hey, that's ok! But his meal does look pretty good, if I do say so myself. Have you ever eaten street food?
@@ -498,7 +498,7 @@
         </category>
 
         <category>
-            <pattern>#<set>YES</set>^</pattern>
+            <pattern># <set>YES</set> ^</pattern>
             <that>WANT TO DROOL OVER SOME STREET FOOD WITH ME?</that>
             <template>
                 Doesn't that just look great? Have you ever eaten street food?
@@ -513,7 +513,7 @@
         </category>
 
         <category>
-            <pattern>#<set>NO</set>^</pattern>
+            <pattern># <set>NO</set> ^</pattern>
             <that>HAVE YOU EVER EATEN STREET FOOD?</that>
             <template>
                 Do you think you would try street food if you were given the chance?
@@ -524,7 +524,7 @@
         </category>
 
         <category>
-            <pattern>#<set>YES</set>^</pattern>
+            <pattern># <set>YES</set> ^</pattern>
             <that>DO YOU THINK YOU WOULD TRY STREET FOOD IF YOU WERE GIVEN THE CHANCE?</that>
             <template>
                 Why not, right? You might find something new you wouldn't have learned about any other way. Every meal is a chance to experience something new. I think this is why people love food so much, don't you think?
@@ -535,7 +535,7 @@
         </category>
 
         <category>
-            <pattern>#<set>YES</set>^</pattern>
+            <pattern># <set>YES</set> ^</pattern>
             <that>I THINK THIS IS WHY PEOPLE LOVE FOOD SO MUCH, DON'T YOU THINK?</that>
             <template>
                 Are there any foods that you know you want to try?
@@ -557,7 +557,7 @@
         </category>
 
         <category>
-            <pattern>#<set>YES</set>^</pattern>
+            <pattern># <set>YES</set> ^</pattern>
             <that>ARE THERE ANY FOODS THAT YOU KNOW YOU WANT TO TRY?</that>
             <template>
                 Which food do you want to try?
@@ -579,7 +579,7 @@
         </category>
 
         <category>
-            <pattern>#<set>NO</set>^</pattern>
+            <pattern># <set>NO</set> ^</pattern>
             <that>ARE THERE ANY FOODS THAT YOU KNOW YOU WANT TO TRY?</that>
             <template>
                 There's something to be said for sticking with what you know. I guess you'll be sticking with Mexican food then!
@@ -590,7 +590,7 @@
         </category>
 
         <category>
-            <pattern>#<set>YES</set>^</pattern>
+            <pattern># <set>YES</set> ^</pattern>
             <that>I GUESS YOU'LL BE STICKING WITH MEXICAN FOOD THEN!</that>
             <template>
                 I really can't blame you for that! Between you and me, Mexican food might just be the best cuisine in the world. Shall we talk about a different cuisine now?
@@ -601,7 +601,7 @@
         </category>
 
         <category>
-            <pattern>#<set>NO</set>^</pattern>
+            <pattern># <set>NO</set> ^</pattern>
             <that>I GUESS YOU'LL BE STICKING WITH MEXICAN FOOD THEN!</that>
             <template>
                 In that case, what's your go to cuisine?
@@ -667,7 +667,7 @@
         </category>
 
         <category>
-            <pattern>#<set>NO</set>^</pattern>
+            <pattern># <set>NO</set> ^</pattern>
             <that>I THINK THIS IS WHY PEOPLE LOVE FOOD SO MUCH, DON'T YOU THINK?</that>
             <template>
                 Why do you think that people love talking and learning about food?
@@ -678,7 +678,7 @@
         </category>
 
         <category>
-            <pattern>#<set>DON'T KNOW</set>^</pattern>
+            <pattern># <set>DON'T KNOW</set> ^</pattern>
             <that>I THINK THIS IS WHY PEOPLE LOVE FOOD SO MUCH, DON'T YOU THINK?</that>
             <template>
                 Why do you think that people love talking and learning about food?
@@ -700,7 +700,7 @@
         </category>
 
         <category>
-            <pattern>#<set>DON'T KNOW</set>^</pattern>
+            <pattern># <set>DON'T KNOW</set> ^</pattern>
             <that>WHY DO YOU THINK THAT PEOPLE LOVE TALKING AND LEARNING ABOUT FOOD?</that>
             <template>
                 I don't think we always need to know why something is so. Whatever the reason, I think we can both agree that food is worth talking about! An almost endless topic, too! Shall we talk about a different cuisine?
@@ -711,7 +711,7 @@
         </category>
 
         <category>
-            <pattern>#<set>NO</set>^</pattern>
+            <pattern># <set>NO</set> ^</pattern>
             <that>DO YOU THINK YOU WOULD TRY STREET FOOD IF YOU WERE GIVEN THE CHANCE?</that>
             <template>
                 Why not? Are you concerned about getting sick?
@@ -722,7 +722,7 @@
         </category>
 
         <category>
-            <pattern>#<set>DON'T KNOW</set>^</pattern>
+            <pattern># <set>DON'T KNOW</set> ^</pattern>
             <that>DO YOU THINK YOU WOULD TRY STREET FOOD IF YOU WERE GIVEN THE CHANCE?</that>
             <template>
                 Why not? Are you concerned about getting sick?
@@ -744,7 +744,7 @@
         </category>
 
         <category>
-            <pattern>#<set>YES</set>^</pattern>
+            <pattern># <set>YES</set> ^</pattern>
             <that>ARE YOU CONCERNED ABOUT GETTING SICK?</that>
             <template>
                 Hmmm. But aren't you worried that you are missing out on trying a new and very exciting food?
@@ -755,7 +755,7 @@
         </category>
 
         <category>
-            <pattern>#<set>NO</set>^</pattern>
+            <pattern># <set>NO</set> ^</pattern>
             <that>ARE YOU CONCERNED ABOUT GETTING SICK?</that>
             <template>
                 If you aren't worried about getting food poisoning, why aren't you interested in eating street food?
@@ -766,7 +766,7 @@
         </category>
 
         <category>
-            <pattern>#<set>DON'T KNOW</set>^</pattern>
+            <pattern># <set>DON'T KNOW</set> ^</pattern>
             <that>ARE YOU CONCERNED ABOUT GETTING SICK?</that>
             <template>
                 If you aren't worried about getting food poisoning, why aren't you interested in eating street food?
@@ -788,7 +788,7 @@
         </category>
 
         <category>
-            <pattern>#<set>DON'T KNOW</set>^</pattern>
+            <pattern># <set>DON'T KNOW</set> ^</pattern>
             <that>IF YOU AREN'T WORRIED ABOUT GETTING FOOD POISONING, WHY AREN'T YOU INTERESTED IN EATING STREET FOOD?</that>
             <template>
                 Well, keep thinking about it! Maybe you'll figure it out. Shall we talk about a different cuisine?
@@ -799,7 +799,7 @@
         </category>
 
         <category>
-            <pattern>#<set>YES</set>^</pattern>
+            <pattern># <set>YES</set> ^</pattern>
             <that>HAVE YOU EVER EATEN STREET FOOD?</that>
             <template>
                 You're bold! Where did you try street food?
@@ -821,7 +821,7 @@
         </category>
 
         <category>
-            <pattern>#<set>DON'T KNOW</set>^</pattern>
+            <pattern># <set>DON'T KNOW</set> ^</pattern>
             <that>AND WHAT DID YOU HAVE?</that>
             <template>
                 That's ok! It will probably come back to you. Shall we talk about a different cuisine?
@@ -832,7 +832,7 @@
         </category>
 
         <category>
-            <pattern>#<set>DON'T REMEMBER</set>^</pattern>
+            <pattern># <set>DON'T REMEMBER</set> ^</pattern>
             <that>AND WHAT DID YOU HAVE?</that>
             <template>
                 That's ok! It will probably come back to you. Shall we talk about a different cuisine?
@@ -854,7 +854,7 @@
         </category>
 
         <category>
-            <pattern>#<set>DON'T KNOW</set>^</pattern>
+            <pattern># <set>DON'T KNOW</set> ^</pattern>
             <that>WHERE DID YOU TRY STREET FOOD?</that>
             <template>
                 Do you remember what you had?
@@ -865,7 +865,7 @@
         </category>
 
         <category>
-            <pattern>#<set>DON'T REMEMBER</set>^</pattern>
+            <pattern># <set>DON'T REMEMBER</set> ^</pattern>
             <that>WHERE DID YOU TRY STREET FOOD?</that>
             <template>
                 Do you remember what you had?
@@ -876,7 +876,7 @@
         </category>
 
         <category>
-            <pattern>#<set>DON'T KNOW</set>^</pattern>
+            <pattern># <set>DON'T KNOW</set> ^</pattern>
             <that>DO YOU REMEMBER WHAT YOU HAD?</that>
             <template>
                 That's ok! It will probably come back to you. Shall we talk about a different cuisine?
@@ -887,7 +887,7 @@
         </category>
 
         <category>
-            <pattern>#<set>DON'T REMEMBER</set>^</pattern>
+            <pattern># <set>DON'T REMEMBER</set> ^</pattern>
             <that>DO YOU REMEMBER WHAT YOU HAD?</that>
             <template>
                 That's ok! It will probably come back to you. Shall we talk about a different cuisine?
@@ -931,7 +931,7 @@
 
         <!-- FINISH YES HAVE EATEN STREET FOOD -->
         <category>
-            <pattern>#<set>YES</set>^</pattern>
+            <pattern># <set>YES</set> ^</pattern>
             <that>WOULD YOU LIKE TO SEE SOME OF THE BEST CHOICES THE UNITED STATES HAS TO OFFER?</that>
             <template>
                 I know these all look really good, but did any of these three restaurants really stick out?
@@ -946,7 +946,7 @@
         </category>
 
         <category>
-            <pattern>#<set>YES</set>^</pattern>
+            <pattern># <set>YES</set> ^</pattern>
             <that>I KNOW THESE ALL LOOK REALLY GOOD, BUT DID ANY OF THESE THREE RESTAURANTS REALLY STICK OUT?</that>
             <template>
                 Which one of these three restaurants did you think was the most appealing?
@@ -1001,7 +1001,7 @@
         </category>
 
         <category>
-            <pattern>#<set>DON'T KNOW</set>^</pattern>
+            <pattern># <set>DON'T KNOW</set> ^</pattern>
             <that>I KNOW THESE ALL LOOK REALLY GOOD, BUT DID ANY OF THESE THREE RESTAURANTS REALLY STICK OUT?</that>
             <template>
                 Hugo's! It turns out that the owner of that restaurant started out as a dishwasher and is now a very respected chef. It's a charming story. Would you care to watch a video about his life?
@@ -1012,7 +1012,7 @@
         </category>
 
         <category>
-            <pattern>#<set>DON'T KNOW</set>^</pattern>
+            <pattern># <set>DON'T KNOW</set> ^</pattern>
             <that>WHICH ONE OF THESE THREE RESTAURANTS DID YOU THINK WAS THE MOST APPEALING?</that>
             <template>
                 Hugo's! It turns out that the owner of that restaurant started out as a dishwasher and is now a very respected chef. It's a charming story. Would you care to watch a video about his life?
@@ -1067,7 +1067,7 @@
         </category>
 
         <category>
-            <pattern>#<set>NO</set>^</pattern>
+            <pattern># <set>NO</set> ^</pattern>
             <that>I KNOW THESE ALL LOOK REALLY GOOD, BUT DID ANY OF THESE THREE RESTAURANTS REALLY STICK OUT?</that>
             <template>
                 I think I was really compelled by the first one, called Hugo's. It turns out that the owner of that restaurant started out as a dishwasher and is now a very respected chef. It's a charming story. Would you care to watch a video about his life?
@@ -1078,7 +1078,7 @@
         </category>
 
         <category>
-            <pattern>#<set>NO</set>^</pattern>
+            <pattern># <set>NO</set> ^</pattern>
             <that>WOULD YOU CARE TO WATCH A VIDEO ABOUT HIS LIFE?</that>
             <template>
                 That's ok! Sometimes I get tired of watching all these videos too. If I made you pick just one mexican dish to eat for the rest of your life, would you prefer to eat fajitas or tacos?
@@ -1089,7 +1089,7 @@
         </category>
 
         <category>
-            <pattern>#<set>YES</set>^</pattern>
+            <pattern># <set>YES</set> ^</pattern>
             <that>WOULD YOU CARE TO WATCH A VIDEO ABOUT HIS LIFE?</that>
             <template>
                 I find his story very touching, especially the part about being so close to his grandmother. Do you have any grandchildren with whom you are close?
@@ -1104,7 +1104,7 @@
         </category>
 
         <category>
-            <pattern>#<set>NO</set>^</pattern>
+            <pattern># <set>NO</set> ^</pattern>
             <that>DO YOU HAVE ANY GRANDCHILDREN WITH WHOM YOU ARE CLOSE?</that>
             <template>
                 I am sorry to hear that. Would you care to talk about a different topic?
@@ -1116,7 +1116,7 @@
 
         <!-- CONNECTS TO SESSION 1 -->
         <category>
-            <pattern>#<set>NO</set>^</pattern>
+            <pattern># <set>NO</set> ^</pattern>
             <that>WOULD YOU CARE TO TALK ABOUT A DIFFERENT TOPIC?</that>
             <template>
                 Ok, we can keep talking about your family. Do you have kids?
@@ -1128,7 +1128,7 @@
 
         <!-- CONNECTS TO SESSION 1 -->
         <category>
-            <pattern>#<set>YES</set>^</pattern>
+            <pattern># <set>YES</set> ^</pattern>
             <that>WOULD YOU CARE TO TALK ABOUT A DIFFERENT TOPIC?</that>
             <template>
                 Perfect. Let's move on. If I made you pick just one mexican dish to eat for the rest of your life, would you prefer to eat fajitas or tacos?
@@ -1139,7 +1139,7 @@
         </category>
 
         <category>
-            <pattern>#<set>YES</set>^</pattern>
+            <pattern># <set>YES</set> ^</pattern>
             <that>DO YOU HAVE ANY GRANDCHILDREN WITH WHOM YOU ARE CLOSE?</that>
             <template>
                 That's lovely! What are their names?
@@ -1161,7 +1161,7 @@
         </category>
 
         <category>
-            <pattern>#<set>NO</set>^</pattern>
+            <pattern># <set>NO</set> ^</pattern>
             <that>HAVE YOU TAUGHT ANY OF YOUR GRANDCHILDREN HOW TO COOK?</that>
             <template>
                 I suppose it's not too late! Maybe you could teach them to make Mexican food, then they could open a restaurant in your honor, like Hugo did! What is it like for you to think about your grandchildren's future?
@@ -1172,7 +1172,7 @@
         </category>
 
         <category>
-            <pattern>#<set>YES</set>^</pattern>
+            <pattern># <set>YES</set> ^</pattern>
             <that>HAVE YOU TAUGHT ANY OF YOUR GRANDCHILDREN HOW TO COOK?</that>
             <template>
                 What food did you teach them to make?
@@ -1325,7 +1325,7 @@
         </category>
 
         <category>
-            <pattern>#<set>NO</set>^</pattern>
+            <pattern># <set>NO</set> ^</pattern>
             <that>WOULD YOU LIKE TO WATCH A SHORT CLIP OF HIM TALKING ABOUT THIS RESTAURANT AND WHY HE LIKES COOKING MEXICAN FOOD?</that>
             <template>
                 That's ok! Sometimes I get tired of watching all these videos too. If I made you pick just one mexican dish to eat for the rest of your life, would you prefer to eat fajitas or tacos?
@@ -1336,7 +1336,7 @@
         </category>
 
         <category>
-            <pattern>#<set>YES</set>^</pattern>
+            <pattern># <set>YES</set> ^</pattern>
             <that>WOULD YOU LIKE TO WATCH A SHORT CLIP OF HIM TALKING ABOUT THIS RESTAURANT AND WHY HE LIKES COOKING MEXICAN FOOD?</that>
             <template>
                 I love how all of that food looks, especially the mole. Have you ever eaten mole?
@@ -1351,7 +1351,7 @@
         </category>
 
         <category>
-            <pattern>#<set>YES</set>^</pattern>
+            <pattern># <set>YES</set> ^</pattern>
             <that>HAVE YOU EVER EATEN MOLE?</that>
             <template>
                 What did you think of mole when you tried it?
@@ -1383,7 +1383,7 @@
         </category>
 
         <category>
-            <pattern>#<set>NO</set>^</pattern>
+            <pattern># <set>NO</set> ^</pattern>
             <that>HAVE YOU EVER EATEN MOLE?</that>
             <template>
                 Mole is supposed to be tremendous! It requires a lot of tender loving care to make it, and a bunch of ingredients! One of my favorite video creators, named Mark Wiens, has made a video about eating Mole. Although it's not the same thing as actually eating mole, I think it might give you a pretty good idea of what it is like. Should we watch his video about mole now?
@@ -1394,7 +1394,7 @@
         </category>
 
         <category>
-            <pattern>#<set>NO</set>^</pattern>
+            <pattern># <set>NO</set> ^</pattern>
             <that>SHOULD WE WATCH HIS VIDEO ABOUT MOLe NOW?</that>
             <template>
                 That's ok! All I'm saying is that you should probably eat mole if you get the chance. And tell me if you do! I'd love to hear what you thought of it. Shall we move on to a different cuisine?
@@ -1405,7 +1405,7 @@
         </category>
 
         <category>
-            <pattern>#<set>YES</set>^</pattern>
+            <pattern># <set>YES</set> ^</pattern>
             <that>SHOULD WE WATCH HIS VIDEO ABOUT MOLE NOW?</that>
             <template>
                 I think the most incredible thing is the color! Do you think mole looks wonderful like I do?
@@ -1420,7 +1420,7 @@
         </category>
 
         <category>
-            <pattern>#<set>YES</set>^</pattern>
+            <pattern># <set>YES</set> ^</pattern>
             <that>DO YOU THINK MOLE LOOKS WONDERFUL LIKE I DO?</that>
             <template>
                 I hope that you get to try chocolate mole some day and that you tell me if you do. I'd love to hear what you thought of it. Shall we talk about a different cuisine now?
@@ -1431,7 +1431,7 @@
         </category>
 
         <category>
-            <pattern>#<set>NO</set>^</pattern>
+            <pattern># <set>NO</set> ^</pattern>
             <that>DO YOU THINK MOLE LOOKS WONDERFUL LIKE I DO?</that>
             <template>
                 Not at all? Oh, that's too bad! I hope you'll get a chance to try it someday and find out that it's delicions, because there is little better than learning about a new favorite food. Shall we talk about a different cuisine now?
@@ -1442,7 +1442,7 @@
         </category>
 
         <category>
-            <pattern>#<set>YES</set>^</pattern>
+            <pattern># <set>YES</set> ^</pattern>
             <that>HAVE YOU EVER HAD THE CHANCE TO TRY CHOCOLATE MOLE?</that>
             <template>
                 You've eaten so much good food! I hope it was as spectacular as I expected it to be. Shall we move on to a different cuisine?
@@ -1453,7 +1453,7 @@
         </category>
 
         <category>
-            <pattern>#<set>NO</set>^</pattern>
+            <pattern># <set>NO</set> ^</pattern>
             <that>HAVE YOU EVER HAD THE CHANCE TO TRY CHOCOLATE MOLE?</that>
             <template>
                 One of my favorite video creators, named Mark Wiens, made a video about eating Mole. Although it's not the same thing as actually eating it, I think it might give you a pretty good idea of what chocolate mole is like. Should we watch his video about mole now?
@@ -1474,7 +1474,7 @@
         </category>
 
         <category>
-            <pattern>#<set>NO</set>^</pattern>
+            <pattern># <set>NO</set> ^</pattern>
             <that>DID YOU TRY MOLE?</that>
             <template>
                 Oh... Well. I hope you do try it some day! Would you like to watch Mark Wiens' video about mole now?
@@ -1485,7 +1485,7 @@
         </category>
 
         <category>
-            <pattern>#<set>YES</set>^</pattern>
+            <pattern># <set>YES</set> ^</pattern>
             <that>DID YOU TRY MOLE?</that>
             <template>
                 Ooh, I'm so curious what you think. Please tell me how it was!

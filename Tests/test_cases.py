@@ -69,6 +69,7 @@ class TestFunctions(unittest.TestCase):
         exported = Storage.importAIML('./test_aimls/utils_exp')
         print(f'TEST:\n{imported}')
         print(f'EXPECTED:\n{exported}')
+        self.maxDiff = None
         self.assertEqual(str(imported),str(exported))
 
     
