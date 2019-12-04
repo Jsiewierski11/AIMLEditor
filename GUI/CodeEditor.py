@@ -193,7 +193,7 @@ class QCodeEditor(QPlainTextEdit):
             hi_selection.cursor.clearSelection()
             self.setExtraSelections([hi_selection])
 
-    # function to make connection with signal in DockerWidget
+    # function to make connection with signal in TabController
     def make_connection(self, tab_controller):
         tab_controller.catCreated.connect(self.categoryCreated)
 
@@ -203,6 +203,7 @@ class QCodeEditor(QPlainTextEdit):
         try:
             print("In CodeEditor Slot - categoryCreated()")
             if self.aiml is not None:
+                print(f"Current aiml Model:\n{self.aiml}")
                 print("Ok to add category")
                 self.aiml.append(cat)
                 print("appended category to AIML object")

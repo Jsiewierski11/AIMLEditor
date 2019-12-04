@@ -1,7 +1,6 @@
 import pickle
 from Model.Data import *
 from PyQt5.QtWidgets import QErrorMessage
-import xmlschema
 
 
 def handleError(error):
@@ -73,6 +72,7 @@ def decode_tag(tag_type):
 def recursive_decoding(head, tag_xml):
     try:
         for child in tag_xml:
+            print(f"Recursive_decoding. tag type: {child.tag}")
             tag_obj = decode_tag(child.tag.lower())
             if(tag_obj != False):
                 if child.text:
@@ -123,7 +123,8 @@ def importAIML(filename, tempFile=False):
 def parse_text(contents):
     print("getting root of the tree")
     try:
-        root = ET.fromstring(contents)
+        parser = ET.XMLParser(target=CommentedTreeBuilder())
+        root = ET.fromstring(contents, parser)
         print(root.text)
         return decode_root(root)
     except Exception as ex:

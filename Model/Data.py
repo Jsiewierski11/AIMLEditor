@@ -215,10 +215,10 @@ class Tag(Serializable):
 
     def map_to_string(self):
         tags = ''
-        print(f"In map_to_string, tag.type: {self.type}")
+        # print(f"In map_to_string, tag.type: {self.type}")
         for index, tag in enumerate(self.tags):
             if type(tag) is str:
-                print('in the str case')
+                # print('in the str case')
                 tags += '\n' + indent(tag, Formatting.indentation)
             else:
                 if tag.type == "star":

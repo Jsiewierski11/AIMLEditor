@@ -316,6 +316,7 @@ class DockerWidget(QDockWidget):
         self.randomTableWidget.randomCreated.connect(self.randomCreated)
 
     def createClicked(self):
+        print("Create Clicked")
         # Initialize tag objects
         id = QUuid()
         id = id.createUuid()
@@ -347,6 +348,7 @@ class DockerWidget(QDockWidget):
         self.imageEdit.clear()
 
         # emitting signal to EditorWindow to be sent to EditorWidget
+        # Above comment is wrong. This sends self.cat to TabController slot
         self.catCreated.emit(self.cat)
 
         # clearing tag objects

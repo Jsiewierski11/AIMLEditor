@@ -265,14 +265,13 @@ class EditorWindow(QMainWindow):
             for cat in aiml.tags:
                 if cat.type == "topic":
                     print("found topic!")
-
                     for tag in cat.tags:
                         if tag.type == "category":
                             print("tag is a category")
                             # self.catCreated.emit(tag)  # emitting signal to EditorWidget
                             numCats = numCats + 1
                     self.catCreated.emit(cat)  # emitting signal to EditorWidget
-                    self.editSpace.editSpace.aiml.append(cat)
+                    # self.editSpace.editSpace.aiml.append(cat)
                 elif cat.type == "comment":
                     print("found comment tag")
                     self.catCreated.emit(cat)
@@ -350,6 +349,7 @@ class EditorWindow(QMainWindow):
             aiml = Storage.compileToAIML(str_to_parse)
             print("compiling complete")
             self.editSpace.editSpace.aiml = aiml
+            print(f"new model for the aiml:\n{self.editSpace.editSpace.aiml}")
             self.editSpace.up_to_date = True
             self.editSpace.tabs.setStyleSheet('')
         except Exception as ex:
