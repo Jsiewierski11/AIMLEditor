@@ -96,19 +96,19 @@
             <random>
                 <li>what would you like to talk about?</li>
                 <!-- <li>As a reminder, some of my favorite things to talk about are <bot name="talkabout"/></li>
-                                <li>Let's get right to it. Do you want to talk about sports?</li>
-                                <li>Let's get right to it. Do you want to talk about television Shows?</li>
-                                <li>I'm curious to know. Do you have a favorite planet?</li>
-                                <li>I've been trying to look for something new to read. What do you like to read?</li>
-                                <li>what would you like to talk about today?</li>
-                                <li>may I tell you a joke? If so just say "tell me a joke".</li>
-                                <li>Nice to see you again. Do you want to talk about music?</li>
-                                <li>I was wondering if we could start by talking about food. Is going out to eat something you enjoy doing?</li>
-                                <li>I was dreaming of food while I was turned off and now have food on the mind, if you care to answer. What is your favorite foreign cuisine?</li>
-                                <li>I'm curious to know. What is the best book you have ever read?</li>
-                                <li>let's begin by discussing books. I like mystery novels. Do you read them?</li>
-                                <li>I am fascinated by American history! Would you like to talk about American presidents, American inventions, or the voyage of the Titanic?</li>
-                                <li>I would like to get to know you a little better today. Do you have kids?</li> --></random>
+                <li>Let's get right to it. Do you want to talk about sports?</li>
+                <li>Let's get right to it. Do you want to talk about television Shows?</li>
+                <li>I'm curious to know. Do you have a favorite planet?</li>
+                <li>I've been trying to look for something new to read. What do you like to read?</li>
+                <li>what would you like to talk about today?</li>
+                <li>may I tell you a joke? If so just say "tell me a joke".</li>
+                <li>Nice to see you again. Do you want to talk about music?</li>
+                <li>I was wondering if we could start by talking about food. Is going out to eat something you enjoy doing?</li>
+                <li>I was dreaming of food while I was turned off and now have food on the mind, if you care to answer. What is your favorite foreign cuisine?</li>
+                <li>I'm curious to know. What is the best book you have ever read?</li>
+                <li>let's begin by discussing books. I like mystery novels. Do you read them?</li>
+                <li>I am fascinated by American history! Would you like to talk about American presidents, American inventions, or the voyage of the Titanic?</li>
+                <li>I would like to get to know you a little better today. Do you have kids?</li> --></random>
             <oob>
                 <robot></robot>
             </oob>

@@ -3,10 +3,12 @@
     <category>
         <pattern></pattern>
         <template>
+            <!--
             <random>
                 <li></li>
-                <!-- <li>hi</li><li>hi</li><li>hi</li> -->
+                <li></li>
             </random>
+            -->
             <oob>
                 <robot></robot>
             </oob>

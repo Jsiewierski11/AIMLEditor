@@ -182,14 +182,20 @@ class Tag(Serializable):
                 key, val) for key, val in self.attrib.items())) if len(self.attrib) > 0 else ""
 
         if self.type == 'pattern' or self.type == 'srai' or \
-           self.type == 'li' or self.type == 'comment' or \
+           self.type == 'li' or \
            self.type == 'that' or self.type == "set" or \
            self.type == 'filename' or self.single == True:
             # NOTE: If tag is one of the types listed above, 
             #       keep everything on one line
             tags = "".join(map(str, self.tags))
-        # elif self.type == 'comment':
-        #     tags = "".join(map(str, self.tags))
+        elif self.type == 'comment':
+            # print("At comment tag")
+            # print(f"self.tags:\n{self.tags}")
+            if self.tags != []:
+                temp_str = self.tags[0].replace("    ", "")
+                tags = " ".join(temp_str.split(" "))
+            else:
+                tags = "".join(map(str, self.tags))
         elif len(self.tags) > 0:
             tags = self.map_to_string()
         else:
@@ -222,14 +228,16 @@ class Tag(Serializable):
                 elif tag.type == "pattern" or tag.type == "that" or \
                      tag.type == "li" or tag.type == "random" or tag.type == "comment":                   
                     # Checking to see if we are at end of list
+                    # print("in the outer edge case")
+                    # print(f"tag.type: {tag.type}")
                     if index < len(self.tags)-1:
                         # NOTE: If the next tag is one of the following listed 
                         #       then we need to add an \n char to the end of our string
                         if self.tags[index+1].type != "li" and self.tags[index+1].type != "comment" and \
                         self.tags[index+1].type != "template" and self.tags[index+1].type != "oob" and \
                         self.tags[index+1].type != "category" and self.tags[index+1].type != "that":
-                            print("in the edge case")
-                            print(f"tag.type: {tag.type}")
+                            # print("in the inner edge case")
+                            # print(f"tag.type: {tag.type}")
                             tags += '\n' + indent(''.join(str(tag)),
                                     Formatting.indentation) + '\n'
                         else:
