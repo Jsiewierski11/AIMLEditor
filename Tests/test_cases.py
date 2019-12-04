@@ -90,8 +90,8 @@ class TestFunctions(unittest.TestCase):
         imported = Storage.importAIML('./test_aimls/mexican_food')
         Storage.exportAIML('./test_aimls/mexican_food_exp', imported)
         exported = Storage.importAIML('./test_aimls/mexican_food_exp')
-        print(f'TEST:\n{imported}')
-        print(f'EXPECTED:\n{exported}')
+        # print(f'TEST:\n{imported}')
+        # print(f'EXPECTED:\n{exported}')
         self.assertEqual(str(imported),str(exported))
     
 

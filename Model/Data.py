@@ -16,7 +16,6 @@ class Tag(Serializable):
         self.tags = []
         self.acceptable_tags = acceptable_tags
         self.attrib = attrib
-        self.parent = None # This is only used in map_to_string() and is set in append
 
         self.tag_list = {"aiml": AIML,
             "topic": Topic,
@@ -177,15 +176,17 @@ class Tag(Serializable):
             print("Exception caught in findTag!")
             print(ex)
 
+    # FIXME: Multiline comments are being indented for some reason.
     def __str__(self):
         attrib = (' ' + ' '.join('{}=\"{}\"'.format(
                 key, val) for key, val in self.attrib.items())) if len(self.attrib) > 0 else ""
 
-        # FIXME: Multiline comments are being indented for some reason.
         if self.type == 'pattern' or self.type == 'srai' or \
            self.type == 'li' or self.type == 'comment' or \
-           self.type == 'that' or self.type == 'set' or \
+           self.type == 'that' or self.type == "set" or \
            self.type == 'filename' or self.single == True:
+            # NOTE: If tag is one of the types listed above, 
+            #       keep everything on one line
             tags = "".join(map(str, self.tags))
         elif len(self.tags) > 0:
             tags = self.map_to_string()
@@ -194,6 +195,8 @@ class Tag(Serializable):
 
         if self.type == 'comment':
             return "<!-- {} -->".format(tags)
+        elif self.type == 'set' and self.attrib == {}:
+            return " <{}{}>{}</{}> ".format(str(self.type), attrib, tags, str(self.type))
         elif self.single == True:
             if len(attrib) > 0:
                 return "<{} {}/>".format(str(self.type), attrib)
@@ -210,9 +213,15 @@ class Tag(Serializable):
             else:
                 if tag.type == "star":
                     tags += ''.join(str(tag))
+                elif tag.type == "set" and tag.attrib == {}:
+                    print('HERE HERE HERE HERE HERE')
+                    tags += ' ' + ''.join(str(tag)) + ' '
                 elif tag.type == "pattern" or tag.type == "that" or \
-                     tag.type == "li" or tag.type == "random" or tag.type == "comment":
+                     tag.type == "li" or tag.type == "random" or tag.type == "comment":                   
+                    # Checking to see if we are at end of list
                     if index < len(self.tags)-1:
+                        # NOTE: If the next tag is one of the following listed 
+                        #       then we need to add an \n char to the end of our string
                         if self.tags[index+1].type != "li" and self.tags[index+1].type != "comment" and \
                         self.tags[index+1].type != "template" and self.tags[index+1].type != "oob" and \
                         self.tags[index+1].type != "category" and self.tags[index+1].type != "that":
@@ -223,7 +232,7 @@ class Tag(Serializable):
                                         Formatting.indentation)
                     else:
                         tags += '\n' + indent(''.join(str(tag)),
-                                    Formatting.indentation)
+                                    Formatting.indentation)                        
                 else:
                     tags += '\n' + indent(''.join(str(tag)),
                                 Formatting.indentation) + '\n'
