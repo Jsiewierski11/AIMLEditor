@@ -188,6 +188,8 @@ class Tag(Serializable):
             # NOTE: If tag is one of the types listed above, 
             #       keep everything on one line
             tags = "".join(map(str, self.tags))
+        # elif self.type == 'comment':
+        #     tags = "".join(map(str, self.tags))
         elif len(self.tags) > 0:
             tags = self.map_to_string()
         else:
@@ -207,14 +209,15 @@ class Tag(Serializable):
 
     def map_to_string(self):
         tags = ''
+        print(f"In map_to_string, tag.type: {self.type}")
         for index, tag in enumerate(self.tags):
             if type(tag) is str:
+                print('in the str case')
                 tags += '\n' + indent(tag, Formatting.indentation)
             else:
                 if tag.type == "star":
                     tags += ''.join(str(tag))
                 elif tag.type == "set" and tag.attrib == {}:
-                    print('HERE HERE HERE HERE HERE')
                     tags += ' ' + ''.join(str(tag)) + ' '
                 elif tag.type == "pattern" or tag.type == "that" or \
                      tag.type == "li" or tag.type == "random" or tag.type == "comment":                   
@@ -225,6 +228,8 @@ class Tag(Serializable):
                         if self.tags[index+1].type != "li" and self.tags[index+1].type != "comment" and \
                         self.tags[index+1].type != "template" and self.tags[index+1].type != "oob" and \
                         self.tags[index+1].type != "category" and self.tags[index+1].type != "that":
+                            print("in the edge case")
+                            print(f"tag.type: {tag.type}")
                             tags += '\n' + indent(''.join(str(tag)),
                                     Formatting.indentation) + '\n'
                         else:
