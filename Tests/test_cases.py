@@ -84,6 +84,15 @@ class TestFunctions(unittest.TestCase):
         # jup_exp = open('./test_aimls/jupiter_exp.aiml', 'r')
         # jup2_contents = jup_exp.read()
         # self.assertEqual(jup_contents, jup2_contents)
+
+
+    def test_topic_import(self):
+        imported = Storage.importAIML('./test_aimls/mexican_food')
+        Storage.exportAIML('./test_aimls/mexican_food_exp', imported)
+        exported = Storage.importAIML('./test_aimls/mexican_food_exp')
+        print(f'TEST:\n{imported}')
+        print(f'EXPECTED:\n{exported}')
+        self.assertEqual(str(imported),str(exported))
     
 
     # def test_map_to_string(self):
