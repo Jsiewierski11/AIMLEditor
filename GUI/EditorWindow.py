@@ -266,8 +266,9 @@ class EditorWindow(QMainWindow):
                     for tag in cat.tags:
                         if tag.type == "category":
                             print("tag is a category")
-                            self.catCreated.emit(tag)  # emitting signal to EditorWidget
+                            # self.catCreated.emit(tag)  # emitting signal to EditorWidget
                             numCats = numCats + 1
+                    self.catCreated.emit(cat)  # emitting signal to EditorWidget
                     self.editSpace.editSpace.aiml.append(cat)
                 elif cat.type == "comment":
                     print("found comment tag")
