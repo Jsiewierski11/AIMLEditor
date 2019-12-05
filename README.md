@@ -23,6 +23,17 @@ The editor has 2 different displays.
     python -m unittest -v test_cases.py
     ```
 
+## To compile to an executable
+- Install pyinstaller with:
+    ```
+    pip install pyinstaller
+    ```
+- In the root directory run:
+    ```
+    pyinstaller main.py
+    ```
+    - This will create a dist folder that will contain the executable along with other files.
+
 # Using the Editor
 - Any time a change is made to the editspace be sure to compile to properly save what you are showing on screen.
 - The tabs labeled as "Text Display" and "Graph Display" will turn red when changes are made indicating you need to compile the code.
