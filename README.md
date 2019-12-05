@@ -43,7 +43,7 @@ The editor has 2 different displays.
 - An example of a workflow might look like this:
     1. Create a category using the fields on the left. 
     2. Compile.
-    3. Make edits by manually typing your desired tags.
+    3. Make edits by manually typing on the edit space.
     4. Compile.
     5. Make another category.
     6. Compile.
@@ -54,9 +54,11 @@ The editor has 2 different displays.
     3. Create category using fields/manual edits.
     4. Compile.
     5. Export.
+- When exporting to a file DO NOT add the .aiml to the end of your filename. That will be added automatically.
+- Importing a file will overwrite whatever is currently on the edit space.
 
 ## Useful Shortcut commands
 - Crtl + Shift + I - Imports a file
 - Crtl + Shift + E - Exports a file
-- Crtl + Shift + C - Compiles what is one screen
+- Crtl + Shift + C - Compiles what is on screen
 - Crtl + F - Displays window that allows you to find and replace words in the edit space.

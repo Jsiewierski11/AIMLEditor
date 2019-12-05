@@ -215,7 +215,6 @@ class QCodeEditor(QPlainTextEdit):
                 self.aiml.append(cat)
                 print("appended category to AIML object")
                 self.setPlainText(str(self.aiml))
-                print("here")
         except Exception as ex:
             handleError(ex)
             print("exception caught! - CodeEditor categoryCreated")
