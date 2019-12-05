@@ -233,16 +233,20 @@ class Tag(Serializable):
                     if index < len(self.tags)-1:
                         # NOTE: If the next tag is one of the following listed 
                         #       then we need to add an \n char to the end of our string
-                        if self.tags[index+1].type != "li" and self.tags[index+1].type != "comment" and \
-                        self.tags[index+1].type != "template" and self.tags[index+1].type != "oob" and \
-                        self.tags[index+1].type != "category" and self.tags[index+1].type != "that":
-                            # print("in the inner edge case")
-                            # print(f"tag.type: {tag.type}")
-                            tags += '\n' + indent(''.join(str(tag)),
-                                    Formatting.indentation) + '\n'
+                        if type(self.tags[index+1]) != str:
+                            if self.tags[index+1].type != "li" and self.tags[index+1].type != "comment" and \
+                            self.tags[index+1].type != "template" and self.tags[index+1].type != "oob" and \
+                            self.tags[index+1].type != "category" and self.tags[index+1].type != "that":
+                                # print("in the inner edge case")
+                                # print(f"tag.type: {tag.type}")
+                                tags += '\n' + indent(''.join(str(tag)),
+                                        Formatting.indentation) + '\n'
+                            else:
+                                tags += '\n' + indent(''.join(str(tag)),
+                                            Formatting.indentation)
                         else:
-                            tags += '\n' + indent(''.join(str(tag)),
-                                        Formatting.indentation)
+                                tags += '\n' + indent(''.join(str(tag)),
+                                            Formatting.indentation)
                     else:
                         tags += '\n' + indent(''.join(str(tag)),
                                     Formatting.indentation)                        
