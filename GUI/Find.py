@@ -29,12 +29,12 @@ class Find(QtWidgets.QDialog):
         findButton.clicked.connect(self.find)
 
         # Button to replace the last finding
-        # replaceButton = QtWidgets.QPushButton("Replace",self)
-        # replaceButton.clicked.connect(self.replace)
+        replaceButton = QtWidgets.QPushButton("Replace",self)
+        replaceButton.clicked.connect(self.replace)
 
         # Button to remove all findings
-        # allButton = QtWidgets.QPushButton("Replace all",self)
-        # allButton.clicked.connect(self.replaceAll)
+        allButton = QtWidgets.QPushButton("Replace all",self)
+        allButton.clicked.connect(self.replaceAll)
 
         # Normal mode - radio button
         self.normalRadio = QtWidgets.QRadioButton("Normal",self)
@@ -48,8 +48,8 @@ class Find(QtWidgets.QDialog):
 
         # The field into which to type the text to replace the
         # queried text
-        # self.replaceField = QtWidgets.QTextEdit(self)
-        # self.replaceField.resize(250,50)
+        self.replaceField = QtWidgets.QTextEdit(self)
+        self.replaceField.resize(250,50)
         
         layout = QtWidgets.QGridLayout()
 
@@ -58,9 +58,9 @@ class Find(QtWidgets.QDialog):
         layout.addWidget(regexRadio,2,3)
         layout.addWidget(findButton,2,0,1,2)
         
-        # layout.addWidget(self.replaceField,3,0,1,4)
-        # layout.addWidget(replaceButton,4,0,1,2)
-        # layout.addWidget(allButton,4,2,1,2)
+        layout.addWidget(self.replaceField,3,0,1,4)
+        layout.addWidget(replaceButton,4,0,1,2)
+        layout.addWidget(allButton,4,2,1,2)
 
         self.setGeometry(300,300,360,250)
         self.setWindowTitle("Find and Replace")

@@ -43,3 +43,9 @@ The editor has 2 different displays.
     3. Create category using fields/manual edits.
     4. Compile.
     5. Export.
+
+## Useful Shortcut commands
+- Crtl + Shift + I - Imports a file
+- Crtl + Shift + E - Exports a file
+- Crtl + Shift + C - Compiles what is one screen
+- Crtl + F - Displays window that allows you to find and replace words in the edit space.
