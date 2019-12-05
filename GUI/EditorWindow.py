@@ -6,6 +6,7 @@ from PyQt5.QtCore import Qt, pyqtSlot, QFileInfo
 from GUI.EditorWidget import EditorWidget
 from GUI.DockerWidget import DockerWidget
 from GUI.TabController import TabController
+from GUI.Find import Find
 from Model.Data import *
 import Utils.Storage as Storage
 import Utils.AIMLHighlighter as HL
@@ -60,6 +61,8 @@ class EditorWindow(QMainWindow):
         fileMenu.addAction(self.createAct('&Export', 'Ctrl+Shift+E', 'Export File', self.onFileExport))
         fileMenu.addAction(self.createAct('&Import', 'Ctrl+Shift+I', 'Import File', self.onFileImport))
         fileMenu.addSeparator()
+        fileMenu.addAction(self.createAct('&Find', 'Ctrl+F', 'Find Word in File', self.onFind))
+        fileMenu.addSeparator()
         fileMenu.addAction(self.createAct('E&xit', 'Ctrl+Q', "Exit application", self.close))
 
         editMenu = menubar.addMenu('&Edit')
@@ -68,10 +71,10 @@ class EditorWindow(QMainWindow):
         editMenu.addAction(self.createAct('Cu&t', 'Ctrl+X', "Cut to clipboard", self.onEditCut))
         editMenu.addAction(self.createAct('&Copy', 'Ctrl+C', "Copy to clipboard", self.onEditCopy))
         editMenu.addAction(self.createAct('&Paste', 'Ctrl+V', "Paste from clipboard", self.onEditPaste))
-        editMenu.addSeparator()
-        editMenu.addAction(self.createAct('&Delete', 'Del', "Delete selected items", self.onEditDelete))
-        editMenu.addSeparator()
-        editMenu.addAction(self.createAct('&Add a Node', 'Ctrl+A', "Add a new node", self.onEditAdd))
+        # editMenu.addSeparator()
+        # editMenu.addAction(self.createAct('&Delete', 'Del', "Delete selected items", self.onEditDelete))
+        # editMenu.addSeparator()
+        # editMenu.addAction(self.createAct('&Add a Node', 'Ctrl+A', "Add a new node", self.onEditAdd))
 
         compileMenu = menubar.addMenu('Compile')
         compileMenu.addAction(self.createAct('Compile project', 'Ctrl+Shift+C', 'Compile project to export', self.onCompile))
@@ -182,6 +185,11 @@ class EditorWindow(QMainWindow):
 
     def onScenePosChanged(self, x, y):
         self.status_mouse_pos.setText("Scene Pos: [%d, %d]" % (x, y))
+
+    def onFind(self):
+        print("Find command called")
+        finder = Find(self.editSpace.editSpace)
+        finder.show()
 
     def onFileNew(self):
         self.editSpace.aiml = AIML()
