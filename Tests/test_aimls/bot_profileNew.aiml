@@ -185,7 +185,6 @@
         <oob><robot></robot></oob>
         </template>
     </category>
-    <!--
     <category>
         <pattern>PROFILE</pattern>
         <template>NAME: <srai>NAME</srai>
@@ -228,7 +227,6 @@
             HOST: <srai>HOST</srai>
         </template>
     </category>
-    -->
     <category>
         <pattern>SISTERS</pattern>
         <template>
