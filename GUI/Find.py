@@ -29,12 +29,12 @@ class Find(QtWidgets.QDialog):
         findButton.clicked.connect(self.find)
 
         # Button to replace the last finding
-        replaceButton = QtWidgets.QPushButton("Replace",self)
-        replaceButton.clicked.connect(self.replace)
+        # replaceButton = QtWidgets.QPushButton("Replace",self)
+        # replaceButton.clicked.connect(self.replace)
 
         # Button to remove all findings
-        allButton = QtWidgets.QPushButton("Replace all",self)
-        allButton.clicked.connect(self.replaceAll)
+        # allButton = QtWidgets.QPushButton("Replace all",self)
+        # allButton.clicked.connect(self.replaceAll)
 
         # Normal mode - radio button
         self.normalRadio = QtWidgets.QRadioButton("Normal",self)
@@ -48,8 +48,8 @@ class Find(QtWidgets.QDialog):
 
         # The field into which to type the text to replace the
         # queried text
-        self.replaceField = QtWidgets.QTextEdit(self)
-        self.replaceField.resize(250,50)
+        # self.replaceField = QtWidgets.QTextEdit(self)
+        # self.replaceField.resize(250,50)
         
         layout = QtWidgets.QGridLayout()
 
@@ -58,9 +58,9 @@ class Find(QtWidgets.QDialog):
         layout.addWidget(regexRadio,2,3)
         layout.addWidget(findButton,2,0,1,2)
         
-        layout.addWidget(self.replaceField,3,0,1,4)
-        layout.addWidget(replaceButton,4,0,1,2)
-        layout.addWidget(allButton,4,2,1,2)
+        # layout.addWidget(self.replaceField,3,0,1,4)
+        # layout.addWidget(replaceButton,4,0,1,2)
+        # layout.addWidget(allButton,4,2,1,2)
 
         self.setGeometry(300,300,360,250)
         self.setWindowTitle("Find and Replace")
@@ -72,7 +72,7 @@ class Find(QtWidgets.QDialog):
     def find(self):
 
         # Grab the parent's text
-        text = self.parent.text.toPlainText()
+        text = self.parent.toPlainText()
 
         # And the text to find
         query = self.findField.toPlainText()
@@ -89,7 +89,7 @@ class Find(QtWidgets.QDialog):
             else:
                 # Make the next search start from the begining again
                 self.lastStart = 0
-                self.parent.text.moveCursor(QtGui.QTextCursor.End)
+                self.parent.moveCursor(QtGui.QTextCursor.End)
         else:
             # Compile the pattern
             pattern = re.compile(query)
@@ -102,11 +102,11 @@ class Find(QtWidgets.QDialog):
             else:
                 self.lastStart = 0
                 # We set the cursor to the end if the search was unsuccessful
-                self.parent.text.moveCursor(QtGui.QTextCursor.End)
+                self.parent.moveCursor(QtGui.QTextCursor.End)
 
     def replace(self):
         # Grab the text cursor
-        cursor = self.parent.text.textCursor()
+        cursor = self.parent.textCursor()
 
         # Security
         if cursor.hasSelection():
@@ -114,7 +114,7 @@ class Find(QtWidgets.QDialog):
             # text
             cursor.insertText(self.replaceField.toPlainText())
             # And set the new cursor
-            self.parent.text.setTextCursor(cursor)
+            self.parent.setTextCursor(cursor)
 
     def replaceAll(self):
         self.lastStart = 0
@@ -127,7 +127,7 @@ class Find(QtWidgets.QDialog):
 
     def moveCursor(self, start, end):
         # We retrieve the QTextCursor object from the parent's QTextEdit
-        cursor = self.parent.text.textCursor()
+        cursor = self.parent.textCursor()
 
         # Then we set the position to the beginning of the last match
         cursor.setPosition(start)
@@ -137,4 +137,4 @@ class Find(QtWidgets.QDialog):
         cursor.movePosition(QtGui.QTextCursor.Right,QtGui.QTextCursor.KeepAnchor,end - start)
 
         # And finally we set this new cursor as the parent's 
-        self.parent.text.setTextCursor(cursor)
+        self.parent.setTextCursor(cursor)
