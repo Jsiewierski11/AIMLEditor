@@ -347,6 +347,9 @@ class EditorWindow(QMainWindow):
             return
         try:
             aiml = Storage.compileToAIML(str_to_parse)
+            if aiml == -1:
+                print("did not compile properly")
+                return
             print("compiling complete")
             self.editSpace.editSpace.aiml = aiml
             print(f"new model for the aiml:\n{self.editSpace.editSpace.aiml}")

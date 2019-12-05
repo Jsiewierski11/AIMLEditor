@@ -131,6 +131,7 @@ def parse_text(contents):
         handleError("{} Check for a missing \'/\' or a missing closing tag.".format(ex))
         print("exception caught in trying to parse the string")
         print(ex)
+        return -1
     
 def decode_root(root):
     try:
@@ -151,6 +152,9 @@ def decode_root(root):
 def compileToAIML(str_contents):
     try:
         aiml = parse_text(str_contents)
+        if aiml == -1:
+            print("error while compiling")
+            return -1
         print("Successfully parsed file")
         return aiml
     except Exception as ex:
