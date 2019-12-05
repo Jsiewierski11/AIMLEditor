@@ -182,7 +182,7 @@ class Tag(Serializable):
                 key, val) for key, val in self.attrib.items())) if len(self.attrib) > 0 else ""
 
         if self.type == 'pattern' or self.type == 'srai' or \
-           self.type == 'li' or \
+           self.type == 'li' or self.type == "think" or\
            self.type == 'that' or self.type == "set" or \
            self.type == 'filename' or self.single == True:
             # NOTE: If tag is one of the types listed above, 
