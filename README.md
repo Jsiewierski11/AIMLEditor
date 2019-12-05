@@ -1,11 +1,14 @@
 # AIMLEditor
-A graphical AIML editor written in python 3 and pyqt5.
+A graphical AIML editor written in python 3 and pyqt5. This editor is used to create files that work with a custom AIML parser, Program-R, found here: https://github.com/roholazandie/program-r
+
+
+AIML is a markup language used to create chatbots created by [Richard Wallace](https://en.wikipedia.org/wiki/Richard_Wallace_(scientist)). You can find his paper on AIML [here](https://freeshell.de/~chali/programowanie/Anatomy_of_ALICE.pdf) for a better understanding of the language.
 
 # GUI
 The editor has 2 different displays.
-- A text edit display akin to notepad++
-- A graphical view to display conversation flow (Coming soon)
-    - The Node Editor for the graph view is borrowed from [here](https://gitlab.com/pavel.krupala/pyqt-node-editor-tutorials)
+- A text edit display akin to notepad++.
+- A graphical view to display conversation flow (coming soon).
+    - The Node Editor for the graph view is borrowed from [here](https://gitlab.com/pavel.krupala/pyqt-node-editor-tutorials).
 
 
 # Notes about the Project
@@ -23,11 +26,12 @@ The editor has 2 different displays.
     python -m unittest -v test_cases.py
     ```
 
-## To compile to an executable
+## To Compile to an Executable
 - Install pyinstaller with:
     ```
     pip install pyinstaller
     ```
+    - Documentation for pyinstaller can be found [here](https://www.pyinstaller.org/).
 - In the root directory run:
     ```
     pyinstaller main.py
@@ -57,8 +61,8 @@ The editor has 2 different displays.
 - When exporting to a file DO NOT add the .aiml to the end of your filename. That will be added automatically.
 - Importing a file will overwrite whatever is currently on the edit space.
 
-## Useful Shortcut commands
-- Crtl + Shift + I - Imports a file
-- Crtl + Shift + E - Exports a file
-- Crtl + Shift + C - Compiles what is on screen
-- Crtl + F - Displays window that allows you to find and replace words in the edit space.
+## Useful Shortcut Commands
+- Ctrl + Shift + I - Imports a file
+- Ctrl + Shift + E - Exports a file
+- Ctrl + Shift + C - Compiles what is on screen
+- Ctrl + F - Displays window that allows you to find and replace words in the edit space.
