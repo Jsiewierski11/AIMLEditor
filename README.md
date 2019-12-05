@@ -10,6 +10,8 @@ The editor has 2 different displays.
 - A graphical view to display conversation flow (coming soon).
     - The Node Editor for the graph view is borrowed from [here](https://gitlab.com/pavel.krupala/pyqt-node-editor-tutorials).
 
+Once you hit the "Create" button, a Category tag will be generated with the text in the fields on the left.
+
 ![Screen shot of the editor](Images/AIMLEditor.png)
 
 
