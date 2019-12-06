@@ -60,6 +60,7 @@ class TabController(QWidget):
 
     def add_graphview(self, tab):
         tab.layout = QVBoxLayout(self)
+        # Setting of backdrop for view categories as nodes.
         self.graphview = EditorWidget(self)
         self.tab2.layout.addWidget(self.graphview)
         tab.setLayout(tab.layout)
