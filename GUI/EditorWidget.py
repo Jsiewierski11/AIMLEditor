@@ -404,39 +404,6 @@ class EditorWidget(QWidget):
             print(ex)
             handleError(ex)
 
-    # slot function for a category being created and displaying on editSpace
-    # @pyqtSlot(Tag)
-    # def categoryCreated(self, cat):
-    #     try:
-    #         print("slot in EditorWidget - categoryCreated()")
-    #         # print(str(cat))
-    #         # print("category id: " + str(cat.id))
-    #         # self.aiml.append(cat) 
-    #         thatToCheck = self.getLastSentence(cat)
-    #         print("got last sentence of category")
-    #         title = "Category: " + cat.id
-    #         aNode = Node(self.scene, title, cat)
-    #         print("created node")
-    #         aNode.content.wdg_label.displayVisuals(cat)
-    #         print("displayed contents on node")
-
-    #         for that in thatToCheck:
-    #             self.findChildNodes(aNode, that)
-    #         self.findParentNodes(aNode)
-
-    #         self.placeNodes(self.scene.nodes)
-
-    #         for node in self.scene.nodes:
-    #             node.updateConnectedEdges()
-
-    #         aNode.content.catClicked.connect(self.categoryClicked) # connecting signals coming from Content Widget
-    #         print("trying to connect addChild button")
-    #         aNode.content.childClicked.connect(self.addChildClicked) # connecting signals coming from Content Widget
-    #     except Exception as ex:
-    #         print("Exception caught in EditorWidget when creating category!")
-    #         print(ex)
-    #         handleError(ex)
-
     @pyqtSlot(Tag)
     def addChildClicked(self, cat):
         try:

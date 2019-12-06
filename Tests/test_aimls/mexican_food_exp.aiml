@@ -29,9 +29,7 @@
         <pattern># <set>YES</set> ^</pattern>
         <that>Do you like Mexican food?</that>
         <template>
-            <think>
-                <set name="topic">mexican food</set>
-            </think>
+            <think><set name="topic">mexican food</set></think>
 
             Let's say you're looking for the perfect mexican meal. Would you prefer to go to a sit down restaurant or grab a street taco?
             <oob>
@@ -170,9 +168,7 @@
             <pattern>*</pattern>
             <that>WHAT DO YOU THINK OF CASA BONITA?</that>
             <template>
-                <think>
-                    <set name="data"><star/></set>
-                </think>
+                <think><set name="data"><star/></set></think>
 
                 <condition name="getsentiment">
                     <li value="verypositive">It's pretty entertaining, isn't it? Have you eaten there before?</li>
@@ -235,9 +231,7 @@
             <pattern>*</pattern>
             <that>AND HOW WAS THE FOOD AT CASA BONITA?</that>
             <template>
-                <think>
-                    <set name="data"><star/></set>
-                </think>
+                <think><set name="data"><star/></set></think>
 
                 <condition name="getsentiment">
                     <li value="verypositive">Good dinner and a show? That sounds like an incredible night. If I made you pick just one Casa Bonita dish to eat for the rest of your life, would you prefer to eat fajitas or tacos?</li>
@@ -912,9 +906,7 @@
             <pattern>*</pattern>
             <that>HOW IS IT FOR YOU TO TALK ABOUT YOUR STREET FOOD MEMORIES?</that>
             <template>
-                <think>
-                    <set name="data"><star/></set>
-                </think>
+                <think><set name="data"><star/></set></think>
 
                 <condition name="getsentiment">
                     <li value="verypositive">And I'm happy you were up for sharing with me! I guess I can't get enough about food! Shall we talk about a different cuisine?</li>
@@ -1197,9 +1189,7 @@
             <pattern>*</pattern>
             <that>What is it like for you to think about your grandchildren's future?</that>
             <template>
-                <think>
-                    <set name="data"><star/></set>
-                </think>
+                <think><set name="data"><star/></set></think>
 
                 <condition name="getsentiment">
                     <li value="verypositive">Then I'm happy we could spend some time thinking about them and to think that we got here through talking about mexican food. Your grand kids sound like wonderful people. Shall we talk about a different cuisine now?</li>
@@ -1365,9 +1355,7 @@
             <pattern>*</pattern>
             <that>WHAT DID YOU THINK OF MOLE WHEN YOU TRIED IT?</that>
             <template>
-                <think>
-                    <set name="data"><star/></set>
-                </think>
+                <think><set name="data"><star/></set></think>
 
                 <condition name="getsentiment">
                     <li value="verypositive">I think all of the kinds of mole look fantastic, especially chocolate. Have you ever had the chance to try chocolate mole?</li>
@@ -1499,9 +1487,7 @@
             <pattern>*</pattern>
             <that>PLEASE TELL ME HOW IT WAS!</that>
             <template>
-                <think>
-                    <set name="data"><star/></set>
-                </think>
+                <think><set name="data"><star/></set></think>
 
                 <condition name="getsentiment">
                     <li value="verypositive">Mole sounds just as good as I expected! I'm glad you took my recommendation. Shall we talk about a different cuisine now?</li>

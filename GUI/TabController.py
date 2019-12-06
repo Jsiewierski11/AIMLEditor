@@ -71,14 +71,6 @@ class TabController(QWidget):
     # slot function for a category being created and displaying on editSpace
     @pyqtSlot(Tag)
     def categoryCreated(self, cat):
-        # print("In TabController slot - categoryCreated()")
-        # try:
-        #     self.catCreated.emit(cat) 
-        # except Exception as ex:
-        #     handleError(ex)
-        #     print("exception caught!")
-        #     print(ex)
-
         # This is for the CodeEditor
         try:
             print("In TabController Slot - categoryCreated()")
@@ -102,10 +94,6 @@ class TabController(QWidget):
 
         # This is for the EditorWidget
         try:
-            # print("slot in EditorWidget - categoryCreated()")
-            # print(str(cat))
-            # print("category id: " + str(cat.id))
-            # self.aiml.append(cat) 
             thatToCheck = self.graphview.getLastSentence(cat)
             print("got last sentence of category")
             title = "Category: " + cat.id
