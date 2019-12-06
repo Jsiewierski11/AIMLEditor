@@ -159,7 +159,7 @@ class DockerWidget(QDockWidget):
 
     @pyqtSlot(Tag)
     def categoryClicked(self, cat):
-        print("slot in DockerWidget")
+        print("slot in DockerWidget - categoryClicked()")
         print(cat)
         root = ET.fromstring(str(cat))
         print("root tag: " + root.tag)

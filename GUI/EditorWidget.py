@@ -471,7 +471,7 @@ class EditorWidget(QWidget):
 
     @pyqtSlot(Tag)
     def categoryUpdated(self, cat):
-        print("slot in EditorWidget")
+        print("slot in EditorWidget - categoryUpdated()")
         try:
             updatedCat = self.aiml.update(cat)
             updatedNode = self.updateNode(cat)
@@ -489,7 +489,7 @@ class EditorWidget(QWidget):
 
     @pyqtSlot(Tag)
     def categoryClicked(self, cat):
-        print("slot in EditorWidget")
+        print("slot in EditorWidget - categoryClicked()")
         cat = self.aiml.find(cat.id)
         print(cat)
         self.catClicked.emit(cat) # emitting signal to be sent to EditorWindow
