@@ -160,6 +160,7 @@ class EditorWidget(QWidget):
     """
     def getLastSentence(self, cat):
         try:
+            print("In getLastSentence()")
             template = cat.findTag("template")
             sentences = []
             if template is None:
@@ -172,7 +173,10 @@ class EditorWidget(QWidget):
                 print("no random or condition tag found in template")
                 print(str(template))
                 tempString = template.findTag("text")
-                print(tempString)
+                print(f"tempString: {tempString}")
+                if tempString is None:
+                    print("No sentence in category")
+                    return
                 tempArr = tempString.split()
                 index = 0
                 for word in reversed(tempArr):
@@ -202,6 +206,9 @@ class EditorWidget(QWidget):
                     tempString = template.findTag("text", 2)
                     print(tempString)
                     tempArr = tempString.split()
+                    if tempString is None:
+                        print("No sentence in category")
+                        return
                     index = 0
                     for word in reversed(tempArr):
                         if "." in word or "?" in word or "!" in word:
@@ -245,7 +252,7 @@ class EditorWidget(QWidget):
                                         lastSentence = " ".join(lastSentence)
                                         print(lastSentence)
                                         sentences.append(lastSentence)
-                                        punctuationExists = True
+                                        punctuationExists = Truex
                                         break
                                 index = index + 1
                             # If made it to end of array without finding another punctiation mark. return full text in tag
