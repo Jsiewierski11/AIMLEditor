@@ -98,7 +98,7 @@ class EditorWindow(QMainWindow):
 
         # create node editor widget (visualization of categories)
         # self.editSpace = EditorWidget(self)
-        # self.editSpace.graphview.scene.addHasBeenModifiedListener(self.changeTitle)
+        self.editSpace.graphview.scene.addHasBeenModifiedListener(self.changeTitle)
         # self.setCentralWidget(self.editSpace)
 
         ########## making connections to slots ################

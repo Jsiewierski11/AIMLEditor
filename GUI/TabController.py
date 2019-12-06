@@ -4,6 +4,7 @@ from PyQt5.QtGui import QColor
 from PyQt5.QtCore import Qt, pyqtSlot, QFileInfo, pyqtSignal
 from GUI.DockerWidget import DockerWidget
 from GUI.EditorWidget import EditorWidget
+from GUI.Node.Node import Node
 from Model.Data import *
 
 class TabController(QWidget):
@@ -19,6 +20,7 @@ class TabController(QWidget):
         self.layout = QVBoxLayout(self)
         self.editSpace = None # Used for displaying source code
         self.graphview = None # Used for the graphical display
+        self.aiml = None # THIS SHOULD BE THE ONLY MODEL IN THE SYSTEM
         self.docker = docker
         self.window = window
         self.up_to_date = True
@@ -44,6 +46,7 @@ class TabController(QWidget):
         # Make Connection
         self.docker.catCreated.connect(self.categoryCreated)
         self.window.catCreated.connect(self.categoryCreated)
+        self.docker.catUpdated.connect(self.categoryUpdated) # connecting signal from EditorWindow to update Node
         self.editSpace.textChanged.connect(self.editsMade)  
 
     def editsMade(self):
@@ -68,10 +71,81 @@ class TabController(QWidget):
     # slot function for a category being created and displaying on editSpace
     @pyqtSlot(Tag)
     def categoryCreated(self, cat):
-        print("In TabController slot - categoryCreated()")
+        # print("In TabController slot - categoryCreated()")
+        # try:
+        #     self.catCreated.emit(cat) 
+        # except Exception as ex:
+        #     handleError(ex)
+        #     print("exception caught!")
+        #     print(ex)
+
+        # This is for the CodeEditor
         try:
-            self.catCreated.emit(cat) 
+            print("In TabController Slot - categoryCreated()")
+            if self.aiml is not None:
+                print(f"Current aiml Model:\n{self.aiml}")
+                print("Ok to add category")
+                self.aiml.append(cat)
+                print("appended category to AIML object")
+                self.catCreated.emit(self.aiml)
+            else:
+                print("CodeEditor is equal to None")
+                self.aiml = AIML()
+                # self.clear()
+                self.aiml.append(cat)
+                print("appended category to AIML object")
+                self.catCreated.emit(self.aiml)
         except Exception as ex:
             handleError(ex)
-            print("exception caught!")
+            print("exception caught! - TabController categoryCreated()")
+            print(ex)
+
+        # This is for the EditorWidget
+        try:
+            # print("slot in EditorWidget - categoryCreated()")
+            # print(str(cat))
+            # print("category id: " + str(cat.id))
+            # self.aiml.append(cat) 
+            thatToCheck = self.graphview.getLastSentence(cat)
+            print("got last sentence of category")
+            title = "Category: " + cat.id
+            aNode = Node(self.graphview.scene, title, cat)
+            print("created node")
+            aNode.content.wdg_label.displayVisuals(cat)
+            print("displayed contents on node")
+
+            for that in thatToCheck:
+                self.graphview.findChildNodes(aNode, that)
+            self.graphview.findParentNodes(aNode)
+
+            self.graphview.placeNodes(self.graphview.scene.nodes)
+
+            for node in self.graphview.scene.nodes:
+                node.updateConnectedEdges()
+
+            aNode.content.catClicked.connect(self.graphview.categoryClicked) # connecting signals coming from Content Widget
+            print("trying to connect addChild button")
+            aNode.content.childClicked.connect(self.graphview.addChildClicked) # connecting signals coming from Content Widget
+        except Exception as ex:
+            print("Exception caught in EditorWidget when creating category!")
+            print(ex)
+            handleError(ex)
+
+    # Slot function for updating categories.
+    @pyqtSlot(Tag)
+    def categoryUpdated(self, cat):
+        print("slot in TabController - categoryUpdated()")
+        try:
+            updatedCat = self.aiml.update(cat)
+            updatedNode = self.graphview.updateNode(cat)
+            thatStr = self.graphview.getLastSentence(cat)
+            self.graphview.findParentNodes(updatedNode)
+            that = cat.findTag("that")
+            if that is not None:
+                self.graphview.findChildNodes(updatedNode, thatStr)
+            print("display updated")
+            print("updated category")
+            print(str(updatedCat))
+        except Exception as ex:
+            print("Exception caught trying to update Node in TabController")
             print(ex)
