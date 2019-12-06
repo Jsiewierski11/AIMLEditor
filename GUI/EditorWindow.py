@@ -276,7 +276,7 @@ class EditorWindow(QMainWindow):
                     for tag in cat.tags:
                         if tag.type == "category":
                             print("tag is a category")
-                            # self.catCreated.emit(tag)  # emitting signal to EditorWidget
+                            self.catCreated.emit(tag)  # emitting signal to EditorWidget
                             numCats = numCats + 1
                     self.catCreated.emit(cat)  # emitting signal to EditorWidget
                     # self.editSpace.editSpace.aiml.append(cat)
@@ -289,7 +289,7 @@ class EditorWindow(QMainWindow):
                 numCats = numCats + 1
             print("Finished creating " + str(numCats) + " categories")
 
-            # for node in self.editSpace.scene.nodes:
+            # for node in self.editSpace.graphview.scene.nodes:
             #     x = node.grNode.x()
             #     node.setPos(x, yoffset)
             #     yoffset = yoffset + 500
