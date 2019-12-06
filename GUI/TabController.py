@@ -149,3 +149,15 @@ class TabController(QWidget):
         except Exception as ex:
             print("Exception caught trying to update Node in TabController")
             print(ex)
+
+    # Slot function for when a category is clicked in the graphical view.
+    @pyqtSlot(Tag)
+    def categoryClicked(self, cat):
+        print("slot in EditorWidget - categoryClicked()")
+        try:
+            cat = self.aiml.find(cat.id)
+            print(cat)
+            self.catClicked.emit(cat) # emitting signal to be sent to EditorWindow
+        except Exception as ex:
+            print("Exception caught when category is clicked.")
+            print(ex)

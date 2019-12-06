@@ -490,6 +490,10 @@ class EditorWidget(QWidget):
     @pyqtSlot(Tag)
     def categoryClicked(self, cat):
         print("slot in EditorWidget - categoryClicked()")
-        cat = self.aiml.find(cat.id)
-        print(cat)
-        self.catClicked.emit(cat) # emitting signal to be sent to EditorWindow
+        try:
+            # cat = self.aiml.find(cat.id)
+            # print(cat)
+            self.catClicked.emit(cat) # emitting signal to be sent to EditorWindow
+        except Exception as ex:
+            print("Exception caught when category is clicked.")
+            print(ex)
