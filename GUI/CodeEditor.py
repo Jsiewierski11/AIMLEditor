@@ -196,6 +196,7 @@ class QCodeEditor(QPlainTextEdit):
     # function to make connection with signal in TabController
     def make_connection(self, tab_controller):
         tab_controller.catCreated.connect(self.categoryCreated)
+        tab_controller.catUpdated.connect(self.categoryUpdated)
 
     # slot function for a category being created and displaying on editSpace
     @pyqtSlot(Tag)
@@ -203,20 +204,18 @@ class QCodeEditor(QPlainTextEdit):
         try:
             print("In CodeEditor Slot - categoryCreated()")
             self.setPlainText(str(aiml))
-            # if self.aiml is not None:
-            #     print(f"Current aiml Model:\n{self.aiml}")
-            #     print("Ok to add category")
-            #     self.aiml.append(cat)
-            #     print("appended category to AIML object")
-            #     self.setPlainText(str(self.aiml))
-            # else:
-            #     print("CodeEditor is equal to None")
-            #     self.aiml = AIML()
-            #     self.clear()
-            #     self.aiml.append(cat)
-            #     print("appended category to AIML object")
-            #     self.setPlainText(str(self.aiml))
         except Exception as ex:
             handleError(ex)
             print("exception caught! - CodeEditor categoryCreated()")
+            print(ex)
+
+    # Slot function for updating categories.
+    @pyqtSlot(Tag)
+    def categoryUpdated(self, aiml):
+        try:
+            print("In CodeEditor Slot - categoryUpdated()")
+            self.setPlainText(str(aiml))
+        except Exception as ex:
+            handleError(ex)
+            print("exception caught! - CodeEditor categoryUpdated()")
             print(ex)
