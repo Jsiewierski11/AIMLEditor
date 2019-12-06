@@ -37,8 +37,13 @@ Once you hit the "Create" button, a Category tag will be generated with the text
     ```
     - Documentation for pyinstaller can be found [here](https://www.pyinstaller.org/).
 - In the root directory run:
+    Linux
     ```
     pyinstaller main.py
+    ```
+    Windows
+    ```
+    pyinstaller -F --noconsole main.py
     ```
     - This will create a dist folder that will contain the executable along with other files.
 
