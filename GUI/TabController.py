@@ -3,6 +3,7 @@ from GUI.CodeEditor import *
 from PyQt5.QtGui import QColor
 from PyQt5.QtCore import Qt, pyqtSlot, QFileInfo, pyqtSignal
 from GUI.DockerWidget import DockerWidget
+from GUI.EditorWidget import EditorWidget
 from Model.Data import *
 
 class TabController(QWidget):
@@ -17,6 +18,7 @@ class TabController(QWidget):
         super(QWidget, self).__init__(parent)
         self.layout = QVBoxLayout(self)
         self.editSpace = None # Used for displaying source code
+        self.graphview = None # Used for the graphical display
         self.docker = docker
         self.window = window
         self.up_to_date = True
@@ -31,8 +33,9 @@ class TabController(QWidget):
         self.tabs.addTab(self.tab1,"Text Display")
         self.tabs.addTab(self.tab2,"Graph Display")
         
-        # Create first tab
+        # Create tabs
         self.add_editspace(self.tab1)
+        self.add_graphview(self.tab2)
         
         # Add tabs to widget
         self.layout.addWidget(self.tabs)
@@ -53,6 +56,12 @@ class TabController(QWidget):
         # Setting main editing area where Files will be displayed and can be edited
         self.editSpace = QCodeEditor(self)
         self.tab1.layout.addWidget(self.editSpace)
+        tab.setLayout(tab.layout)
+
+    def add_graphview(self, tab):
+        tab.layout = QVBoxLayout(self)
+        self.graphview = EditorWidget(self)
+        self.tab2.layout.addWidget(self.graphview)
         tab.setLayout(tab.layout)
 
     # slot function for a category being created and displaying on editSpace
