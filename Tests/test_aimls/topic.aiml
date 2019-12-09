@@ -15,4 +15,11 @@
         </template>
     </category>
     </topic>
+    <category>
+        <pattern>HOW ARE YOU</pattern>
+	    <template>
+            I am doing well thank you.
+            <oob><robot></robot></oob>
+        </template>
+    </category>
 </aiml>

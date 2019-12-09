@@ -252,7 +252,7 @@ class EditorWidget(QWidget):
                                         lastSentence = " ".join(lastSentence)
                                         print(lastSentence)
                                         sentences.append(lastSentence)
-                                        punctuationExists = Truex
+                                        punctuationExists = True
                                         break
                                 index = index + 1
                             # If made it to end of array without finding another punctiation mark. return full text in tag

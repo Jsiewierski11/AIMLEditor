@@ -94,27 +94,52 @@ class TabController(QWidget):
 
         # This is for the EditorWidget
         try:
-            thatToCheck = self.graphview.getLastSentence(cat)
-            print("got last sentence of category")
-            title = "Category: " + cat.id
-            aNode = Node(self.graphview.scene, title, cat)
-            print("created node")
-            aNode.content.wdg_label.displayVisuals(cat)
-            print("displayed contents on node")
+            if cat.type == "topic":
+                # Iterate through topic and place categories
+                for category in cat.tags:
+                    thatToCheck = self.graphview.getLastSentence(category)
+                    print("got last sentence of category")
+                    title = "Category: " + category.id
+                    aNode = Node(self.graphview.scene, title, category)
+                    print("created node")
+                    aNode.content.wdg_label.displayVisuals(category)
+                    print("displayed contents on node")
 
-            if thatToCheck is not None:
-                for that in thatToCheck:
-                    self.graphview.findChildNodes(aNode, that)
-            
-            self.graphview.findParentNodes(aNode)
-            self.graphview.placeNodes(self.graphview.scene.nodes)
+                    if thatToCheck is not None:
+                        for that in thatToCheck:
+                            self.graphview.findChildNodes(aNode, that)
+                    
+                    self.graphview.findParentNodes(aNode)
+                    self.graphview.placeNodes(self.graphview.scene.nodes)
 
-            for node in self.graphview.scene.nodes:
-                node.updateConnectedEdges()
+                    for node in self.graphview.scene.nodes:
+                        node.updateConnectedEdges()
 
-            aNode.content.catClicked.connect(self.graphview.categoryClicked) # connecting signals coming from Content Widget
-            print("trying to connect addChild button")
-            aNode.content.childClicked.connect(self.graphview.addChildClicked) # connecting signals coming from Content Widget
+                    aNode.content.catClicked.connect(self.graphview.categoryClicked) # connecting signals coming from Content Widget
+                    print("trying to connect addChild button")
+                    aNode.content.childClicked.connect(self.graphview.addChildClicked) # connecting signals coming from Content Widget
+            else:
+                thatToCheck = self.graphview.getLastSentence(cat)
+                print("got last sentence of category")
+                title = "Category: " + cat.id
+                aNode = Node(self.graphview.scene, title, cat)
+                print("created node")
+                aNode.content.wdg_label.displayVisuals(cat)
+                print("displayed contents on node")
+
+                if thatToCheck is not None:
+                    for that in thatToCheck:
+                        self.graphview.findChildNodes(aNode, that)
+                
+                self.graphview.findParentNodes(aNode)
+                self.graphview.placeNodes(self.graphview.scene.nodes)
+
+                for node in self.graphview.scene.nodes:
+                    node.updateConnectedEdges()
+
+                aNode.content.catClicked.connect(self.graphview.categoryClicked) # connecting signals coming from Content Widget
+                print("trying to connect addChild button")
+                aNode.content.childClicked.connect(self.graphview.addChildClicked) # connecting signals coming from Content Widget
         except Exception as ex:
             print("Exception caught in TabController case 2 - categoryCreated()")
             print(ex)
