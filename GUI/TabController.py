@@ -151,6 +151,7 @@ class TabController(QWidget):
         print("slot in TabController - categoryUpdated()")
         try:
             updatedCat = self.aiml.update(cat)
+            print(f'Updated aiml object:\n{self.aiml}')
             updatedNode = self.graphview.updateNode(cat)
             thatStr = self.graphview.getLastSentence(cat)
             self.graphview.findParentNodes(updatedNode)

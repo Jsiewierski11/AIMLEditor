@@ -123,6 +123,7 @@ class Tag(Serializable):
         return None
 
     def update(self, newCat):
+        print("UPDATING CATEGORY")
         if id is None:
             print("Bad id, id was never generated and is currently null")
             return None
@@ -133,14 +134,23 @@ class Tag(Serializable):
                     print("category to be removed: " + str(cat))
                     # cat = newCat
                     # self.tags.append(newCat)
-                    # self.tags[index] = newCat
-                    self.tags.remove(cat)
+                    self.tags[index] = newCat
+                    # self.tags.remove(cat)
                     # self.tags.insert(index, newCat)
                     # return newCat
+            elif cat.type == "topic":
+                print("topic tag")
+                for ind, tag in enumerate(cat.tags):
+                    if tag.id == newCat.id:
+                        print("category to be removed: " + str(tag))
+                        # print(f"category that is being replaced:\n{tag.tags[ind]}")
+                        tag = newCat
+                        break
+                        # self.tags[index] = tag
             else:
                 print("tag type: " + cat.type)
 
-        self.tags.append(newCat)
+        # self.tags.append(newCat)
         return newCat
 
     """
@@ -182,7 +192,7 @@ class Tag(Serializable):
                 key, val) for key, val in self.attrib.items())) if len(self.attrib) > 0 else ""
 
         if self.type == 'pattern' or self.type == 'srai' or \
-           self.type == 'li' or self.type == "think" or\
+           self.type == 'li' or self.type == "think" or \
            self.type == 'that' or self.type == "set" or \
            self.type == 'filename' or self.single == True:
             # NOTE: If tag is one of the types listed above, 
