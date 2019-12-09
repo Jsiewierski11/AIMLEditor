@@ -161,7 +161,8 @@ class DockerWidget(QDockWidget):
     def categoryClicked(self, cat):
         print("slot in DockerWidget - categoryClicked()")
         print(cat)
-        root = ET.fromstring(str(cat))
+        parser = ET.XMLParser(target=CommentedTreeBuilder())
+        root = ET.fromstring(str(cat), parser)
         print("root tag: " + root.tag)
         if self.update.isVisible() is False:
             self.update.setVisible(True)
@@ -304,6 +305,8 @@ class DockerWidget(QDockWidget):
                     self.conditionTableHTML.appendConItem(item.get("value"), item.text)
                 self.templateEdit.insertHtml(self.conditionTableHTML.table)
                 self.templateEdit.append(child.tail)
+            if child.tag == "comment":
+                self.templateEdit.append(f'<!--{child.text}-->')
 
     def conditionClicked(self):
         self.conditionTableWidget = ConditionTableWidget()

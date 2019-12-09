@@ -107,7 +107,6 @@ class TabController(QWidget):
                     self.graphview.findChildNodes(aNode, that)
             
             self.graphview.findParentNodes(aNode)
-
             self.graphview.placeNodes(self.graphview.scene.nodes)
 
             for node in self.graphview.scene.nodes:
