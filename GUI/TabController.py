@@ -160,7 +160,7 @@ class TabController(QWidget):
             print("display updated")
             print("updated category")
             print(str(updatedCat))
-            self.catUpdated.emit(self.aiml) # Sending the updated aiml object ot the CodeEditor.
+            self.catUpdated.emit(self.aiml) # Sending the updated aiml object to the CodeEditor.
         except Exception as ex:
             print("Exception caught trying to update Node in TabController")
             print(ex)

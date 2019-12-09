@@ -444,24 +444,6 @@ class EditorWidget(QWidget):
             handleError(ex)
 
     @pyqtSlot(Tag)
-    def categoryUpdated(self, cat):
-        print("slot in EditorWidget - categoryUpdated()")
-        try:
-            updatedCat = self.aiml.update(cat)
-            updatedNode = self.updateNode(cat)
-            thatStr = self.getLastSentence(cat)
-            self.findParentNodes(updatedNode)
-            that = cat.findTag("that")
-            if that is not None:
-                self.findChildNodes(updatedNode, thatStr)
-            print("display updated")
-            print("updated category")
-            print(str(updatedCat))
-        except Exception as ex:
-            print("Exception caught trying to update Node in EditorWidget")
-            print(ex)
-
-    @pyqtSlot(Tag)
     def categoryClicked(self, cat):
         print("slot in EditorWidget - categoryClicked()")
         try:

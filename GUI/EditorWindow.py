@@ -261,9 +261,11 @@ class EditorWindow(QMainWindow):
     def onFileImport(self):
         try:
             fname, filter = QFileDialog.getOpenFileName(self, "Import File")
+
             if fname == "":
                 print("Cancel was clicked")
                 return
+                
             yoffset = -4000
             print("fname: " + fname)
             self.filename = os.path.splitext(fname)[0]  # removing extension from path name

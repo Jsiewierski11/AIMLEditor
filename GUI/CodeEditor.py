@@ -206,7 +206,7 @@ class QCodeEditor(QPlainTextEdit):
             self.setPlainText(str(aiml))
         except Exception as ex:
             handleError(ex)
-            print("exception caught! - CodeEditor categoryCreated()")
+            print("Exception caught in CodeEditor - categoryCreated()")
             print(ex)
 
     # Slot function for updating categories.
@@ -217,5 +217,5 @@ class QCodeEditor(QPlainTextEdit):
             self.setPlainText(str(aiml))
         except Exception as ex:
             handleError(ex)
-            print("exception caught! - CodeEditor categoryUpdated()")
+            print("Exception caught in CodeEditor - categoryUpdated()")
             print(ex)

@@ -27,9 +27,9 @@
         <pattern># <set>YES</set> ^</pattern>
         <that>Do you like Mexican food?</that>
         <template>
-                <think><set name="topic">mexican food</set></think>
-                Let's say you're looking for the perfect mexican meal. Would you prefer to go to a sit down restaurant or grab a street taco?
-                <oob><robot></robot></oob>
+            <think><set name="topic">mexican food</set></think>
+            Let's say you're looking for the perfect mexican meal. Would you prefer to go to a sit down restaurant or grab a street taco?
+            <oob><robot></robot></oob>
         </template>
     </category>
 

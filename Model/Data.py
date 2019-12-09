@@ -127,18 +127,18 @@ class Tag(Serializable):
             print("Bad id, id was never generated and is currently null")
             return None
 
-        index = 0
-        for cat in self.tags:
+        for index, cat in enumerate(self.tags):
             if cat.type == "category":
                 if cat.id == newCat.id:
                     print("category to be removed: " + str(cat))
-                    self.tags.remove(cat)
+                    # cat = newCat
                     # self.tags.append(newCat)
                     # self.tags[index] = newCat
+                    self.tags.remove(cat)
+                    # self.tags.insert(index, newCat)
                     # return newCat
             else:
                 print("tag type: " + cat.type)
-            index = index + 1
 
         self.tags.append(newCat)
         return newCat
