@@ -151,7 +151,7 @@ class EditorWidget(QWidget):
                         return False
                 index = index + 1
         except Exception as ex:
-            print("Exception caught in tableContainsTail!")
+            print("Exception caught in EditorWidget - tableContainsTail()")
             print(ex)
             handleError(ex)
 
@@ -159,8 +159,8 @@ class EditorWidget(QWidget):
     Function to find the sentence to be used for <that> tag of potential children
     """
     def getLastSentence(self, cat):
+        print("In getLastSentence()")
         try:
-            print("In getLastSentence()")
             template = cat.findTag("template")
             sentences = []
             if template is None:
@@ -291,7 +291,7 @@ class EditorWidget(QWidget):
                         return sentences
                         print("done goofed")
         except Exception as ex:
-            print("Exception caught in getLastSentence")
+            print("Exception caught in EditorWidget - getLastSentence()")
             print(ex)
             handleError(ex)
 

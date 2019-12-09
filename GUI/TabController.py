@@ -89,7 +89,7 @@ class TabController(QWidget):
                 self.catCreated.emit(self.aiml)
         except Exception as ex:
             handleError(ex)
-            print("exception caught! - TabController categoryCreated()")
+            print("Exception caught in TabController case 1 - categoryCreated()")
             print(ex)
 
         # This is for the EditorWidget
@@ -102,8 +102,10 @@ class TabController(QWidget):
             aNode.content.wdg_label.displayVisuals(cat)
             print("displayed contents on node")
 
-            for that in thatToCheck:
-                self.graphview.findChildNodes(aNode, that)
+            if thatToCheck is not None:
+                for that in thatToCheck:
+                    self.graphview.findChildNodes(aNode, that)
+            
             self.graphview.findParentNodes(aNode)
 
             self.graphview.placeNodes(self.graphview.scene.nodes)
@@ -115,7 +117,7 @@ class TabController(QWidget):
             print("trying to connect addChild button")
             aNode.content.childClicked.connect(self.graphview.addChildClicked) # connecting signals coming from Content Widget
         except Exception as ex:
-            print("Exception caught in EditorWidget when creating category!")
+            print("Exception caught in TabController case 2 - categoryCreated()")
             print(ex)
             handleError(ex)
 
