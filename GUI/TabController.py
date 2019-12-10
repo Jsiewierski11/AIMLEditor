@@ -104,7 +104,7 @@ class TabController(QWidget):
     def zoom_in_clicked(self):
         print("Zoom In Clicked")
         zoomFactor = self.graphview.view.zoomInFactor
-        zoomFactor += self.graphview.view.zoomStep
+        zoomFactor += (self.graphview.view.zoomStep * 0.5)
         self.graphview.view.scale(zoomFactor, zoomFactor)
 
 
@@ -156,7 +156,7 @@ class TabController(QWidget):
                         for that in thatToCheck:
                             self.graphview.findChildNodes(aNode, that)
                     
-                    # FIXME: Why aren't nodes getting placed?
+                    # FIXME: Nodes only get placed if there are that tags
                     self.graphview.findParentNodes(aNode)
                     self.graphview.placeNodes(self.graphview.scene.nodes)
 
