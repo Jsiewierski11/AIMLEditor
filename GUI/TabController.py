@@ -1,4 +1,5 @@
-from PyQt5.QtWidgets import QMainWindow, QWidget, QVBoxLayout, QTabWidget, QPushButton, QVBoxLayout
+from PyQt5.QtWidgets import QMainWindow, QWidget, QVBoxLayout, QGridLayout, \
+                            QTabWidget, QPushButton, QVBoxLayout, QLabel
 from GUI.CodeEditor import *
 from PyQt5.QtGui import QColor
 from PyQt5.QtCore import Qt, pyqtSlot, QFileInfo, pyqtSignal
@@ -62,11 +63,38 @@ class TabController(QWidget):
         tab.setLayout(tab.layout)
 
     def add_graphview(self, tab):
-        tab.layout = QVBoxLayout(self)
+        tab.layout = QGridLayout(self)
         # Setting of backdrop for view categories as nodes.
         self.graphview = EditorWidget(self)
-        self.tab2.layout.addWidget(self.graphview)
+
+        # Building legend and zoom buttons
+        self.add_legend()        
+
+        # Adding widgets to layout
+        self.tab2.layout.addWidget(self.legendLabel, 0, 0)
+        self.tab2.layout.addWidget(self.zoom_out, 0, 1)
+        self.tab2.layout.addWidget(self.zoom_in, 0, 2)
+        self.tab2.layout.addWidget(self.graphview, 1, 0, 1, 3)
+
+        # Setting layout
         tab.setLayout(tab.layout)
+
+
+    def add_legend(self):
+        # Creating buttons to zoom in and out of the graph scene
+        self.zoom_out = QPushButton("-")
+        self.zoom_out.resize(50, 50)
+        self.zoom_in = QPushButton("+")
+        self.zoom_in.resize(50, 50)
+
+        # Creating legend to clarify what fields in nodes mean
+        self.legendLabel = QLabel()
+        self.legendLabel.setFont(QFont("Sanserif", 10))
+        self.legendLabel.setText("1st textbox represents the Pattern Tag\n"
+                                 "2nd textbox represents the That Tag\n"
+                                 "3rd textbox represents the Template Tag")
+        self.legendLabel.setStyleSheet("QLabel {background-color: black; color: white; border: 1px solid "
+                                       "#01DFD7; border-radius: 5px;}")
 
     # slot function for a category being created and displaying on editSpace
     @pyqtSlot(Tag)
