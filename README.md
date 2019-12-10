@@ -42,11 +42,14 @@ Once you hit the "Create" button, a Category tag will be generated with the text
     ```
     pyinstaller main.py
     ```
+    - This will create a dist folder that will contain a .dat file (an linux executable file).
+
     Windows
     ```
     pyinstaller -F --noconsole main.py
     ```
-    - This will create a dist folder that will contain the executable along with other files.
+    - A dist folder will be created but will only contain a file named 'main.exe'.
+    
 
 # Using the Editor
 - Any time a change is made to the editspace be sure to compile to properly save what you are showing on screen.

@@ -271,7 +271,7 @@ class EditorWindow(QMainWindow):
             self.filename = os.path.splitext(fname)[0]  # removing extension from path name
             aiml = Storage.importAIML(self.filename) # import the aiml file
             numCats = 0
-            print("aiml tags: " + str(aiml.tags))
+            print(f"aiml tags:\n{aiml.tags}")
             for cat in aiml.tags:
                 self.catCreated.emit(cat)
                 numCats = numCats + 1

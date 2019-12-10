@@ -132,25 +132,18 @@ class Tag(Serializable):
             if cat.type == "category":
                 if cat.id == newCat.id:
                     print("category to be removed: " + str(cat))
-                    # cat = newCat
-                    # self.tags.append(newCat)
-                    self.tags[index] = newCat
-                    # self.tags.remove(cat)
-                    # self.tags.insert(index, newCat)
-                    # return newCat
+                    self.tags.remove(cat)
+                    self.tags.append(newCat)
             elif cat.type == "topic":
                 print("topic tag")
                 for ind, tag in enumerate(cat.tags):
                     if tag.id == newCat.id:
                         print("category to be removed: " + str(tag))
-                        # print(f"category that is being replaced:\n{tag.tags[ind]}")
-                        tag = newCat
-                        break
-                        # self.tags[index] = tag
+                        cat.tags.remove(tag)
+                cat.tags.append(tag)
             else:
                 print("tag type: " + cat.type)
 
-        # self.tags.append(newCat)
         return newCat
 
     """
