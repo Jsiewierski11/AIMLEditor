@@ -42,7 +42,7 @@ Once you hit the "Create" button, a Category tag will be generated with the text
     ```
     pyinstaller main.py
     ```
-    - This will create a dist folder that will contain a .dat file (an linux executable file).
+    - This will create a dist folder that will contain a main.dat file (a linux executable file).
 
     Windows
     ```

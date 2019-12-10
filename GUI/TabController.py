@@ -76,6 +76,10 @@ class TabController(QWidget):
         self.tab2.layout.addWidget(self.zoom_in, 0, 2)
         self.tab2.layout.addWidget(self.graphview, 1, 0, 1, 3)
 
+        # Making button connections
+        self.zoom_out.clicked.connect(self.zoom_out_clicked)
+        self.zoom_in.clicked.connect(self.zoom_in_clicked)
+
         # Setting layout
         tab.setLayout(tab.layout)
 
@@ -95,6 +99,21 @@ class TabController(QWidget):
                                  "3rd textbox represents the Template Tag")
         self.legendLabel.setStyleSheet("QLabel {background-color: black; color: white; border: 1px solid "
                                        "#01DFD7; border-radius: 5px;}")
+
+
+    def zoom_in_clicked(self):
+        print("Zoom In Clicked")
+        zoomFactor = self.graphview.view.zoomInFactor
+        zoomFactor += self.graphview.view.zoomStep
+        self.graphview.view.scale(zoomFactor, zoomFactor)
+
+
+    def zoom_out_clicked(self):
+        print("Zoom Out Clicked")
+        zoomFactor = self.graphview.view.zoomInFactor
+        zoomFactor -= self.graphview.view.zoomStep
+        self.graphview.view.scale(zoomFactor, zoomFactor)
+
 
     # slot function for a category being created and displaying on editSpace
     @pyqtSlot(Tag)
