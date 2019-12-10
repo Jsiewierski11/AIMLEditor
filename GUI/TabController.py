@@ -111,7 +111,7 @@ class TabController(QWidget):
     def zoom_out_clicked(self):
         print("Zoom Out Clicked")
         zoomFactor = self.graphview.view.zoomInFactor
-        zoomFactor -= self.graphview.view.zoomStep
+        zoomFactor -= (self.graphview.view.zoomStep * 0.5)
         self.graphview.view.scale(zoomFactor, zoomFactor)
 
 
