@@ -55,18 +55,21 @@ class LabelClickable(QWidget):
 
     def initUI(self):
         self.patternLabel = QLabelClickable(self)
+        self.patternLabel.setWordWrap(True)
         self.patternLabel.setGeometry(0, 0, 350, 50)
         self.patternLabel.setCursor(Qt.PointingHandCursor)
         self.patternLabel.setStyleSheet("QLabel {background-color: black; color: white; border: 1px solid "
                                          "#01DFD7; border-radius: 5px;}")
 
         self.thatLabel = QLabelClickable(self)
+        self.thatLabel.setWordWrap(True)
         self.thatLabel.setGeometry(0, 60, 350, 50)
         self.thatLabel.setCursor(Qt.PointingHandCursor)
         self.thatLabel.setStyleSheet("QLabel {background-color: black; color: white; border: 1px solid "
                                          "#01DFD7; border-radius: 5px;}")
 
         self.templateLabel = QLabelClickable(self)
+        self.templateLabel.setWordWrap(True)
         self.templateLabel.setGeometry(0, 120, 350, 270)
         self.templateLabel.setToolTip("Edit category")
         self.templateLabel.setCursor(Qt.PointingHandCursor)

@@ -156,6 +156,7 @@ class TabController(QWidget):
                         for that in thatToCheck:
                             self.graphview.findChildNodes(aNode, that)
                     
+                    # FIXME: Why aren't nodes getting placed?
                     self.graphview.findParentNodes(aNode)
                     self.graphview.placeNodes(self.graphview.scene.nodes)
 
