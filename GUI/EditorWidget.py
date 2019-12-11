@@ -80,9 +80,14 @@ class EditorWidget(QWidget):
                     if DEBUG: print("found node to update")
                     node.category = cat
                     if DEBUG: print(str(node.category))
+                    # Displaying updated content on node.
                     node.content.wdg_label.clear()
                     node.content.wdg_label.displayVisuals(cat)
 
+                    # Clearing edges so they can be redrawn.
+                    node = self.clearEdges(node)
+
+                    # Finding parent and children nodes.
                     thatStr = self.graphview.getLastSentence(cat)
                     self.findParentNodes(node)
                     that = cat.findTag("that")
@@ -91,6 +96,20 @@ class EditorWidget(QWidget):
                     return node
         except Exception as ex:
             print(ex)
+
+    def clearEdges(self, node):
+        # Clearing children, parents, inputs, outputs list of new node
+        #FIXME: This gets rid of edges on current node but there is still
+        #       connections to parent and child that will get redrawn.         
+        for socket in node.inputs:
+            socket.edge.remove()
+
+        for socket in node.outputs:
+            socket.edge.remove()
+
+        if DEBUG: print("all edges removed")
+
+        return node
 
     def addDebugContent(self):
         greenBrush = QBrush(Qt.green)
@@ -467,6 +486,10 @@ class EditorWidget(QWidget):
     @pyqtSlot(Tag)
     def categoryClicked(self, cat):
         if DEBUG: print("slot in EditorWidget - categoryClicked()")
+        
+        for node in self.scene.nodes:
+            node.content.setStyleSheet(self.stylesheet_filename)
+        
         try:
             # FIXME: Optimize me. Maybe place parent and children nodes in something other than lists.
             for node in self.scene.nodes:

@@ -206,33 +206,9 @@ class TabController(QWidget):
             updatedCat = self.aiml.update(cat)
             if DEBUG: print(f'Updated aiml object:\n{self.aiml}')
             updatedNode = self.graphview.updateNode(cat)
-
-            # Clearing edges so they can be redrawn
-            # updatedNode = self.clearingEdges(updatedNode)
-
-            # thatStr = self.graphview.getLastSentence(cat)
-            # self.graphview.findParentNodes(updatedNode)
-            # that = cat.findTag("that")
-            # if that is not None:
-            #     self.graphview.findChildNodes(updatedNode, str(thatStr))
             if DEBUG: print("display updated")
             if DEBUG: print(f"updated category:\n{updatedCat}")
             self.catUpdated.emit(self.aiml) # Sending the updated aiml object to the CodeEditor.
         except Exception as ex:
             print("Exception caught trying to update Node in TabController")
             print(ex)
-
-
-    def clearingEdges(self, node):
-        # Clearing children, parents, inputs, outputs list of new node
-        #FIXME: This gets rid of edges on current node but there is still
-        #       connections to parent and child that will get redrawn.         
-        for socket in node.inputs:
-            socket.edge.remove()
-
-        for socket in node.outputs:
-            socket.edge.remove()
-
-        if DEBUG: print("all edges removed")
-
-        return node
