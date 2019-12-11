@@ -224,12 +224,13 @@ class TabController(QWidget):
 
     def clearingEdges(self, node):
         # Clearing children, parents, inputs, outputs list of new node
-        # FIXME: This gets rid of sockets but edges are still drawn on scene
+        #FIXME: This gets rid of edges on current node but there is still
+        #       connections to parent and child that will get redrawn.         
         for socket in node.inputs:
-            self.graphview.scene.removeEdge(socket.edge)
+            socket.edge.remove()
 
         for socket in node.outputs:
-            self.graphview.scene.removeEdge(socket.edge)
+            socket.edge.remove()
 
         node.children = []
         node.parents = []
