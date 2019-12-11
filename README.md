@@ -6,7 +6,7 @@ AIML is a markup language used to create chatbots created by [Richard Wallace](h
 
 # GUI
 The editor has 2 different displays.
-- A text edit display akin to notepad++.
+- A text editor display akin to notepad++.
 ![code view](Images/codeview.png)
 - A graphical view to display conversation flow.
 ![graph view](Images/graphview.png)
