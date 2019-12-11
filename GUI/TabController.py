@@ -221,6 +221,16 @@ class TabController(QWidget):
         try:
             cat = self.aiml.find(cat.id)
             print(cat)
+
+            # TODO: Change color of children and parent nodes
+            #       to make it more visible what nodes you could be affecting.
+            for node in self.graphview.scene.nodes:
+                if node.category.id == cat.it:
+                    for child in node.children:
+                        print("Chaning background of child")
+                        child.content.setStyleSheet("QDMNodeContentWidget { background: #32a852; }")
+
+
             self.catClicked.emit(cat) # emitting signal to be sent to EditorWindow
         except Exception as ex:
             print("Exception caught when category is clicked.")

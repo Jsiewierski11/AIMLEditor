@@ -129,7 +129,6 @@ class LabelClickable(QWidget):
             # thatStr = thatStr.join(self.thatText)
 
             # adding text to appropriate fields
-
             self.patternLabel.setText(pattern.getContents())
             if that is not None:
                 self.thatLabel.setText(that.getContents())

@@ -179,7 +179,7 @@ class Tag(Serializable):
             print("Exception caught in findTag!")
             print(ex)
 
-    # FIXME: Multiline comments are being indented for some reason.
+
     def __str__(self):
         attrib = (' ' + ' '.join('{}=\"{}\"'.format(
                 key, val) for key, val in self.attrib.items())) if len(self.attrib) > 0 else ""
