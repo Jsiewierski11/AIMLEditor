@@ -82,6 +82,12 @@ class EditorWidget(QWidget):
                     if DEBUG: print(str(node.category))
                     node.content.wdg_label.clear()
                     node.content.wdg_label.displayVisuals(cat)
+
+                    thatStr = self.graphview.getLastSentence(cat)
+                    self.findParentNodes(node)
+                    that = cat.findTag("that")
+                    if that is not None:
+                        self.findChildNodes(node, str(thatStr))
                     return node
         except Exception as ex:
             print(ex)
@@ -462,9 +468,6 @@ class EditorWidget(QWidget):
     def categoryClicked(self, cat):
         if DEBUG: print("slot in EditorWidget - categoryClicked()")
         try:
-            # cat = self.aiml.find(cat.id)
-            # print(cat)
-
             # FIXME: Optimize me. Maybe place parent and children nodes in something other than lists.
             for node in self.scene.nodes:
                 if DEBUG: print("Searching for correct node")
@@ -476,7 +479,6 @@ class EditorWidget(QWidget):
                     for parent in node.parents:
                         if DEBUG: print("Changing background of parent")
                         parent.content.setStyleSheet("QDMNodeContentWidget { background: #0cfdd8; }")
-
 
             self.catClicked.emit(cat) # emitting signal to be sent to EditorWindow
         except Exception as ex:

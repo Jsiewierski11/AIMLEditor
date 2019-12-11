@@ -207,13 +207,14 @@ class TabController(QWidget):
             if DEBUG: print(f'Updated aiml object:\n{self.aiml}')
             updatedNode = self.graphview.updateNode(cat)
 
-            updatedNode = self.clearingEdges(updatedNode)
+            # Clearing edges so they can be redrawn
+            # updatedNode = self.clearingEdges(updatedNode)
 
-            thatStr = self.graphview.getLastSentence(cat)
-            self.graphview.findParentNodes(updatedNode)
-            that = cat.findTag("that")
-            if that is not None:
-                self.graphview.findChildNodes(updatedNode, str(thatStr))
+            # thatStr = self.graphview.getLastSentence(cat)
+            # self.graphview.findParentNodes(updatedNode)
+            # that = cat.findTag("that")
+            # if that is not None:
+            #     self.graphview.findChildNodes(updatedNode, str(thatStr))
             if DEBUG: print("display updated")
             if DEBUG: print(f"updated category:\n{updatedCat}")
             self.catUpdated.emit(self.aiml) # Sending the updated aiml object to the CodeEditor.
@@ -232,9 +233,6 @@ class TabController(QWidget):
         for socket in node.outputs:
             socket.edge.remove()
 
-        node.children = []
-        node.parents = []
-        node.inputs = []
-        node.outputs = []
+        if DEBUG: print("all edges removed")
 
         return node
