@@ -53,23 +53,26 @@ class EditorWidget(QWidget):
         self.layout.addWidget(self.view)
 
 
-    def addNodes(self):
-        node1 = Node(self.scene, "My Awesome Node 1",
-                     inputs=[0, 0, 0], outputs=[1])
-        node2 = Node(self.scene, "My Awesome Node 2",
-                     inputs=[3, 3, 3], outputs=[1])
-        node3 = Node(self.scene, "My Awesome Node 3",
-                     inputs=[2, 2, 2], outputs=[1])
-        node4 = Node(self.scene, "A Category", inputs=[1, 1], outputs=[2, 2], )
-        node1.setPos(-350, -250)
-        node2.setPos(-75, 0)
-        node3.setPos(200, -150)
-        node4.setPos(200, -50)
+    
+    # HACK: The function below was used for testing placement of nodes.
+    #       Not needed for the program, might be helpful for debugging.
+    # def addNodes(self):
+    #     node1 = Node(self.scene, "My Awesome Node 1",
+    #                  inputs=[0, 0, 0], outputs=[1])
+    #     node2 = Node(self.scene, "My Awesome Node 2",
+    #                  inputs=[3, 3, 3], outputs=[1])
+    #     node3 = Node(self.scene, "My Awesome Node 3",
+    #                  inputs=[2, 2, 2], outputs=[1])
+    #     node4 = Node(self.scene, "A Category", inputs=[1, 1], outputs=[2, 2], )
+    #     node1.setPos(-350, -250)
+    #     node2.setPos(-75, 0)
+    #     node3.setPos(200, -150)
+    #     node4.setPos(200, -50)
 
-        edge1 = Edge(
-            self.scene, node1.outputs[0], node2.inputs[0], edge_type=EDGE_TYPE_BEZIER)
-        edge2 = Edge(
-            self.scene, node2.outputs[0], node3.inputs[0], edge_type=EDGE_TYPE_BEZIER)
+    #     edge1 = Edge(
+    #         self.scene, node1.outputs[0], node2.inputs[0], edge_type=EDGE_TYPE_BEZIER)
+    #     edge2 = Edge(
+    #         self.scene, node2.outputs[0], node3.inputs[0], edge_type=EDGE_TYPE_BEZIER)
 
     def addNode(self, title, inputs, outputs, posx, posy):
         node1 = Node(self.scene, title=title, inputs=inputs, outputs=outputs)
@@ -317,25 +320,14 @@ class EditorWidget(QWidget):
                     print(f"Data type of parameter thatStr: {type(thatStr)}")
                     if thatText.lower() == thatStr.lower():
                         print("found child!")
-                        parentsocket = Socket(newnode, position=RIGHT_BOTTOM, socket_type=2)
-                        newnode.inputs.append(parentsocket) # outputs is children
-
-                        if node not in newnode.children:
-                            newnode.children.append(node)
-
-                        childsocket = Socket(node)
-                        node.outputs.append(childsocket)
-
-                        if newnode not in node.parents:
-                            node.parents.append(newnode)
-
-                        edge = Edge(self.scene, parentsocket, childsocket)
+                        self.updateChildSockets(newnode, node)
                     else:
                         print("Not a match for a child")
         except Exception as ex:
             print("Exception caught in EditorWidget when looking for child nodes")
             print(ex)
             handleError(ex)
+
 
     """
     Find parent nodes in the scene and add edges based off of <that> tags
@@ -356,29 +348,76 @@ class EditorWidget(QWidget):
                 else:
                     print("looking at node with category: " + str(node.category))
                     # template = node.category.findTag("template")
-                    templateText = self.getLastSentence(node.category)
-                    for text in templateText:
-                        if thatText.lower() == text.lower():
-                            print("Found parent node!")
-                            parentsocket = Socket(node, position=RIGHT_BOTTOM, socket_type=2)
-                            node.inputs.append(parentsocket)
+                    self.updateParentSockets(newnode, node, thatText)
+                    # templateText = self.getLastSentence(node.category)
+                    # for text in templateText:
+                    #     if thatText.lower() == text.lower():
+                    #         print("Found parent node!")
+                    #         parentsocket = Socket(node, position=RIGHT_BOTTOM, socket_type=2)
+                    #         node.inputs.append(parentsocket)
 
-                            # need to check if node exists in list before appending
-                            if newnode not in node.children:
-                                node.children.append(newnode)
+                    #         # need to check if node exists in list before appending
+                    #         if newnode not in node.children:
+                    #             node.children.append(newnode)
 
-                            childsocket = Socket(newnode)
-                            newnode.outputs.append(childsocket)
+                    #         childsocket = Socket(newnode)
+                    #         newnode.outputs.append(childsocket)
 
-                            if node not in newnode.parents:
-                                newnode.parents.append(node)
+                    #         if node not in newnode.parents:
+                    #             newnode.parents.append(node)
 
-                            edge = Edge(self.scene, parentsocket, childsocket)
-                        else:
-                            print("Not a match for a parent")
+                    #         edge = Edge(self.scene, parentsocket, childsocket)
+                    #     else:
+                    #         print("Not a match for a parent")
         except Exception as ex:
             print(ex)
             handleError(ex)
+
+    def updateChildSockets(self, newnode, node):
+        # TODO: make sure when categories are updated 
+        #       that sockets are updated as well.
+
+        # Child sockets
+        parentsocket = Socket(newnode, position=RIGHT_BOTTOM, socket_type=2)
+        newnode.inputs.append(parentsocket) # outputs is children
+
+        if node not in newnode.children:
+            newnode.children.append(node)
+
+        childsocket = Socket(node)
+        node.outputs.append(childsocket)
+
+        if newnode not in node.parents:
+            node.parents.append(newnode)
+
+        edge = Edge(self.scene, parentsocket, childsocket)
+
+
+
+    def updateParentSockets(self, newnode, node, thatText):
+        # Parent sockets
+        templateText = self.getLastSentence(node.category)
+        for text in templateText:
+            if thatText.lower() == text.lower():
+                print("Found parent node!")
+                parentsocket = Socket(node, position=RIGHT_BOTTOM, socket_type=2)
+                node.inputs.append(parentsocket)
+
+                # need to check if node exists in list before appending
+                if newnode not in node.children:
+                    node.children.append(newnode)
+
+                childsocket = Socket(newnode)
+                newnode.outputs.append(childsocket)
+
+                if node not in newnode.parents:
+                    newnode.parents.append(node)
+
+                edge = Edge(self.scene, parentsocket, childsocket)
+            else:
+                print("Not a match for a parent")
+
+    
 
     """
     Function to organize nodes based on parents and children
