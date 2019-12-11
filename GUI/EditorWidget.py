@@ -28,7 +28,6 @@ class EditorWidget(QWidget):
 
         self.stylesheet_filename = 'GUI/style/nodestyle.qss'
         self.loadStylesheet(self.stylesheet_filename)
-        # self.aiml = AIML()
         self.responseTable = None
 
 
@@ -43,13 +42,6 @@ class EditorWidget(QWidget):
         self.scene = Scene()
         self.grScene = self.scene.grScene
 
-        ########## making connections to slots ################
-        # window.catCreated.connect(self.categoryCreated) # connecting signal from Editor Window that is sending created category
-        # window.catUpdated.connect(self.categoryUpdated) # connecting signal from EditorWindow to update Node
-
-
-        # self.addNodes()
-        # self.addDebugContent()
         # create graphics view
         self.view = QDMGraphicsView(self.scene.grScene, self)
         self.layout.addWidget(self.view)

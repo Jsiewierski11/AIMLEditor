@@ -8,6 +8,7 @@ from GUI.EditorWidget import EditorWidget
 from GUI.Node.Node import Node
 from Model.Data import *
 
+
 DEBUG = True
 
 
@@ -99,7 +100,8 @@ class TabController(QWidget):
         self.legendLabel.setFont(QFont("Sanserif", 10))
         self.legendLabel.setText("1st textbox represents the Pattern Tag\n"
                                  "2nd textbox represents the That Tag\n"
-                                 "3rd textbox represents the Template Tag")
+                                 "3rd textbox represents the Template Tag\n"
+                                 "Red nodes are children, Turquoise nodes are parents.")
         self.legendLabel.setStyleSheet("QLabel {background-color: black; color: white; border: 1px solid "
                                        "#01DFD7; border-radius: 5px;}")
 
@@ -205,12 +207,7 @@ class TabController(QWidget):
             if DEBUG: print(f'Updated aiml object:\n{self.aiml}')
             updatedNode = self.graphview.updateNode(cat)
 
-            # Clearing children, parents, inputs, outputs list of new node
-            # FIXME: This gets rid of sockets but edges are still drawn on scene
-            updatedNode.children = []
-            updatedNode.parents = []
-            updatedNode.inputs = []
-            updatedNode.outputs = []
+            updatedNode = self.clearingEdges(updatedNode)
 
             thatStr = self.graphview.getLastSentence(cat)
             self.graphview.findParentNodes(updatedNode)
@@ -218,9 +215,25 @@ class TabController(QWidget):
             if that is not None:
                 self.graphview.findChildNodes(updatedNode, str(thatStr))
             if DEBUG: print("display updated")
-            if DEBUG: print("updated category")
-            if DEBUG: print(str(updatedCat))
+            if DEBUG: print(f"updated category:\n{updatedCat}")
             self.catUpdated.emit(self.aiml) # Sending the updated aiml object to the CodeEditor.
         except Exception as ex:
             print("Exception caught trying to update Node in TabController")
             print(ex)
+
+
+    def clearingEdges(self, node):
+        # Clearing children, parents, inputs, outputs list of new node
+        # FIXME: This gets rid of sockets but edges are still drawn on scene
+        for socket in node.inputs:
+            self.graphview.scene.removeEdge(socket.edge)
+
+        for socket in node.outputs:
+            self.graphview.scene.removeEdge(socket.edge)
+
+        node.children = []
+        node.parents = []
+        node.inputs = []
+        node.outputs = []
+
+        return node
