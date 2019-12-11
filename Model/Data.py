@@ -157,7 +157,8 @@ class Tag(Serializable):
                 return None
             occurrence = 1
             for child in self.tags:
-                print("current Child in findTag: " + str(child))
+                print(f"current Child in findTag:\n{child} ")
+                print(f"data type of child: {type(child)}")
                 if tagType == "text":
                     if isinstance(child, str) is True:
                         if n == occurrence:

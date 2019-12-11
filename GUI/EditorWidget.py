@@ -313,6 +313,8 @@ class EditorWidget(QWidget):
                     # That tag was found, add an edge
                     print("that tag was found in category: " + str(node.category))
                     thatText = thatTag.findTag("text")
+                    print(f"Return type of findTag(\"text\"): {type(thatText)}")
+                    print(f"Data type of parameter thatStr: {type(thatStr)}")
                     if thatText.lower() == thatStr.lower():
                         print("found child!")
                         parentsocket = Socket(newnode, position=RIGHT_BOTTOM, socket_type=2)

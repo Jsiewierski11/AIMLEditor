@@ -148,8 +148,8 @@ class DockerWidget(QDockWidget):
         self.videoEdit.clear()
         self.imageEdit.clear()
 
+        # NOTE: resetting style sheet of parent and children nodes.
         stylesheet_filename = 'GUI/style/nodestyle.qss'
-        # TODO: Reset stylesheets of nodes
         for node in self.window.editSpace.graphview.scene.nodes:
             node.content.setStyleSheet(stylesheet_filename)
 
@@ -218,6 +218,12 @@ class DockerWidget(QDockWidget):
         print("updated category\n" + str(self.cat))
 
         # self.aiml.update(self.cat)
+
+        # NOTE: resetting style sheet of parent and children nodes.
+        stylesheet_filename = 'GUI/style/nodestyle.qss'
+        for node in self.window.editSpace.graphview.scene.nodes:
+            node.content.setStyleSheet(stylesheet_filename)
+
 
         self.catUpdated.emit(self.cat) # emitting signal to EditorWindow
         self.update.setVisible(False)
