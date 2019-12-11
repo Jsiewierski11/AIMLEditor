@@ -214,24 +214,28 @@ class TabController(QWidget):
             print("Exception caught trying to update Node in TabController")
             print(ex)
 
+    # NOTE: This slot function is not getting reached. 
+    #       Might not be needed, moved logic to search
+    #       for nodes to highlight in EditorWidget.
     # Slot function for when a category is clicked in the graphical view.
-    @pyqtSlot(Tag)
-    def categoryClicked(self, cat):
-        print("slot in EditorWidget - categoryClicked()")
-        try:
-            cat = self.aiml.find(cat.id)
-            print(cat)
+    # @pyqtSlot(Tag)
+    # def categoryClicked(self, cat):
+    #     print("slot in TabController - categoryClicked()")
+    #     try:
+    #         cat = self.aiml.find(cat.id)
+    #         print(cat)
 
-            # TODO: Change color of children and parent nodes
-            #       to make it more visible what nodes you could be affecting.
-            for node in self.graphview.scene.nodes:
-                if node.category.id == cat.it:
-                    for child in node.children:
-                        print("Chaning background of child")
-                        child.content.setStyleSheet("QDMNodeContentWidget { background: #32a852; }")
+    #         # TODO: Change color of children and parent nodes
+    #         #       to make it more visible what nodes you could be affecting.
+    #         for node in self.graphview.scene.nodes:
+    #             print("Searching for correct node")
+    #             if node.category.id == cat.it:
+    #                 for child in node.children:
+    #                     print("Changing background of child")
+    #                     child.content.setStyleSheet("QDMNodeContentWidget { background: #32a852; }")
 
-
-            self.catClicked.emit(cat) # emitting signal to be sent to EditorWindow
-        except Exception as ex:
-            print("Exception caught when category is clicked.")
-            print(ex)
+    #         print("Emmiting signal in TabController")
+    #         self.catClicked.emit(cat) # emitting signal to be sent to EditorWindow
+    #     except Exception as ex:
+    #         print("Exception caught in TabController - categoryClicked()")
+    #         print(ex)

@@ -57,7 +57,7 @@ class DockerWidget(QDockWidget):
         self.random = Random()
         self.conItemArr = list()
 
-        # window that owns docker. Necessary for sending signals back and forth
+        # EditorWindow that docker owns. Necessary for sending signals back and forth
         self.window = window
 
         self.initDocker()
@@ -147,6 +147,11 @@ class DockerWidget(QDockWidget):
         self.templateEdit.clear()
         self.videoEdit.clear()
         self.imageEdit.clear()
+
+        stylesheet_filename = 'GUI/style/nodestyle.qss'
+        # TODO: Reset stylesheets of nodes
+        for node in self.window.editSpace.graphview.scene.nodes:
+            node.content.setStyleSheet(stylesheet_filename)
 
         if self.update.isVisible() is True:
             self.update.setVisible(False)

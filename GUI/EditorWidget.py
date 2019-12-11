@@ -449,6 +449,20 @@ class EditorWidget(QWidget):
         try:
             # cat = self.aiml.find(cat.id)
             # print(cat)
+
+            # FIXME: Optimize me. Maybe place parent and children nodes in something other than lists.
+            for node in self.scene.nodes:
+                print("Searching for correct node")
+                if node.category.id == cat.id:
+                    for child in node.children:
+                        print("Changing background of child")
+                        child.content.setStyleSheet("QDMNodeContentWidget { background: #f82f04; }")
+
+                    for parent in node.parents:
+                        print("Changing background of parent")
+                        parent.content.setStyleSheet("QDMNodeContentWidget { background: #0cfdd8; }")
+
+
             self.catClicked.emit(cat) # emitting signal to be sent to EditorWindow
         except Exception as ex:
             print("Exception caught when category is clicked.")
