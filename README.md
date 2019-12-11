@@ -7,12 +7,13 @@ AIML is a markup language used to create chatbots created by [Richard Wallace](h
 # GUI
 The editor has 2 different displays.
 - A text edit display akin to notepad++.
-- A graphical view to display conversation flow (coming soon).
-    - The Node Editor for the graph view is borrowed from [here](https://gitlab.com/pavel.krupala/pyqt-node-editor-tutorials).
+![code view](Images/codeview.png)
+- A graphical view to display conversation flow.
+![graph view](Images/graphview.png)
+- The Node Editor for the graph view is borrowed from [here](https://gitlab.com/pavel.krupala/pyqt-node-editor-tutorials).
 
 Once you hit the "Create" button, a Category tag will be generated with the text in the fields on the left.
 
-![Screen shot of the editor](Images/AIMLEditor.png)
 
 
 # Notes about the Project
