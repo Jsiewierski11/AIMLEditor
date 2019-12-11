@@ -8,6 +8,9 @@ from GUI.EditorWidget import EditorWidget
 from GUI.Node.Node import Node
 from Model.Data import *
 
+DEBUG = True
+
+
 class TabController(QWidget):
 
      # Adding signal
@@ -53,7 +56,7 @@ class TabController(QWidget):
     def editsMade(self):
         self.tabs.setStyleSheet('QTabBar::tab {background-color: red;}')
         self.up_to_date = False
-        print("Text has been changed!!")
+        if DEBUG: print("Text has been changed!!")
 
     def add_editspace(self, tab):
         tab.layout = QVBoxLayout(self)
@@ -102,14 +105,14 @@ class TabController(QWidget):
 
 
     def zoom_in_clicked(self):
-        print("Zoom In Clicked")
+        if DEBUG: print("Zoom In Clicked")
         zoomFactor = self.graphview.view.zoomInFactor
         zoomFactor += (self.graphview.view.zoomStep * 0.5)
         self.graphview.view.scale(zoomFactor, zoomFactor)
 
 
     def zoom_out_clicked(self):
-        print("Zoom Out Clicked")
+        if DEBUG: print("Zoom Out Clicked")
         zoomFactor = self.graphview.view.zoomInFactor
         zoomFactor -= (self.graphview.view.zoomStep * 0.5)
         self.graphview.view.scale(zoomFactor, zoomFactor)
@@ -120,19 +123,19 @@ class TabController(QWidget):
     def categoryCreated(self, cat):
         # This is for the CodeEditor
         try:
-            print("In TabController Slot - categoryCreated()")
+            if DEBUG: print("In TabController Slot - categoryCreated()")
             if self.aiml is not None:
-                print(f"Current aiml Model:\n{self.aiml}")
-                print("Ok to add category")
+                if DEBUG: print(f"Current aiml Model:\n{self.aiml}")
+                if DEBUG: print("Ok to add category")
                 self.aiml.append(cat)
-                print("appended category to AIML object")
+                if DEBUG: print("appended category to AIML object")
                 self.catCreated.emit(self.aiml)
             else:
-                print("CodeEditor is equal to None")
+                if DEBUG: print("CodeEditor is equal to None")
                 self.aiml = AIML()
                 # self.clear()
                 self.aiml.append(cat)
-                print("appended category to AIML object")
+                if DEBUG: print("appended category to AIML object")
                 self.catCreated.emit(self.aiml)
         except Exception as ex:
             handleError(ex)
@@ -145,12 +148,12 @@ class TabController(QWidget):
                 # Iterate through topic and place categories
                 for category in cat.tags:
                     thatToCheck = self.graphview.getLastSentence(category)
-                    print("got last sentence of category")
+                    if DEBUG: print("got last sentence of category")
                     title = "Category: " + category.id
                     aNode = Node(self.graphview.scene, title, category)
-                    print("created node")
+                    if DEBUG: print("created node")
                     aNode.content.wdg_label.displayVisuals(category)
-                    print("displayed contents on node")
+                    if DEBUG: print("displayed contents on node")
 
                     if thatToCheck is not None:
                         for that in thatToCheck:
@@ -164,16 +167,16 @@ class TabController(QWidget):
                         node.updateConnectedEdges()
 
                     aNode.content.catClicked.connect(self.graphview.categoryClicked) # connecting signals coming from Content Widget
-                    print("trying to connect addChild button")
+                    if DEBUG: print("trying to connect addChild button")
                     aNode.content.childClicked.connect(self.graphview.addChildClicked) # connecting signals coming from Content Widget
             else:
                 thatToCheck = self.graphview.getLastSentence(cat)
-                print("got last sentence of category")
+                if DEBUG: print("got last sentence of category")
                 title = "Category: " + cat.id
                 aNode = Node(self.graphview.scene, title, cat)
-                print("created node")
+                if DEBUG: print("created node")
                 aNode.content.wdg_label.displayVisuals(cat)
-                print("displayed contents on node")
+                if DEBUG: print("displayed contents on node")
 
                 if thatToCheck is not None:
                     for that in thatToCheck:
@@ -186,7 +189,7 @@ class TabController(QWidget):
                     node.updateConnectedEdges()
 
                 aNode.content.catClicked.connect(self.graphview.categoryClicked) # connecting signals coming from Content Widget
-                print("trying to connect addChild button")
+                if DEBUG: print("trying to connect addChild button")
                 aNode.content.childClicked.connect(self.graphview.addChildClicked) # connecting signals coming from Content Widget
         except Exception as ex:
             print("Exception caught in TabController case 2 - categoryCreated()")
@@ -196,13 +199,14 @@ class TabController(QWidget):
     # Slot function for updating categories.
     @pyqtSlot(Tag)
     def categoryUpdated(self, cat):
-        print("slot in TabController - categoryUpdated()")
+        if DEBUG: print("slot in TabController - categoryUpdated()")
         try:
             updatedCat = self.aiml.update(cat)
-            print(f'Updated aiml object:\n{self.aiml}')
+            if DEBUG: print(f'Updated aiml object:\n{self.aiml}')
             updatedNode = self.graphview.updateNode(cat)
 
             # Clearing children, parents, inputs, outputs list of new node
+            # FIXME: This gets rid of sockets but edges are still drawn on scene
             updatedNode.children = []
             updatedNode.parents = []
             updatedNode.inputs = []
@@ -213,9 +217,9 @@ class TabController(QWidget):
             that = cat.findTag("that")
             if that is not None:
                 self.graphview.findChildNodes(updatedNode, str(thatStr))
-            print("display updated")
-            print("updated category")
-            print(str(updatedCat))
+            if DEBUG: print("display updated")
+            if DEBUG: print("updated category")
+            if DEBUG: print(str(updatedCat))
             self.catUpdated.emit(self.aiml) # Sending the updated aiml object to the CodeEditor.
         except Exception as ex:
             print("Exception caught trying to update Node in TabController")
