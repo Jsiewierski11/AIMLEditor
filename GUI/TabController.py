@@ -201,6 +201,13 @@ class TabController(QWidget):
             updatedCat = self.aiml.update(cat)
             print(f'Updated aiml object:\n{self.aiml}')
             updatedNode = self.graphview.updateNode(cat)
+
+            # Clearing children, parents, inputs, outputs list of new node
+            updatedNode.children = []
+            updatedNode.parents = []
+            updatedNode.inputs = []
+            updatedNode.outputs = []
+
             thatStr = self.graphview.getLastSentence(cat)
             self.graphview.findParentNodes(updatedNode)
             that = cat.findTag("that")

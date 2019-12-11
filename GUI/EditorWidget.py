@@ -13,6 +13,8 @@ from GUI.Node.QDM.GraphicsView import QDMGraphicsView
 from GUI.Node.QDM.GraphicsNode import *
 from GUI.Node.Utils.Socket import *
 
+DEBUG = True
+
 
 class EditorWidget(QWidget):
 
@@ -80,12 +82,12 @@ class EditorWidget(QWidget):
 
     def updateNode(self, cat):
         try:
-            print("updating node in display")
+            if DEBUG: print("updating node in display")
             for node in self.scene.nodes:
                 if node.category.id == cat.id:
-                    print("found node to update")
+                    if DEBUG: print("found node to update")
                     node.category = cat
-                    print(str(node.category))
+                    if DEBUG: print(str(node.category))
                     node.content.wdg_label.clear()
                     node.content.wdg_label.displayVisuals(cat)
                     return node
@@ -122,7 +124,7 @@ class EditorWidget(QWidget):
         line.setFlag(QGraphicsItem.ItemIsSelectable)
 
     def loadStylesheet(self, filename):
-        print('STYLE loading:', filename)
+        if DEBUG: print('STYLE loading:', filename)
         file = QFile(filename)
         file.open(QFile.ReadOnly | QFile.Text)
         stylesheet = file.readAll()
@@ -136,21 +138,21 @@ class EditorWidget(QWidget):
         try:
             index = 0
             for tag in template.tags:
-                print("Beginning of for loop")
+                if DEBUG: print("Beginning of for loop")
                 if isinstance(tag, str) is True and tag is not " ":
-                    print("found string")
+                    if DEBUG: print("found string")
                     continue
                 elif tag.type == "condition" or tag.type == "random":
                     # Check to see if we are at end of array
                     if index == len(template.tags) - 1:
                         return False
 
-                    print("next item in tags list: " + str(template.tags[index+1]))
+                    if DEBUG: print("next item in tags list: " + str(template.tags[index+1]))
                     if isinstance(template.tags[index+1], str) is True:
                         print("returning true")
                         return True
                     else:
-                        print("returning false")
+                        if DEBUG: print("returning false")
                         return False
                 index = index + 1
         except Exception as ex:
@@ -162,39 +164,39 @@ class EditorWidget(QWidget):
     Function to find the sentence to be used for <that> tag of potential children
     """
     def getLastSentence(self, cat):
-        print("In getLastSentence()")
+        if DEBUG: print("In getLastSentence()")
         try:
             template = cat.findTag("template")
             sentences = []
             if template is None:
-                print("Template is empty")
+                if DEBUG: print("Template is empty")
                 return
             condition = template.findTag("condition")
             random = template.findTag("random")
-            print("Before logic")
+            if DEBUG: print("Before logic")
             if condition is None and random is None:
-                print("no random or condition tag found in template")
-                print(str(template))
+                if DEBUG: print("no random or condition tag found in template")
+                if DEBUG: print(str(template))
                 tempString = template.findTag("text")
-                print(f"tempString: {tempString}")
+                if DEBUG: print(f"tempString: {tempString}")
                 if tempString is None:
-                    print("No sentence in category")
+                    if DEBUG: print("No sentence in category")
                     return
                 tempArr = tempString.split()
                 index = 0
                 for word in reversed(tempArr):
                     if "." in word or "?" in word or "!" in word:
                         if index == 0:
-                            print("Found last punctuation mark on very first word. Keep searching.")
-                            print(word)
+                            if DEBUG: print("Found last punctuation mark on very first word. Keep searching.")
+                            if DEBUG: print(word)
                         else:
-                            print("Found the start of the last sentence")
-                            print(word)
+                            if DEBUG: print("Found the start of the last sentence")
+                            if DEBUG: print(word)
                             arrSize = len(tempArr)
                             start = arrSize - (index)
                             lastSentence = tempArr[start:arrSize]
                             lastSentence = " ".join(lastSentence)
-                            print(lastSentence)
+                            if DEBUG: print(lastSentence)
                             sentences.append(lastSentence)
                     index = index + 1
 
@@ -202,58 +204,58 @@ class EditorWidget(QWidget):
                 sentences.append(tempString)
                 return sentences
             else:
-                print("template contains either a random or condition tag")
-                print(str(template))
+                if DEBUG: print("template contains either a random or condition tag")
+                if DEBUG: print(str(template))
                 if self.tableContainsTail(template) is True:
-                    print("Random or Condition tag has text after")
+                    if DEBUG: print("Random or Condition tag has text after")
                     tempString = template.findTag("text", 2)
-                    print(tempString)
+                    if DEBUG: print(tempString)
                     tempArr = tempString.split()
                     if tempString is None:
-                        print("No sentence in category")
+                        if DEBUG: print("No sentence in category")
                         return
                     index = 0
                     for word in reversed(tempArr):
                         if "." in word or "?" in word or "!" in word:
                             if index == 0:
-                                print("Found last punctuation mark on very first word. Keep searching.")
-                                print(word)
+                                if DEBUG: print("Found last punctuation mark on very first word. Keep searching.")
+                                if DEBUG: print(word)
                             else:
-                                print("Found the start of the last sentence")
-                                print(word)
+                                if DEBUG: print("Found the start of the last sentence")
+                                if DEBUG: print(word)
                                 arrSize = len(tempArr)
                                 start = arrSize - (index)
                                 lastSentence = tempArr[start:arrSize]
                                 lastSentence = " ".join(lastSentence)
-                                print(lastSentence)
+                                if DEBUG: print(lastSentence)
                                 sentences.append(lastSentence)
                         index = index + 1
                     # If made it to end of array without finding another punctiation mark. return full text in template
                     sentences.append(tempString)
                     return sentences
                 else:
-                    print("Random or Condition tag is the last thing in the template")
+                    if DEBUG: print("Random or Condition tag is the last thing in the template")
                     if condition is not None:
-                        print("table contains condition table")
+                        if DEBUG: print("table contains condition table")
                         for li in condition.tags:
                             liText = li.findTag("text")
-                            print("text inside condition: " + liText)
+                            if DEBUG: print("text inside condition: " + liText)
                             liArr = liText.split()
                             index = 0
                             punctuationExists = False
                             for word in reversed(liArr):
                                 if "." in word or "?" in word or "!" in word:
                                     if index == 0:
-                                        print("Found last punctuation mark on very first word. Keep searching.")
-                                        print(word)
+                                        if DEBUG:print("Found last punctuation mark on very first word. Keep searching.")
+                                        if DEBUG: print(word)
                                     else:
-                                        print("Found the start of the last sentence")
-                                        print(word)
+                                        if DEBUG: print("Found the start of the last sentence")
+                                        if DEBUG: print(word)
                                         arrSize = len(liArr)
                                         start = arrSize - (index)
                                         lastSentence = liArr[start:arrSize]
                                         lastSentence = " ".join(lastSentence)
-                                        print(lastSentence)
+                                        if DEBUG: print(lastSentence)
                                         sentences.append(lastSentence)
                                         punctuationExists = True
                                         break
@@ -262,37 +264,37 @@ class EditorWidget(QWidget):
                             if punctuationExists is False:
                                 sentences.append(liText)
                         return sentences
-                        print("done goofed")
+                        if DEBUG: print("done goofed")
                     else:
-                        print("table contains random table")
+                        if DEBUG: print("table contains random table")
                         for li in random.tags:
                             liText = li.findTag("text")
-                            print("text inside random: " + liText)
+                            if DEBUG: print("text inside random: " + liText)
                             liArr = liText.split()
                             index = 0
                             punctuationExists = False
                             for word in reversed(liArr):
                                 if "." in word or "?" in word or "!" in word:
                                     if index == 0:
-                                        print("Found last punctuation mark on very first word. Keep searching.")
-                                        print(word)
+                                        if DEBUG: print("Found last punctuation mark on very first word. Keep searching.")
+                                        if DEBUG: print(word)
                                     else:
-                                        print("Found the start of the last sentence")
-                                        print(word)
+                                        if DEBUG: print("Found the start of the last sentence")
+                                        if DEBUG: print(word)
                                         arrSize = len(liArr)
                                         start = arrSize - (index)
                                         lastSentence = liArr[start:arrSize]
                                         lastSentence = " ".join(lastSentence)
-                                        print(lastSentence)
+                                        if DEBUG: print(lastSentence)
                                         sentences.append(lastSentence)
                                         punctuationExists = True
                                         break
                                 index = index + 1
-                            # If made it to end of array without finding another punctiation mark. return full text in tag
+                            # If at the end of array without finding another punctiation mark. return full text in tag
                             if punctuationExists is False:
                                 sentences.append(liText)
                         return sentences
-                        print("done goofed")
+                        if DEBUG: print("done goofed")
         except Exception as ex:
             print("Exception caught in EditorWidget - getLastSentence()")
             print(ex)
@@ -303,26 +305,26 @@ class EditorWidget(QWidget):
     """
     def findChildNodes(self, newnode, thatStr):
         try:
-            print("looking for child nodes")
+            if DEBUG: print("looking for child nodes")
             xOffset = 0
             for node in self.scene.nodes:
                 thatTag = node.category.findTag("that")
-                print(str(thatTag))
+                if DEBUG: print(str(thatTag))
                 if thatTag is None:
-                    print("no that tag found in category: " + str(node.category))
+                    if DEBUG: print("no that tag found in category: " + str(node.category))
                 elif newnode == node:
-                    print("looking at node just created. Do nothing")
+                    if DEBUG: print("looking at node just created. Do nothing")
                 else:
                     # That tag was found, add an edge
-                    print("that tag was found in category: " + str(node.category))
+                    if DEBUG: print("that tag was found in category: " + str(node.category))
                     thatText = thatTag.findTag("text")
-                    print(f"Return type of findTag(\"text\"): {type(thatText)}")
-                    print(f"Data type of parameter thatStr: {type(thatStr)}")
+                    if DEBUG: print(f"Return type of findTag(\"text\"): {type(thatText)}")
+                    if DEBUG: print(f"Data type of parameter thatStr: {type(thatStr)}")
                     if thatText.lower() == thatStr.lower():
-                        print("found child!")
+                        if DEBUG: print("found child!")
                         self.updateChildSockets(newnode, node)
                     else:
-                        print("Not a match for a child")
+                        if DEBUG: print("Not a match for a child")
         except Exception as ex:
             print("Exception caught in EditorWidget when looking for child nodes")
             print(ex)
@@ -334,50 +336,29 @@ class EditorWidget(QWidget):
     """
     def findParentNodes(self, newnode):
         try:
-            print("looking for parent nodes")
+            if DEBUG: print("looking for parent nodes")
             mythatTag = newnode.category.findTag("that")
             if mythatTag is None:
-                print("no that tag so node will not have any parents")
+                if DEBUG: print("no that tag so node will not have any parents")
                 return
             thatText = mythatTag.findTag("text")
-            print("Text of That Tag to look for: " + thatText)
+            if DEBUG: print("Text of That Tag to look for: " + thatText)
             xOffset = 0
             for node in self.scene.nodes:
                 if node == newnode:
-                    print("looking at node just created, do nothing")
+                    if DEBUG: print("looking at node just created, do nothing")
                 else:
-                    print("looking at node with category: " + str(node.category))
-                    # template = node.category.findTag("template")
+                    if DEBUG: print("looking at node with category: " + str(node.category))
                     self.updateParentSockets(newnode, node, thatText)
-                    # templateText = self.getLastSentence(node.category)
-                    # for text in templateText:
-                    #     if thatText.lower() == text.lower():
-                    #         print("Found parent node!")
-                    #         parentsocket = Socket(node, position=RIGHT_BOTTOM, socket_type=2)
-                    #         node.inputs.append(parentsocket)
-
-                    #         # need to check if node exists in list before appending
-                    #         if newnode not in node.children:
-                    #             node.children.append(newnode)
-
-                    #         childsocket = Socket(newnode)
-                    #         newnode.outputs.append(childsocket)
-
-                    #         if node not in newnode.parents:
-                    #             newnode.parents.append(node)
-
-                    #         edge = Edge(self.scene, parentsocket, childsocket)
-                    #     else:
-                    #         print("Not a match for a parent")
         except Exception as ex:
             print(ex)
             handleError(ex)
 
+    
+    """
+    Function to update the edges connecting to child nodes.
+    """
     def updateChildSockets(self, newnode, node):
-        # TODO: make sure when categories are updated 
-        #       that sockets are updated as well.
-
-        # Child sockets
         parentsocket = Socket(newnode, position=RIGHT_BOTTOM, socket_type=2)
         newnode.inputs.append(parentsocket) # outputs is children
 
@@ -393,13 +374,15 @@ class EditorWidget(QWidget):
         edge = Edge(self.scene, parentsocket, childsocket)
 
 
-
+    """
+    Function to update the edges connecting to parent nodes.
+    """
     def updateParentSockets(self, newnode, node, thatText):
         # Parent sockets
         templateText = self.getLastSentence(node.category)
         for text in templateText:
             if thatText.lower() == text.lower():
-                print("Found parent node!")
+                if DEBUG: print("Found parent node!")
                 parentsocket = Socket(node, position=RIGHT_BOTTOM, socket_type=2)
                 node.inputs.append(parentsocket)
 
@@ -415,9 +398,8 @@ class EditorWidget(QWidget):
 
                 edge = Edge(self.scene, parentsocket, childsocket)
             else:
-                print("Not a match for a parent")
-
-    
+                if DEBUG: print("Not a match for a parent")
+  
 
     """
     Function to organize nodes based on parents and children
@@ -425,20 +407,20 @@ class EditorWidget(QWidget):
     def placeNodes(self, nodes, depth=0):
         # TODO: Recursively look through children. place parents on left, children on the right.
         try:
-            print("placing nodes")
+            if DEBUG: print("placing nodes")
             if depth > 5:
-                print("reached max depth")
+                if DEBUG: print("reached max depth")
                 return
 
             xOffset = 500
             for node in nodes:
                 yOffset = 0
                 if node.parents is None:
-                    print("node has no parents place to the left.")
+                    if DEBUG: print("node has no parents place to the left.")
                     node.setPos(-900, -900 + yOffset)
                     yOffset = yOffset + 300
                 else:
-                    print("node has parents")
+                    if DEBUG: print("node has parents")
                     for child in node.children:
                         depth = depth + 1
                         y = node.grNode.y()
@@ -455,30 +437,30 @@ class EditorWidget(QWidget):
     @pyqtSlot(Tag)
     def addChildClicked(self, cat):
         try:
-            print("In slot of editor widget")
+            if DEBUG: print("In slot of editor widget")
             template = cat.findTag("template")
-            print("template tags list: " + str(template.tags))
+            if DEBUG: print("template tags list: " + str(template.tags))
             if template.findTag("condition") is None and template.findTag("random") is None:
-                print("no table inside template")
+                if DEBUG: print("no table inside template")
                 thatStr = self.getLastSentence(cat)
-                print(thatStr)
+                if DEBUG: print(thatStr)
                 self.childClicked.emit(thatStr[0])  # emitting to Editor Window
             else:
                 if self.tableContainsTail(template) is False:
-                    print("table is last thing in template. Must choose response to use for that")
+                    if DEBUG: print("table is last thing in template. Must choose response to use for that")
                     template = cat.findTag("template")
                     condition = template.findTag("condition")
                     random = template.findTag("random")
                     if condition is not None:
-                        print("create response table out of condition items")
+                        if DEBUG: print("create response table out of condition items")
                         self.responseTable = ResponseSelection(tag=condition, category=cat, editspace=self)
                     else:
-                        print("create response table out of random items")
+                        if DEBUG: print("create response table out of random items")
                         self.responseTable = ResponseSelection(tag=random, category=cat, editspace=self)
                 else:
-                    print("table contains tail, there is only one possible sentence to use for that")
+                    if DEBUG: print("table contains tail, there is only one possible sentence to use for that")
                     thatStr = self.getLastSentence(cat)
-                    print(thatStr[0])
+                    if DEBUG: print(thatStr[0])
                     self.childClicked.emit(thatStr[0]) # emitting to Editor Window
         except Exception as ex:
             print(ex)
@@ -486,21 +468,21 @@ class EditorWidget(QWidget):
 
     @pyqtSlot(Tag)
     def categoryClicked(self, cat):
-        print("slot in EditorWidget - categoryClicked()")
+        if DEBUG: print("slot in EditorWidget - categoryClicked()")
         try:
             # cat = self.aiml.find(cat.id)
             # print(cat)
 
             # FIXME: Optimize me. Maybe place parent and children nodes in something other than lists.
             for node in self.scene.nodes:
-                print("Searching for correct node")
+                if DEBUG: print("Searching for correct node")
                 if node.category.id == cat.id:
                     for child in node.children:
-                        print("Changing background of child")
+                        if DEBUG: print("Changing background of child")
                         child.content.setStyleSheet("QDMNodeContentWidget { background: #f82f04; }")
 
                     for parent in node.parents:
-                        print("Changing background of parent")
+                        if DEBUG: print("Changing background of parent")
                         parent.content.setStyleSheet("QDMNodeContentWidget { background: #0cfdd8; }")
 
 
