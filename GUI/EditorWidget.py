@@ -487,6 +487,10 @@ class EditorWidget(QWidget):
     def categoryClicked(self, cat):
         if DEBUG: print("slot in EditorWidget - categoryClicked()")
         
+        # NOTE: There has to be a way to do this faster.
+        #       This for loop will set the stylesheet to
+        #       the default incase there are nodes already
+        #       colored.
         for node in self.scene.nodes:
             node.content.setStyleSheet(self.stylesheet_filename)
         
@@ -503,6 +507,7 @@ class EditorWidget(QWidget):
                         if DEBUG: print("Changing background of parent")
                         parent.content.setStyleSheet("QDMNodeContentWidget { background: #0cfdd8; }")
 
+            self.is_highlighted = True
             self.catClicked.emit(cat) # emitting signal to be sent to EditorWindow
         except Exception as ex:
             print("Exception caught when category is clicked.")

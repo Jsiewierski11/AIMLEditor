@@ -152,7 +152,7 @@ class DockerWidget(QDockWidget):
         stylesheet_filename = 'GUI/style/nodestyle.qss'
         for node in self.window.editSpace.graphview.scene.nodes:
             node.content.setStyleSheet(stylesheet_filename)
-
+        
         if self.update.isVisible() is True:
             self.update.setVisible(False)
 
