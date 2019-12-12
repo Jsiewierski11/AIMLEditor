@@ -102,8 +102,6 @@ class EditorWindow(QMainWindow):
         # self.setCentralWidget(self.editSpace)
 
         ########## making connections to slots ################
-        # self.docker.catCreated.connect(self.categoryCreated) # connecting signal from docker to slot
-        self.docker.catUpdated.connect(self.categoryUpdated) # connecting signal from docker
         self.editSpace.graphview.catClicked.connect(self.categoryClicked) # connecting signal from EditorWidget to slot
         self.editSpace.childClicked.connect(self.addChildClicked) # connecting signal from EditorWidget
 
@@ -135,15 +133,6 @@ class EditorWindow(QMainWindow):
     def categoryClicked(self, cat):
         print("slot in EditorWindow - categoryClicked()")
         self.catClicked.emit(cat) # emitting signal to send category to docker to repopulate fields
-
-    @pyqtSlot(Tag)
-    def categoryUpdated(self, cat):
-        print("slot in EditorWindow - categoryUpdated()")
-        try:
-            self.catUpdated.emit(cat) # emitting signal to send to EditorWidget to update Node displaying category
-        except Exception as ex:
-            print("exception caught")
-            print(ex)
 
     def changeTitle(self):
         title = "Node Editor - "

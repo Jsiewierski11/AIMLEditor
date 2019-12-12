@@ -251,6 +251,10 @@ class DockerWidget(QDockWidget):
         self.conditionTableHTML = None
         self.randomTableHTML = None
 
+
+    # FIXME: The setText statements seem like overkill.
+    #        Should be able to use str(child) rather 
+    #        than concatenated strings.
     def parseCategory(self, root, parent=None):
         print("parsing category")
         for child in root:

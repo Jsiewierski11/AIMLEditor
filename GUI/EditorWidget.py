@@ -87,11 +87,12 @@ class EditorWidget(QWidget):
                     node = self.clearEdges(node)
 
                     # Finding parent and children nodes.
-                    thatStr = self.graphview.getLastSentence(cat)
-                    self.findParentNodes(node)
                     that = cat.findTag("that")
                     if that is not None:
-                        self.findChildNodes(node, str(thatStr))
+                        if DEBUG: print("Looking for parent nodes")
+                        self.findParentNodes(node)
+                    thatStr = self.getLastSentence(cat)
+                    self.findChildNodes(node, str(thatStr))
                     return node
         except Exception as ex:
             print(ex)
@@ -394,7 +395,6 @@ class EditorWidget(QWidget):
     Function to update the edges connecting to parent nodes.
     """
     def updateParentSockets(self, newnode, node, thatText):
-        # Parent sockets
         templateText = self.getLastSentence(node.category)
         for text in templateText:
             if thatText.lower() == text.lower():
@@ -490,7 +490,7 @@ class EditorWidget(QWidget):
     def categoryClicked(self, cat):
         if DEBUG: print("slot in EditorWidget - categoryClicked()")
         
-        # NOTE: Resetting all nodes to original style sheet
+        # Resetting all nodes to original style sheet
         self.scene.nodes = list(map(self.setNodeStyleSheet, self.scene.nodes))
         
         try:
