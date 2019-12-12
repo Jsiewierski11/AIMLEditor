@@ -92,7 +92,7 @@ class EditorWidget(QWidget):
                         if DEBUG: print("Looking for parent nodes")
                         self.findParentNodes(node)
                     thatStr = self.getLastSentence(cat)
-                    self.findChildNodes(node, str(thatStr))
+                    self.findChildNodes(node, thatStr[0])
                     return node
         except Exception as ex:
             print(ex)
@@ -336,7 +336,9 @@ class EditorWidget(QWidget):
                     if DEBUG: print("that tag was found in category: " + str(node.category))
                     thatText = thatTag.findTag("text")
                     if DEBUG: print(f"Return type of findTag(\"text\"): {type(thatText)}")
+                    if DEBUG: print(f"{thatText}")
                     if DEBUG: print(f"Data type of parameter thatStr: {type(thatStr)}")
+                    if DEBUG: print(f"{thatStr}")
                     if thatText.lower() == thatStr.lower():
                         if DEBUG: print("found child!")
                         self.updateChildSockets(newnode, node)
