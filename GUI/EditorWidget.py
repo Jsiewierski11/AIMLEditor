@@ -506,7 +506,6 @@ class EditorWidget(QWidget):
                         if DEBUG: print("Changing background of parent")
                         parent.content.setStyleSheet("QDMNodeContentWidget { background: #0cfdd8; }")
 
-            self.is_highlighted = True
             self.catClicked.emit(cat) # emitting signal to be sent to EditorWindow
         except Exception as ex:
             print("Exception caught when category is clicked.")
