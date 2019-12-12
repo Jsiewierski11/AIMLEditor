@@ -16,6 +16,9 @@ from GUI.Node.QDM.GraphicsScene import *
 from Utils.ErrorMessage import handleError, handleCompileMsg
 
 
+DEBUG = True
+
+
 class EditorWindow(QMainWindow):
 
     # Adding signal
@@ -119,19 +122,19 @@ class EditorWindow(QMainWindow):
     # slot function for a category being created and displaying on editSpace
     @pyqtSlot(Tag)
     def categoryCreated(self, cat):
-        print("slot in EditorWindow - categoryCreated()")
-        print(str(cat))
+        if DEBUG: print("slot in EditorWindow - categoryCreated()")
+        if DEBUG: print(str(cat))
         # emitting signal to send category received from docker to EditorWidget slot
         self.catCreated.emit(cat) 
 
     @pyqtSlot(str)
     def addChildClicked(self, thatStr):
-        print("In slot in Editor Window - addChildClicked()")
+        if DEBUG: print("In slot in Editor Window - addChildClicked()")
         self.childClicked.emit(thatStr) # Emitting signal to Docker Widget
 
     @pyqtSlot(Tag)
     def categoryClicked(self, cat):
-        print("slot in EditorWindow - categoryClicked()")
+        if DEBUG: print("slot in EditorWindow - categoryClicked()")
         self.catClicked.emit(cat) # emitting signal to send category to docker to repopulate fields
 
     def changeTitle(self):
@@ -147,7 +150,7 @@ class EditorWindow(QMainWindow):
         self.setWindowTitle(title)
 
     def closeEvent(self, event):
-        print("closeEvent")
+        if DEBUG: print("closeEvent")
         # if self.maybeSave():
         #     event.accept()
         # else:
@@ -176,7 +179,7 @@ class EditorWindow(QMainWindow):
         self.status_mouse_pos.setText("Scene Pos: [%d, %d]" % (x, y))
 
     def onFind(self):
-        print("Find command called")
+        if DEBUG: print("Find command called")
         finder = Find(self.editSpace.editSpace)
         finder.show()
 
@@ -195,13 +198,13 @@ class EditorWindow(QMainWindow):
                 if fname == '':
                     return
                 if os.path.isfile(fname):
-                    print("found file")
+                    if DEBUG: print("found file")
                     self.filename = os.path.splitext(fname)[0]  # removing extension from path name
                     self.editSpace.scene.loadFromFile(self.filename)
                     for node in self.editSpace.scene.nodes:
                         self.editSpace.aiml.append(node.category)
                         node.content.catClicked.connect(self.editSpace.categoryClicked)
-                    print("Opened file successfully")
+                    if DEBUG: print("Opened file successfully")
         except Exception as ex:
             handleError(ex)
             print("Exception caught in onFileOpen!")
@@ -223,14 +226,14 @@ class EditorWindow(QMainWindow):
         # Check for uncompiled changes
         retval = None
         if self.editSpace.up_to_date is False:
-            print("Code is not compiled. Compile before export.")
+            if DEBUG: print("Code is not compiled. Compile before export.")
             retval = handleCompileMsg()
 
         if retval == QMessageBox.Cancel:
             return
         
         if retval == QMessageBox.Yes:
-            print('Compiling code before exporting')
+            if DEBUG: print('Compiling code before exporting')
             try:
                 self.onCompile()
             except Exception as ex:
@@ -239,7 +242,7 @@ class EditorWindow(QMainWindow):
         try:
             fname, filter = QFileDialog.getSaveFileName(self, 'Export to file')
             if fname == "":
-                print("Cancel clicked")
+                if DEBUG: print("Cancel clicked")
                 return
             Storage.exportAIML(fname, self.editSpace.editSpace.aiml) # save as an aiml file
         except Exception as ex:
@@ -252,19 +255,19 @@ class EditorWindow(QMainWindow):
             fname, filter = QFileDialog.getOpenFileName(self, "Import File")
 
             if fname == "":
-                print("Cancel was clicked")
+                if DEBUG: print("Cancel was clicked")
                 return
                 
             yoffset = -4000
-            print("fname: " + fname)
+            if DEBUG: print("fname: " + fname)
             self.filename = os.path.splitext(fname)[0]  # removing extension from path name
             aiml = Storage.importAIML(self.filename) # import the aiml file
             numCats = 0
-            print(f"aiml tags:\n{aiml.tags}")
+            if DEBUG: print(f"aiml tags:\n{aiml.tags}")
             for cat in aiml.tags:
                 self.catCreated.emit(cat)
                 numCats = numCats + 1
-            print("Finished creating " + str(numCats) + " categories")
+            if DEBUG: print("Finished creating " + str(numCats) + " categories")
 
             # for node in self.editSpace.graphview.scene.nodes:
             #     x = node.grNode.x()
@@ -319,25 +322,25 @@ class EditorWindow(QMainWindow):
 
         # check if the json data is correct
         if 'nodes' not in data:
-            print("JSON does not contain any nodes!")
+            if DEBUG: print("JSON does not contain any nodes!")
             return
 
         self.centralWidget().scene.clipboard.deserializeFromClipboard(data)
 
     def onCompile(self):
         str_to_parse = self.editSpace.editSpace.toPlainText() # Grabs text from the text display
-        print("text to compile:\n{}".format(str_to_parse))
+        if DEBUG: print("text to compile:\n{}".format(str_to_parse))
         if str_to_parse.isspace():
             handleError("There is nothing to compile. You must at least have one tag pair to successfully compile your work.")
             return
         try:
             aiml = Storage.compileToAIML(str_to_parse)
             if aiml == -1:
-                print("did not compile properly")
+                if DEBUG: print("did not compile properly")
                 return
-            print("compiling complete")
+            if DEBUG: print("compiling complete")
             self.editSpace.editSpace.aiml = aiml
-            print(f"new model for the aiml:\n{self.editSpace.editSpace.aiml}")
+            if DEBUG: print(f"new model for the aiml:\n{self.editSpace.editSpace.aiml}")
             self.editSpace.up_to_date = True
             self.editSpace.tabs.setStyleSheet('')
         except Exception as ex:
