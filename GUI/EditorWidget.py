@@ -30,7 +30,6 @@ class EditorWidget(QWidget):
         self.loadStylesheet(self.stylesheet_filename)
         self.responseTable = None
 
-
         self.initUI(window)
 
     def initUI(self, window):

@@ -206,7 +206,6 @@ class TabController(QWidget):
             updatedCat = self.aiml.update(cat)
             if DEBUG: print(f'Updated aiml object:\n{self.aiml}')
             updatedNode = self.graphview.updateNode(cat)
-            self.graphview.is_highlighted = False
             if DEBUG: print("display updated")
             if DEBUG: print(f"updated category:\n{updatedCat}")
             self.catUpdated.emit(self.aiml) # Sending the updated aiml object to the CodeEditor.
