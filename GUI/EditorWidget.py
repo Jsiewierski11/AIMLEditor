@@ -104,11 +104,13 @@ class EditorWidget(QWidget):
         # Clearing children, parents, inputs, outputs list of new node
         #FIXME: This gets rid of edges on current node but there is still
         #       connections to parent and child that will get redrawn.         
-        for socket in node.inputs:
+        for socket in node.inputs + node.outputs:
             socket.edge.remove()
 
-        for socket in node.outputs:
-            socket.edge.remove()
+        node.parents = []
+        node.children = []
+        # for socket in node.outputs:
+        #     socket.edge.remove()
 
         if DEBUG: print("all edges removed")
 
