@@ -16,7 +16,7 @@ MODE_EDGE_CUT = 3
 EDGE_DRAG_START_THRESHOLD = 10
 
 
-DEBUG = True
+DEBUG = False
 
 
 class QDMGraphicsView(QGraphicsView):

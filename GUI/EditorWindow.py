@@ -16,7 +16,7 @@ from GUI.Node.QDM.GraphicsScene import *
 from Utils.ErrorMessage import handleError, handleCompileMsg
 
 
-DEBUG = True
+DEBUG = False
 
 
 class EditorWindow(QMainWindow):

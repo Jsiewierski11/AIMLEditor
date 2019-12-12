@@ -84,15 +84,18 @@ class EditorWidget(QWidget):
                     node.content.wdg_label.displayVisuals(cat)
 
                     # Clearing edges so they can be redrawn.
+                    if DEBUG: print("Clearing edges from node")
                     node = self.clearEdges(node)
 
                     # Finding parent and children nodes.
+                    if DEBUG: print("Redrawing edges")
                     that = cat.findTag("that")
                     if that is not None:
                         if DEBUG: print("Looking for parent nodes")
                         self.findParentNodes(node)
                     thatStr = self.getLastSentence(cat)
                     self.findChildNodes(node, thatStr[0])
+                    node.updateConnectedEdges()
                     return node
         except Exception as ex:
             print(ex)
@@ -178,7 +181,8 @@ class EditorWidget(QWidget):
             handleError(ex)
 
     """
-    Function to find the sentence to be used for <that> tag of potential children
+    Function to find the sentence to be used for <that> tag of potential children.
+    Returns a list of strings of sentences in the <template> tag.
     """
     def getLastSentence(self, cat):
         if DEBUG: print("In getLastSentence()")
@@ -187,7 +191,7 @@ class EditorWidget(QWidget):
             sentences = []
             if template is None:
                 if DEBUG: print("Template is empty")
-                return
+                return None
             condition = template.findTag("condition")
             random = template.findTag("random")
             if DEBUG: print("Before logic")
@@ -198,7 +202,7 @@ class EditorWidget(QWidget):
                 if DEBUG: print(f"tempString: {tempString}")
                 if tempString is None:
                     if DEBUG: print("No sentence in category")
-                    return
+                    return None
                 tempArr = tempString.split()
                 index = 0
                 for word in reversed(tempArr):
@@ -230,7 +234,7 @@ class EditorWidget(QWidget):
                     tempArr = tempString.split()
                     if tempString is None:
                         if DEBUG: print("No sentence in category")
-                        return
+                        return None
                     index = 0
                     for word in reversed(tempArr):
                         if "." in word or "?" in word or "!" in word:
@@ -311,7 +315,7 @@ class EditorWidget(QWidget):
                             if punctuationExists is False:
                                 sentences.append(liText)
                         return sentences
-                        if DEBUG: print("done goofed")
+                    if DEBUG: print("done goofed")
         except Exception as ex:
             print("Exception caught in EditorWidget - getLastSentence()")
             print(ex)
@@ -340,7 +344,7 @@ class EditorWidget(QWidget):
                     if DEBUG: print(f"Data type of parameter thatStr: {type(thatStr)}")
                     if DEBUG: print(f"{thatStr}")
                     if thatText.lower() == thatStr.lower():
-                        if DEBUG: print("found child!")
+                        if DEBUG: print("FOUND CHILD!")
                         self.updateChildSockets(newnode, node)
                     else:
                         if DEBUG: print("Not a match for a child")

@@ -9,7 +9,7 @@ from GUI.Node.Node import Node
 from Model.Data import *
 
 
-DEBUG = True
+DEBUG = False
 
 
 class TabController(QWidget):
@@ -161,7 +161,7 @@ class TabController(QWidget):
                         for that in thatToCheck:
                             self.graphview.findChildNodes(aNode, that)
                     
-                    # FIXME: Nodes only get placed if there are that tags
+                    # FIXME: Nodes only get placed if there are <that> tags
                     self.graphview.findParentNodes(aNode)
                     self.graphview.placeNodes(self.graphview.scene.nodes)
 
