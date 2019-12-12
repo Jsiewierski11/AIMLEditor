@@ -482,16 +482,16 @@ class EditorWidget(QWidget):
             print(ex)
             handleError(ex)
 
+    def setNodeStyleSheet(self, node):
+        node.content.setStyleSheet(self.stylesheet_filename)
+        return node
+
     @pyqtSlot(Tag)
     def categoryClicked(self, cat):
         if DEBUG: print("slot in EditorWidget - categoryClicked()")
         
-        # NOTE: There has to be a way to do this faster.
-        #       This for loop will set the stylesheet to
-        #       the default incase there are nodes already
-        #       colored.
-        for node in self.scene.nodes:
-            node.content.setStyleSheet(self.stylesheet_filename)
+        # NOTE: Resetting all nodes to original style sheet
+        self.scene.nodes = list(map(self.setNodeStyleSheet, self.scene.nodes))
         
         try:
             # FIXME: Optimize me. Maybe place parent and children nodes in something other than lists.
