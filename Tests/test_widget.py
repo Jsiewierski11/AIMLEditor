@@ -1,7 +1,7 @@
 from Model.Data import *
 from Utils.ErrorMessage import *
 
-DEBUG = False
+DEBUG = True
 
 class EditorWidget(object):
     def __init__(self):
@@ -88,12 +88,12 @@ class EditorWidget(object):
                 if DEBUG: print(str(template))
                 if self.tableContainsTail(template) is True:
                     if DEBUG: print("Random or Condition tag has text after")
-                    tempString = template.findTag("text", 2)
+                    tempString = template.findTag("text", 1)
                     if DEBUG: print(tempString)
-                    tempArr = tempString.split()
                     if tempString is None:
                         if DEBUG: print("No sentence in category")
                         return None
+                    tempArr = tempString.split()
                     index = 0
                     for word in reversed(tempArr):
                         if "." in word or "?" in word or "!" in word:

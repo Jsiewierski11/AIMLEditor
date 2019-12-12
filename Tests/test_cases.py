@@ -128,10 +128,10 @@ class TestFunctions(unittest.TestCase):
     def test_getLastSentence(self):
         ac = AimlCreator()
         category = ac.make_simple_cat()
-        true = "How are you doing?"
+        true = ["How are you doing?"]
         widget = EditorWidget()
         result = widget.getLastSentence(category)
-        self.assertEqual(result[0].lower(), true.lower())
+        self.assertEqual(result, true)
 
 
     def test_getLastSentence_rand(self):
@@ -139,6 +139,14 @@ class TestFunctions(unittest.TestCase):
         category = ac.make_cat_rand()
         widget = EditorWidget()
         true = ["This is a joke.", "How did you like it?", "What is your favorite?"]
+        result = widget.getLastSentence(category)
+        self.assertEqual(result, true)
+
+    def test_getLastSentence_rand_tail(self):
+        ac = AimlCreator()
+        category = ac.make_cat_rand_tail()
+        widget = EditorWidget()
+        true = ["This is the actual last sentence."]
         result = widget.getLastSentence(category)
         self.assertEqual(result, true)
 
