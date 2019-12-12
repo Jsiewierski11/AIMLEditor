@@ -5,7 +5,7 @@ sys.path.append(os.path.abspath('..'))
 import Utils.Storage as Storage
 from Model.Data import *
 from Tests.aiml_creator import AimlCreator
-from GUI.EditorWidget import *
+from Tests.test_widget import EditorWidget
 
 
 
@@ -126,16 +126,21 @@ class TestFunctions(unittest.TestCase):
 
     
     def test_getLastSentence(self):
-        category = Category()
-        pattern = Pattern()
-        template = Template()
-        template.append("It is so good to see you. How are you doing?")
-        category.append(pattern)
-        category.append(template)
-
+        ac = AimlCreator()
+        category = ac.make_simple_cat()
         true = "How are you doing?"
-        result = EditorWidget.getLastSentence(self, category)
+        widget = EditorWidget()
+        result = widget.getLastSentence(category)
         self.assertEqual(result[0].lower(), true.lower())
+
+
+    def test_getLastSentence_rand(self):
+        ac = AimlCreator()
+        category = ac.make_cat_rand()
+        widget = EditorWidget()
+        true = ["This is a joke.", "How did you like it?", "What is your favorite?"]
+        result = widget.getLastSentence(category)
+        self.assertEqual(result, true)
 
     
 if __name__ == '__main__':
