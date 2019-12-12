@@ -107,10 +107,14 @@ class EditorWidget(QWidget):
         for socket in node.inputs + node.outputs:
             socket.edge.remove()
 
+        for parent in node.parents:
+            parent.children.remove(node)
+
+        for child in nodes.children:
+            child.parents.remove(node)
+
         node.parents = []
         node.children = []
-        # for socket in node.outputs:
-        #     socket.edge.remove()
 
         if DEBUG: print("all edges removed")
 
@@ -184,7 +188,9 @@ class EditorWidget(QWidget):
 
     """
     Function to find the sentence to be used for <that> tag of potential children.
-    Returns a list of strings of sentences in the <template> tag.
+    Returns a list of strings of last sentences in the <template> tag.
+        Sentences will only contain more than 1 element if there is a <random> or
+        <condition> tag. Sentences will then have a string for each <li> tag.
     """
     def getLastSentence(self, cat):
         if DEBUG: print("In getLastSentence()")
@@ -224,7 +230,8 @@ class EditorWidget(QWidget):
                     index = index + 1
 
                 # If made it to end of array without finding another punctiation mark. return full text in template
-                sentences.append(tempString)
+                if sentences is None:
+                    sentences.append(tempString)
                 return sentences
             else:
                 if DEBUG: print("template contains either a random or condition tag")

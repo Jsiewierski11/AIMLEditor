@@ -5,8 +5,7 @@ sys.path.append(os.path.abspath('..'))
 import Utils.Storage as Storage
 from Model.Data import *
 from Tests.aiml_creator import AimlCreator
-# import xml.etree.ElementTree as ET
-# from Tree.CommentedTreeBuilder import *
+from GUI.EditorWidget import *
 
 
 
@@ -59,10 +58,6 @@ class TestFunctions(unittest.TestCase):
         self.assertEqual(str(util), str(out))
 
 
-    # TODO: Figure out a consistent whitespace formatting
-    
-    
-    # NOTE: Fails due to whitespace mismatch. Is this a concern?
     def test_comments_util_import(self):
         imported = Storage.importAIML('./test_aimls/utils')
         Storage.exportAIML('./test_aimls/utils_exp', imported)
@@ -128,6 +123,19 @@ class TestFunctions(unittest.TestCase):
         test_aiml = Storage.compileToAIML(str(expected_aiml))
         # print('TEST:\n{}'.format(test_aiml))
         self.assertEqual(str(test_aiml), str(expected_aiml))
+
+    
+    def test_getLastSentence(self):
+        category = Category()
+        pattern = Pattern()
+        template = Template()
+        template.append("It is so good to see you. How are you doing?")
+        category.append(pattern)
+        category.append(template)
+
+        true = "How are you doing?"
+        result = EditorWidget.getLastSentence(self, category)
+        self.assertEqual(result[0].lower(), true.lower())
 
     
 if __name__ == '__main__':
