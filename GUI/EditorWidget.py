@@ -103,21 +103,26 @@ class EditorWidget(QWidget):
     def clearEdges(self, node):
         # Clearing children, parents, inputs, outputs list of new node
         #FIXME: This gets rid of edges on current node but there is still
-        #       connections to parent and child that will get redrawn.         
-        for socket in node.inputs + node.outputs:
-            socket.edge.remove()
+        #       connections to parent and child that will get redrawn.  
+        #       Currently this function is causing the program to crash.       
+        # for socket in node.inputs + node.outputs:
+        #     socket.edge.remove()
 
-        for parent in node.parents:
-            parent.children.remove(node)
+        # for parent in node.parents:
+        #     parent.children.remove(node)
 
-        for child in node.children:
-            child.parents.remove(node)
+        # for child in node.children:
+        #     child.parents.remove(node)
 
         node.parents = []
         node.children = []
 
-        if DEBUG: print("all edges removed")
+        for edge in self.scene.edges:
+            edge.start_socket = []
+            edge.end_socket = []
+            self.scene.edges.remove(edge)
 
+        if DEBUG: print("all edges removed")
         return node
 
     def addDebugContent(self):
