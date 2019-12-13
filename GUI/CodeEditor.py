@@ -46,6 +46,11 @@ def handleError(error):
     em = QErrorMessage.qtHandler()
     em.showMessage(str(error))
 
+
+DEBUG = True
+
+
+
 class QCodeEditor(QPlainTextEdit):
     '''
     QCodeEditor inherited from QPlainTextEdit providing:
@@ -174,7 +179,7 @@ class QCodeEditor(QPlainTextEdit):
 
     def resizeEvent(self, *e):
         '''overload resizeEvent handler'''
-        print("Resized called")
+        if DEBUG: print("Resized called")
         if self.DISPLAY_LINE_NUMBERS:  # resize number_bar widget
             cr = self.contentsRect()
             rec = QRect(cr.left(), cr.top(), self.number_bar.getWidth(), cr.height())
@@ -202,7 +207,7 @@ class QCodeEditor(QPlainTextEdit):
     @pyqtSlot(Tag)
     def categoryCreated(self, aiml):
         try:
-            print("In CodeEditor Slot - categoryCreated()")
+            if DEBUG: print("In CodeEditor Slot - categoryCreated()")
             self.setPlainText(str(aiml))
         except Exception as ex:
             handleError(ex)
@@ -213,7 +218,8 @@ class QCodeEditor(QPlainTextEdit):
     @pyqtSlot(Tag)
     def categoryUpdated(self, aiml):
         try:
-            print("In CodeEditor Slot - categoryUpdated()")
+            if DEBUG: print("In CodeEditor Slot - categoryUpdated()")
+            if DEBUG: print(f"aiml object to set:\n{aiml}")
             self.setPlainText(str(aiml))
         except Exception as ex:
             handleError(ex)

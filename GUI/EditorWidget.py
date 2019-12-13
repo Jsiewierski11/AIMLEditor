@@ -110,7 +110,7 @@ class EditorWidget(QWidget):
         for parent in node.parents:
             parent.children.remove(node)
 
-        for child in nodes.children:
+        for child in node.children:
             child.parents.remove(node)
 
         node.parents = []
@@ -316,11 +316,12 @@ class EditorWidget(QWidget):
             xOffset = 0
             for node in self.scene.nodes:
                 thatTag = node.category.findTag("that")
-                if DEBUG: print(str(thatTag))
-                if thatTag is None:
-                    if DEBUG: print("no that tag found in category: " + str(node.category))
-                elif newnode == node:
+                if DEBUG: print(f"Current Category:\n{node.category}")
+                if DEBUG: print(f"that: {str(thatTag)}")
+                if newnode == node:
                     if DEBUG: print("looking at node just created. Do nothing")
+                elif thatTag is None:
+                    if DEBUG: print("no that tag found in category: " + str(node.category))
                 else:
                     # That tag was found, add an edge
                     if DEBUG: print("that tag was found in category: " + str(node.category))
@@ -334,6 +335,8 @@ class EditorWidget(QWidget):
                         self.updateChildSockets(newnode, node)
                     else:
                         if DEBUG: print("Not a match for a child")
+
+            if DEBUG: print("No child found in scene")
         except Exception as ex:
             print("Exception caught in EditorWidget when looking for child nodes")
             print(ex)
@@ -425,7 +428,7 @@ class EditorWidget(QWidget):
             xOffset = 500
             for node in nodes:
                 yOffset = 0
-                if node.parents is None:
+                if len(node.parents) is 0:
                     if DEBUG: print("node has no parents place to the left.")
                     node.setPos(-900, -900 + yOffset)
                     yOffset = yOffset + 300
