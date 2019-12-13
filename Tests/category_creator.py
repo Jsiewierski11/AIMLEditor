@@ -62,3 +62,25 @@ class CategoryCreator(object):
         category.append(pattern)
         category.append(template)
         return category
+
+    def make_cat_rand_head_tail_oob(self):
+        category = Category()
+        pattern = Pattern()
+        template = Template()
+        random = Random()
+        oob = Oob()
+        robot = Robot()
+
+        template.append("This is the first sentence.")
+
+        random.append(ConditionItem().append("This is a joke."))
+        random.append(ConditionItem().append("This is a funny joke. How did you like it?"))
+        random.append(ConditionItem().append("I like to play sports. What is your favorite?"))
+
+        template.append(random)
+        template.append("This is the actual last sentence.")
+        template.append(oob.append(robot))
+        category.append(pattern)
+        category.append(template)
+        return category
+    

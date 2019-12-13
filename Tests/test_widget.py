@@ -8,33 +8,32 @@ class EditorWidget(object):
         pass
 
     """
-    Determine if the condition or random table has text afterwards
+    Determine if the condition or random table has text afterwards.
     """
     def tableContainsTail(self, template):
         try:
-            index = 0
-            for tag in template.tags:
-                if DEBUG: print("Beginning of for loop")
-                if isinstance(tag, str) is True and tag is not " ":
-                    if DEBUG: print("found string")
-                    continue
-                elif tag.type == "condition" or tag.type == "random":
-                    # Check to see if we are at end of array
-                    if index == len(template.tags) - 1:
-                        return False
+            for tag in reversed(template.tags):
+                if DEBUG: print("Beginning of loop")
+                if DEBUG: print(f"Current tag: {tag}")
 
-                    if DEBUG: print("next item in tags list: " + str(template.tags[index+1]))
-                    if isinstance(template.tags[index+1], str) is True:
-                        print("returning true")
-                        return True
-                    else:
-                        if DEBUG: print("returning false")
-                        return False
-                index = index + 1
+                if isinstance(tag, str) is True:
+                    if DEBUG: print("String found before Condition or Random. Return True.")
+                    return True, tag
+                # Check for <oob> tag
+                elif tag.type == "oob":
+                    if DEBUG: print("oob found, keep searching.")
+                elif tag.type == "condition" or tag.type == "random":
+                    if DEBUG: print("Condition or Random found before String. Return False.")
+                    return False, None
+            # Made it to end without finding anything
+            if DEBUG: print("Made it to end without finding anything. This should not happen!")
+            return False, None
         except Exception as ex:
-            print("Exception caught in EditorWidget - tableContainsTail()")
+            print("Exception caught in EditorWidget - tableContainsTail_better()")
             print(ex)
             handleError(ex)
+
+
 
     """
     Function to find the sentence to be used for <that> tag of potential children.
@@ -87,32 +86,9 @@ class EditorWidget(object):
             else:
                 if DEBUG: print("template contains either a random or condition tag")
                 if DEBUG: print(str(template))
-                if self.tableContainsTail(template) is True:
-                    if DEBUG: print("Random or Condition tag has text after")
-                    tempString = template.findTag("text", 1)
-                    if DEBUG: print(tempString)
-                    if tempString is None:
-                        if DEBUG: print("No sentence in category")
-                        return None
-                    tempArr = tempString.split()
-                    index = 0
-                    for word in reversed(tempArr):
-                        if "." in word or "?" in word or "!" in word:
-                            if index == 0:
-                                if DEBUG: print("Found last punctuation mark on very first word. Keep searching.")
-                                if DEBUG: print(word)
-                            else:
-                                if DEBUG: print("Found the start of the last sentence")
-                                if DEBUG: print(word)
-                                arrSize = len(tempArr)
-                                start = arrSize - (index)
-                                lastSentence = tempArr[start:arrSize]
-                                lastSentence = " ".join(lastSentence)
-                                if DEBUG: print(f"appending: {lastSentence}")
-                                sentences.append(lastSentence)
-                        index = index + 1
-                    # If made it to end of array without finding another punctiation mark. return full text in template
-                    sentences.append(tempString)
+                contains_tail, tail = self.tableContainsTail(template)
+                if contains_tail is True:
+                    sentences.append(tail)
                     return sentences
                 else:
                     if DEBUG: print("Random or Condition tag is the last thing in the template")

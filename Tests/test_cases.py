@@ -159,6 +159,15 @@ class TestFunctions(unittest.TestCase):
         print(f"category created for test:\n{category}")
         self.assertEqual(result, true)
 
+    def test_getLastSentence_rand_head_tail_oob(self):
+        cc = CategoryCreator()
+        category = cc.make_cat_rand_head_tail_oob()
+        widget = EditorWidget()
+        true = ["This is the actual last sentence."]
+        result = widget.getLastSentence(category)
+        print(f"category created for test:\n{category}")
+        self.assertEqual(result, true)
+
     
 if __name__ == '__main__':
     unittest.main()
