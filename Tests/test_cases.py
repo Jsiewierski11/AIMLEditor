@@ -5,6 +5,7 @@ sys.path.append(os.path.abspath('..'))
 import Utils.Storage as Storage
 from Model.Data import *
 from Tests.aiml_creator import AimlCreator
+from Tests.category_creator import CategoryCreator
 from Tests.test_widget import EditorWidget
 
 
@@ -126,28 +127,36 @@ class TestFunctions(unittest.TestCase):
 
     
     def test_getLastSentence(self):
-        ac = AimlCreator()
-        category = ac.make_simple_cat()
+        cc = CategoryCreator()
+        category = cc.make_simple_cat()
         true = ["How are you doing?"]
         widget = EditorWidget()
         result = widget.getLastSentence(category)
         self.assertEqual(result, true)
 
-
     def test_getLastSentence_rand(self):
-        ac = AimlCreator()
-        category = ac.make_cat_rand()
+        cc = CategoryCreator()
+        category = cc.make_cat_rand()
         widget = EditorWidget()
         true = ["This is a joke.", "How did you like it?", "What is your favorite?"]
         result = widget.getLastSentence(category)
         self.assertEqual(result, true)
 
     def test_getLastSentence_rand_tail(self):
-        ac = AimlCreator()
-        category = ac.make_cat_rand_tail()
+        cc = CategoryCreator()
+        category = cc.make_cat_rand_tail()
         widget = EditorWidget()
         true = ["This is the actual last sentence."]
         result = widget.getLastSentence(category)
+        self.assertEqual(result, true)
+
+    def test_getLastSentence_rand_head_tail(self):
+        cc = CategoryCreator()
+        category = cc.make_cat_rand_head_tail()
+        widget = EditorWidget()
+        true = ["This is the actual last sentence."]
+        result = widget.getLastSentence(category)
+        print(f"category created for test:\n{category}")
         self.assertEqual(result, true)
 
     

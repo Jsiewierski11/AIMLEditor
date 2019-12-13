@@ -75,12 +75,13 @@ class EditorWidget(object):
                             start = arrSize - (index)
                             lastSentence = tempArr[start:arrSize]
                             lastSentence = " ".join(lastSentence)
-                            if DEBUG: print(lastSentence)
+                            if DEBUG: print(f"appending: {lastSentence}")
                             sentences.append(lastSentence)
                     index = index + 1
 
                 # If made it to end of array without finding another punctiation mark. return full text in template
                 if sentences is None:
+                    if DEBUG: print(f"appending: {tempString}")
                     sentences.append(tempString)
                 return sentences
             else:
@@ -107,7 +108,7 @@ class EditorWidget(object):
                                 start = arrSize - (index)
                                 lastSentence = tempArr[start:arrSize]
                                 lastSentence = " ".join(lastSentence)
-                                if DEBUG: print(lastSentence)
+                                if DEBUG: print(f"appending: {lastSentence}")
                                 sentences.append(lastSentence)
                         index = index + 1
                     # If made it to end of array without finding another punctiation mark. return full text in template
@@ -135,7 +136,7 @@ class EditorWidget(object):
                                         start = arrSize - (index)
                                         lastSentence = liArr[start:arrSize]
                                         lastSentence = " ".join(lastSentence)
-                                        if DEBUG: print(lastSentence)
+                                        if DEBUG: print(f"appending: {lastSentence}")
                                         sentences.append(lastSentence)
                                         punctuationExists = True
                                         break
@@ -165,13 +166,14 @@ class EditorWidget(object):
                                         start = arrSize - (index)
                                         lastSentence = liArr[start:arrSize]
                                         lastSentence = " ".join(lastSentence)
-                                        if DEBUG: print(lastSentence)
+                                        if DEBUG: print(f"appending: {lastSentence}")
                                         sentences.append(lastSentence)
                                         punctuationExists = True
                                         break
                                 index = index + 1
                             # If at the end of array without finding another punctiation mark. return full text in tag
                             if punctuationExists is False:
+                                if DEBUG: print(f"appending: {liText}")
                                 sentences.append(liText)
                         return sentences
                     if DEBUG: print("done goofed")
