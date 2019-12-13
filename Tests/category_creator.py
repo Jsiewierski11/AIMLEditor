@@ -83,4 +83,30 @@ class CategoryCreator(object):
         category.append(pattern)
         category.append(template)
         return category
+
+    def make_cat_and_child(self):
+        parent_category = Category()
+        parent_pattern = Pattern()
+        parent_template = Template()
+        parent_oob = Oob()
+        parent_robot = Robot()
+
+        child_category = Category()
+        child_pattern = Pattern()
+        child_that = That()
+        child_template = Template()
+        child_oob = Oob()
+        child_robot = Robot()
+
+        parent_template.append("How are you?")
+        parent_template.append(parent_oob.append(parent_robot))
+        parent_category.append(pattern)
+        parent_category.append(template)
     
+        child_that.append("How are you?")
+        child_template.append(child_oob.append(robot))
+        child_category.append(pattern)
+        child_category.append(that)
+        child_category.append(template)
+
+        return parent_category, child_category

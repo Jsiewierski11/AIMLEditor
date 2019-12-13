@@ -6,8 +6,8 @@ import Utils.Storage as Storage
 from Model.Data import *
 from Tests.aiml_creator import AimlCreator
 from Tests.category_creator import CategoryCreator
-from Tests.test_widget import EditorWidget
-
+from Tests.test_widget import TestEditorWidget
+from GUI.Node.Node import Node
 
 
 class TestFunctions(unittest.TestCase):
@@ -130,14 +130,14 @@ class TestFunctions(unittest.TestCase):
         cc = CategoryCreator()
         category = cc.make_simple_cat()
         true = ["How are you doing?"]
-        widget = EditorWidget()
+        widget = TestEditorWidget()
         result = widget.getLastSentence(category)
         self.assertEqual(result, true)
 
     def test_getLastSentence_rand(self):
         cc = CategoryCreator()
         category = cc.make_cat_rand()
-        widget = EditorWidget()
+        widget = TestEditorWidget()
         true = ["This is a joke.", "How did you like it?", "What is your favorite?"]
         result = widget.getLastSentence(category)
         self.assertEqual(result, true)
@@ -145,7 +145,7 @@ class TestFunctions(unittest.TestCase):
     def test_getLastSentence_rand_tail(self):
         cc = CategoryCreator()
         category = cc.make_cat_rand_tail()
-        widget = EditorWidget()
+        widget = TestEditorWidget()
         true = ["This is the actual last sentence."]
         result = widget.getLastSentence(category)
         self.assertEqual(result, true)
@@ -153,7 +153,7 @@ class TestFunctions(unittest.TestCase):
     def test_getLastSentence_rand_head_tail(self):
         cc = CategoryCreator()
         category = cc.make_cat_rand_head_tail()
-        widget = EditorWidget()
+        widget = TestEditorWidget()
         true = ["This is the actual last sentence."]
         result = widget.getLastSentence(category)
         print(f"category created for test:\n{category}")
@@ -162,11 +162,28 @@ class TestFunctions(unittest.TestCase):
     def test_getLastSentence_rand_head_tail_oob(self):
         cc = CategoryCreator()
         category = cc.make_cat_rand_head_tail_oob()
-        widget = EditorWidget()
+        widget = TestEditorWidget()
         true = ["This is the actual last sentence."]
         result = widget.getLastSentence(category)
         print(f"category created for test:\n{category}")
         self.assertEqual(result, true)
+
+    # def test_findChildNodes(self):
+    #     print("creating widget")
+    #     widget = TestEditorWidget()
+    #     print("creating CategoryCreator")
+    #     cc = CategoryCreator()
+    #     print("creating nodes")
+    #     parent_node = Node(widget.scene)
+    #     child_node = Node(widget.scene)
+    #     print("creating categories")
+    #     parent_category, child_category = cc.make_cat_and_child()
+    #     parent_node.category = parent_category
+    #     child_node.category = child_category
+    #     true = [child_node]
+    #     thatStr = widget.getLastSentence(parent_category)
+    #     widget.findChildNodes(parent_node, thatStr[0])
+    #     self.assertEqual(parent_node.children, true)
 
     
 if __name__ == '__main__':

@@ -1,10 +1,20 @@
+import os, sys
+
+sys.path.append(os.path.abspath('..'))
 from Model.Data import *
 from Utils.ErrorMessage import *
+from GUI import EditorWidget
+from GUI.Node.Utils.Socket import *
+from GUI.Node.Scene.Scene import Scene
+from GUI.Node.Node import Node
 
 DEBUG = True
 
-class EditorWidget(object):
+class TestEditorWidget(object):
     def __init__(self):
+        # if DEBUG: print("creating scene")
+        # self.scene = Scene()
+        # if DEBUG: print("scene created")
         pass
 
     """
@@ -157,3 +167,105 @@ class EditorWidget(object):
             print("Exception caught in EditorWidget - getLastSentence()")
             print(ex)
             handleError(ex)
+
+
+    """
+    Find child nodes in the scene and add edges based off of <that> tags
+    """
+    def findChildNodes(self, newnode, thatStr):
+        try:
+            if DEBUG: print("looking for child nodes")
+            xOffset = 0
+            for node in self.scene.nodes:
+                thatTag = node.category.findTag("that")
+                if DEBUG: print(str(thatTag))
+                if thatTag is None:
+                    if DEBUG: print("no that tag found in category: " + str(node.category))
+                elif newnode == node:
+                    if DEBUG: print("looking at node just created. Do nothing")
+                else:
+                    # That tag was found, add an edge
+                    if DEBUG: print("that tag was found in category: " + str(node.category))
+                    thatText = thatTag.findTag("text")
+                    if DEBUG: print(f"Return type of findTag(\"text\"): {type(thatText)}")
+                    if DEBUG: print(f"{thatText}")
+                    if DEBUG: print(f"Data type of parameter thatStr: {type(thatStr)}")
+                    if DEBUG: print(f"{thatStr}")
+                    if thatText.lower() == thatStr.lower():
+                        if DEBUG: print("FOUND CHILD!")
+                        self.updateChildSockets(newnode, node)
+                    else:
+                        if DEBUG: print("Not a match for a child")
+        except Exception as ex:
+            print("Exception caught in EditorWidget when looking for child nodes")
+            print(ex)
+            handleError(ex)
+
+
+    """
+    Find parent nodes in the scene and add edges based off of <that> tags.
+    """
+    def findParentNodes(self, newnode):
+        try:
+            if DEBUG: print("looking for parent nodes")
+            mythatTag = newnode.category.findTag("that")
+            if mythatTag is None:
+                if DEBUG: print("no that tag so node will not have any parents")
+                return
+            thatText = mythatTag.findTag("text")
+            if DEBUG: print("Text of That Tag to look for: " + thatText)
+            xOffset = 0
+            for node in self.scene.nodes:
+                if node == newnode:
+                    if DEBUG: print("looking at node just created, do nothing")
+                else:
+                    if DEBUG: print("looking at node with category: " + str(node.category))
+                    self.updateParentSockets(newnode, node, thatText)
+        except Exception as ex:
+            print(ex)
+            handleError(ex)
+
+
+    """
+    Function to update the edges connecting to child nodes.
+    """
+    def updateChildSockets(self, newnode, node):
+        parentsocket = Socket(newnode, position=RIGHT_BOTTOM, socket_type=2)
+        newnode.inputs.append(parentsocket) # outputs is children
+
+        if node not in newnode.children:
+            newnode.children.append(node)
+
+        childsocket = Socket(node)
+        node.outputs.append(childsocket)
+
+        if newnode not in node.parents:
+            node.parents.append(newnode)
+
+        edge = Edge(self.scene, parentsocket, childsocket)
+
+
+    """
+    Function to update the edges connecting to parent nodes.
+    """
+    def updateParentSockets(self, newnode, node, thatText):
+        templateText = self.getLastSentence(node.category)
+        for text in templateText:
+            if thatText.lower() == text.lower():
+                if DEBUG: print("Found parent node!")
+                parentsocket = Socket(node, position=RIGHT_BOTTOM, socket_type=2)
+                node.inputs.append(parentsocket)
+
+                # need to check if node exists in list before appending
+                if newnode not in node.children:
+                    node.children.append(newnode)
+
+                childsocket = Socket(newnode)
+                newnode.outputs.append(childsocket)
+
+                if node not in newnode.parents:
+                    newnode.parents.append(node)
+
+                edge = Edge(self.scene, parentsocket, childsocket)
+            else:
+                if DEBUG: print("Not a match for a parent")

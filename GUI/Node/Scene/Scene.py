@@ -11,6 +11,7 @@ from Model.Data import *
 from PyQt5.QtWidgets import QWidget, QLabel, QVBoxLayout
 from PyQt5.QtGui import QFont
 
+DEBUG = True
 
 class Scene(Serializable):
     def __init__(self):
@@ -24,7 +25,9 @@ class Scene(Serializable):
         self._has_been_modified = False
         self._has_been_modified_listeners = []
 
+        if DEBUG: print("Initializing UI")
         self.initUI()
+        if DEBUG: print("UI Initialized")
         self.history = SceneHistory(self)
         self.clipboard = SceneClipboard(self)
 
@@ -48,7 +51,9 @@ class Scene(Serializable):
 
     def initUI(self):
         self.grScene = QDMGraphicsScene(self)
+        if DEBUG: print("Created graphics scene")
         self.grScene.setGrScene(self.scene_width, self.scene_height)
+        if DEBUG: print("Set scene dimensions")
 
     def addNode(self, node):
         self.nodes.append(node)
@@ -71,7 +76,7 @@ class Scene(Serializable):
     def saveToFile(self, filename):
         with open(filename+'.aib', "w") as file:
             file.write( json.dumps( self.serialize(), indent=4 ) )
-            print("saving to ", filename, " was successful.")
+            if DEBUG: print("saving to ", filename, " was successful.")
 
             self.has_been_modified = False
 
@@ -84,7 +89,7 @@ class Scene(Serializable):
             self.has_been_modified = False
 
     def serialize(self):
-        print("Serializing Scene")
+        if DEBUG: print("Serializing Scene")
         nodes, edges = [], []
         for node in self.nodes: nodes.append(node.serialize())
         for edge in self.edges: edges.append(edge.serialize())
@@ -97,7 +102,7 @@ class Scene(Serializable):
         ])
 
     def deserialize(self, data, hashmap={}, restore_id=True):
-        print("Deserializing scene")
+        if DEBUG: print("Deserializing scene")
         self.clear()
         hashmap = {}
 
