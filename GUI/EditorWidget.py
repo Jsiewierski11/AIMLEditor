@@ -184,7 +184,6 @@ class EditorWidget(QWidget):
             handleError(ex)
 
 
-
     """
     Function to find the sentence to be used for <that> tag of potential children.
     Returns a list of strings of last sentences in the <template> tag.
@@ -382,6 +381,8 @@ class EditorWidget(QWidget):
             node.parents.append(newnode)
 
         edge = Edge(self.scene, parentsocket, childsocket)
+        
+        return edge
 
 
     """

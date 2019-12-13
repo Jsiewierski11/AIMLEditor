@@ -5,7 +5,7 @@ from PyQt5.QtCore import QUuid
 from GUI.Node.Utils.Serializable import Serializable
 from collections import OrderedDict
 
-
+DEBUG = False
 
 
 class Tag(Serializable):
@@ -47,7 +47,7 @@ class Tag(Serializable):
 
     def serialize(self):
         try:
-            print("attempting to serialize tag")
+            if DEBUG: print("attempting to serialize tag")
             tags = []
             for tag in self.tags:
                 try:
@@ -55,11 +55,11 @@ class Tag(Serializable):
                 except:
                     tags.append(str(tag))
 
-            print("created tags array")
+            if DEBUG: print("created tags array")
 
-            print(tags)
+            if DEBUG: print(tags)
 
-            print(self.attrib)
+            if DEBUG: print(self.attrib)
             return OrderedDict([
                 ('id', self.objId),
                 ('type', str(self.type)),
@@ -72,24 +72,24 @@ class Tag(Serializable):
 
     def deserialize(self, data, hashmap={}, restore_id=True):
         try:
-            print("attempting to deserialize tag")
+            if DEBUG: print("attempting to deserialize tag")
             if restore_id: self.objId = data['id']
 
             self.type = data['type']
             self.attrib = data['attrib']
 
-            print("about to recursively decode tags")
+            if DEBUG: print("about to recursively decode tags")
 
             for tag in data['tags']:
-                print("printing tag contents")
-                print(tag)
+                if DEBUG: print("printing tag contents")
+                if DEBUG: print(tag)
                 try:
                     aTag = self.decode_tag(tag['type'])
-                    print(aTag)
+                    if DEBUG: print(aTag)
                     self.tags.append(aTag)
                     aTag.deserialize(tag)
                 except:
-                    print("appending text between tags")
+                    if DEBUG: print("appending text between tags")
                     self.tags.append(tag)
             return True
         except Exception as ex:
@@ -107,9 +107,9 @@ class Tag(Serializable):
         self.attrib = attrib
 
     def find(self, id):
-        print("trying to find category with id of " + str(id))
+        if DEBUG: print("trying to find category with id of " + str(id))
         if id is None:
-            print("Bad id, id was never generated and is currently null")
+            if DEBUG: print("Bad id, id was never generated and is currently null")
             return None
 
         for cat in self.tags:
@@ -117,32 +117,32 @@ class Tag(Serializable):
                 if cat.id == id:
                     return cat
             else:
-                print("tag type: " + cat.type)
+                if DEBUG: print("tag type: " + cat.type)
 
-        print("No category found")
+        if DEBUG: print("No category found")
         return None
 
     def update(self, newCat):
-        print("UPDATING CATEGORY")
+        if DEBUG: print("UPDATING CATEGORY")
         if id is None:
-            print("Bad id, id was never generated and is currently null")
+            if DEBUG: print("Bad id, id was never generated and is currently null")
             return None
 
         for index, cat in enumerate(self.tags):
             if cat.type == "category":
                 if cat.id == newCat.id:
-                    print("category to be removed: " + str(cat))
+                    if DEBUG: print("category to be removed: " + str(cat))
                     self.tags.remove(cat)
                     self.tags.append(newCat)
             elif cat.type == "topic":
-                print("topic tag")
+                if DEBUG: print("topic tag")
                 for ind, tag in enumerate(cat.tags):
                     if tag.id == newCat.id:
-                        print("category to be removed: " + str(tag))
+                        if DEBUG: print("category to be removed: " + str(tag))
                         cat.tags.remove(tag)
                 cat.tags.append(tag)
             else:
-                print("tag type: " + cat.type)
+                if DEBUG: print("tag type: " + cat.type)
 
         return newCat
 
@@ -153,12 +153,12 @@ class Tag(Serializable):
     def findTag(self, tagType, n=1):
         try:
             if self.tags is None:
-                print("This tag has no child tags")
+                if DEBUG: print("This tag has no child tags")
                 return None
             occurrence = 1
             for child in self.tags:
-                print(f"current Child in findTag:\n{child} ")
-                print(f"data type of child: {type(child)}")
+                if DEBUG: print(f"current Child in findTag:\n{child} ")
+                if DEBUG: print(f"data type of child: {type(child)}")
                 if tagType == "text":
                     if isinstance(child, str) is True:
                         if n == occurrence:
@@ -166,9 +166,9 @@ class Tag(Serializable):
                         else:
                             occurrence = occurrence + 1
                 else:
-                    print("Inside else of findTag")
+                    if DEBUG: print("Inside else of findTag")
                     if isinstance(child, str) is True:
-                        print("looking at string there is no type to check")
+                        if DEBUG: print("looking at string there is no type to check")
                     else:
                         if child.type == tagType:
                             if n == occurrence:
@@ -193,8 +193,8 @@ class Tag(Serializable):
             #       keep everything on one line
             tags = "".join(map(str, self.tags))
         elif self.type == 'comment':
-            # print("At comment tag")
-            # print(f"self.tags:\n{self.tags}")
+            if DEBUG: print("At comment tag")
+            if DEBUG: print(f"self.tags:\n{self.tags}")
             if self.tags != []:
                 temp_str = self.tags[0].replace("    ", "")
                 tags = " ".join(temp_str.split(" "))
@@ -219,10 +219,10 @@ class Tag(Serializable):
 
     def map_to_string(self):
         tags = ''
-        # print(f"In map_to_string, tag.type: {self.type}")
+        if DEBUG: print(f"In map_to_string, tag.type: {self.type}")
         for index, tag in enumerate(self.tags):
             if type(tag) is str:
-                # print('in the str case')
+                if DEBUG: print('in the str case')
                 tags += '\n' + indent(tag, Formatting.indentation)
             else:
                 if tag.type == "star":
@@ -232,8 +232,8 @@ class Tag(Serializable):
                 elif tag.type == "pattern" or tag.type == "that" or \
                      tag.type == "li" or tag.type == "random" or tag.type == "comment":                   
                     # Checking to see if we are at end of list
-                    # print("in the outer edge case")
-                    # print(f"tag.type: {tag.type}")
+                    if DEBUG: print("in the outer edge case")
+                    if DEBUG: print(f"tag.type: {tag.type}")
                     if index < len(self.tags)-1:
                         # NOTE: If the next tag is one of the following listed 
                         #       then we need to add an \n char to the end of our string
@@ -241,8 +241,8 @@ class Tag(Serializable):
                             if self.tags[index+1].type != "li" and self.tags[index+1].type != "comment" and \
                             self.tags[index+1].type != "template" and self.tags[index+1].type != "oob" and \
                             self.tags[index+1].type != "category" and self.tags[index+1].type != "that":
-                                # print("in the inner edge case")
-                                # print(f"tag.type: {tag.type}")
+                                if DEBUG: print("in the inner edge case")
+                                if DEBUG: print(f"tag.type: {tag.type}")
                                 tags += '\n' + indent(''.join(str(tag)),
                                         Formatting.indentation) + '\n'
                             else:
