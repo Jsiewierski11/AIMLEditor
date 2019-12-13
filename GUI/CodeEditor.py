@@ -217,9 +217,9 @@ class QCodeEditor(QPlainTextEdit):
     # Slot function for updating categories.
     @pyqtSlot(Tag)
     def categoryUpdated(self, aiml):
+        if DEBUG: print("In CodeEditor Slot - categoryUpdated()")
+        if DEBUG: print(f"aiml object to set:\n{aiml}")
         try:
-            if DEBUG: print("In CodeEditor Slot - categoryUpdated()")
-            if DEBUG: print(f"aiml object to set:\n{aiml}")
             self.setPlainText(str(aiml))
         except Exception as ex:
             handleError(ex)

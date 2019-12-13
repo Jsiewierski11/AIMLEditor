@@ -84,8 +84,8 @@ class EditorWidget(QWidget):
                     node.content.wdg_label.displayVisuals(cat)
 
                     # Clearing edges so they can be redrawn.
-                    if DEBUG: print("Clearing edges from node")
-                    node = self.clearEdges(node)
+                    # if DEBUG: print("Clearing edges from node")
+                    # node = self.clearEdges(node)
 
                     # Finding parent and children nodes.
                     if DEBUG: print("Redrawing edges")
