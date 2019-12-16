@@ -21,7 +21,7 @@ class SceneClipboard():
             if hasattr(item, 'node'):
                 sel_nodes.append(item.node.serialize())
                 for socket in (item.node.inputs + item.node.outputs):
-                    sel_sockets[socket.id] = socket
+                    sel_sockets[socket.cat_id] = socket
             elif isinstance(item, QDMGraphicsEdge):
                 sel_edges.append(item.edge)
 
@@ -36,7 +36,7 @@ class SceneClipboard():
         # remove all edges which are not connected to a node in our list
         edges_to_remove = []
         for edge in sel_edges:
-            if edge.start_socket.id in sel_sockets and edge.end_socket.id in sel_sockets:
+            if edge.start_socket.cat_id in sel_sockets and edge.end_socket.cat_id in sel_sockets:
                 # if DEBUG: print(" edge is ok, connected with both sides")
                 pass
             else:

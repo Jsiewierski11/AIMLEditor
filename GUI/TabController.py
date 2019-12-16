@@ -9,7 +9,7 @@ from GUI.Node.Node import Node
 from Model.Data import *
 
 
-DEBUG = False
+DEBUG = True
 
 
 class TabController(QWidget):
@@ -128,6 +128,7 @@ class TabController(QWidget):
                 self.aiml.append(cat)
                 if DEBUG: print("appended category to AIML object")
                 self.catCreated.emit(self.aiml)
+                return cat
             else:
                 if DEBUG: print("CodeEditor is equal to None")
                 self.aiml = AIML()
@@ -135,21 +136,22 @@ class TabController(QWidget):
                 self.aiml.append(cat)
                 if DEBUG: print("appended category to AIML object")
                 self.catCreated.emit(self.aiml)
+                return cat
         except Exception as ex:
             handleError(ex)
-            print("Exception caught in TabController case 1 - categoryCreated()")
+            print("Exception caught in TabController - create_category_code_editor()")
             print(ex)
+            
 
 
     def create_category_graph_view(self, cat):
-        # This is for the EditorWidget
         try:
             if cat.type == "topic":
                 # Iterate through topic and place categories
                 for category in cat.tags:
                     thatToCheck = self.graphview.getLastSentence(category)
                     if DEBUG: print("got last sentence of category")
-                    title = "Category: " + category.id
+                    title = "Category: " + category.cat_id
                     aNode = Node(self.graphview.scene, title, category)
                     if DEBUG: print("created node")
                     aNode.content.wdg_label.displayVisuals(category)
@@ -167,12 +169,12 @@ class TabController(QWidget):
                         node.updateConnectedEdges()
 
                     aNode.content.catClicked.connect(self.graphview.categoryClicked) # connecting signals coming from Content Widget
-                    if DEBUG: print("trying to connect addChild button")
-                    aNode.content.childClicked.connect(self.graphview.addChildClicked) # connecting signals coming from Content Widget
+                    # if DEBUG: print("trying to connect addChild button")
+                    # aNode.content.childClicked.connect(self.graphview.addChildClicked) # connecting signals coming from Content Widget
             else:
                 thatToCheck = self.graphview.getLastSentence(cat)
                 if DEBUG: print("got last sentence of category")
-                title = "Category: " + cat.id
+                title = "Category: " + cat.cat_id
                 aNode = Node(self.graphview.scene, title, cat)
                 if DEBUG: print("created node")
                 aNode.content.wdg_label.displayVisuals(cat)
@@ -189,10 +191,10 @@ class TabController(QWidget):
                     node.updateConnectedEdges()
 
                 aNode.content.catClicked.connect(self.graphview.categoryClicked) # connecting signals coming from Content Widget
-                if DEBUG: print("trying to connect addChild button")
-                aNode.content.childClicked.connect(self.graphview.addChildClicked) # connecting signals coming from Content Widget
+                # if DEBUG: print("trying to connect addChild button")
+                # aNode.content.childClicked.connect(self.graphview.addChildClicked) # connecting signals coming from Content Widget
         except Exception as ex:
-            print("Exception caught in TabController case 2 - categoryCreated()")
+            print("Exception caught in TabController - create_category_graph_view()")
             print(ex)
             handleError(ex)
 
@@ -201,7 +203,7 @@ class TabController(QWidget):
     @pyqtSlot(Tag)
     def categoryCreated(self, cat):
         if DEBUG: print("In TabController Slot - categoryCreated()")
-        self.create_category_code_editor(cat)
+        cat = self.create_category_code_editor(cat)
         self.create_category_graph_view(cat)
         
 
@@ -215,6 +217,7 @@ class TabController(QWidget):
             updatedNode = self.graphview.updateNode(cat) # Updating graphview display
             if DEBUG: print("display updated")
             if DEBUG: print(f"updated category:\n{updatedCat}")
+            if DEBUG: print(f"aiml object to set (TabController):\n{self.aiml}")
             self.catUpdated.emit(self.aiml) # Sending the updated aiml object to the CodeEditor.
         except Exception as ex:
             print("Exception caught trying to update Node in TabController")

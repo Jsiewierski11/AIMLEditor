@@ -29,23 +29,23 @@ class QDMNodeContentWidget(QWidget, Serializable):
         self.layout.addWidget(self.wdg_label)
 
         # add child button
-        self.addChild = QPushButton("Add child")
-        self.layout.addWidget(self.addChild)
+        # self.addChild = QPushButton("Add child")
+        # self.layout.addWidget(self.addChild)
 
         # connecting label to allow signals to be sent to slot
         self.wdg_label.templateLabel.catClicked.connect(self.categoryClicked)
         self.wdg_label.patternLabel.catClicked.connect(self.categoryClicked)
         self.wdg_label.thatLabel.catClicked.connect(self.categoryClicked)
-        self.addChild.clicked.connect(self.addChildClicked)
+        # self.addChild.clicked.connect(self.addChildClicked)
 
         # self.layout.addWidget(QLabel("What Ryan Hears:"))
         # self.layout.addWidget(QDMTextEdit(""))
         # self.layout.addWidget(QLabel("What Ryan Says:"))
         # self.layout.addWidget(QDMTextEdit(""))
 
-    def addChildClicked(self):
-        print("add child clicked")
-        self.childClicked.emit(self.node.category) #emitting signal to editor widget
+    # def addChildClicked(self):
+    #     print("add child clicked")
+    #     self.childClicked.emit(self.node.category) #emitting signal to editor widget
 
     def setEditingFlag(self, value):
         self.node.scene.grScene.views()[0].editingFlag = value
@@ -63,13 +63,13 @@ class QDMNodeContentWidget(QWidget, Serializable):
         print("slot in ContentWidget - categoryClicked()")
         print(self.node.category)
         try:
-            if self.node.category.id == "":
+            if self.node.category.cat_id == "":
                 print("id is empty string")
-                id = QUuid()
-                id = id.createUuid()
-                id = id.toString()
-                self.node.category.id = id
-                print(self.node.category.id)
+                cat_id = QUuid()
+                cat_id = cat_id.createUuid()
+                cat_id = cat_id.toString()
+                self.node.category.cat_id = cat_id
+                print(self.node.category.cat_id)
                 try:
                     self.catClicked.emit(self.node.category) # emitting signal up to Editor Widget
                     print("signal emitted")
@@ -78,7 +78,7 @@ class QDMNodeContentWidget(QWidget, Serializable):
                     print(ex)
             else:
                 print("id exists")
-                print(self.node.category.id)
+                print(self.node.category.cat_id)
                 try:
                     self.catClicked.emit(self.node.category) # emitting signal up to Editor Widget
                     print("signal emitted")

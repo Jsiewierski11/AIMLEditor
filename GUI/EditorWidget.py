@@ -75,7 +75,7 @@ class EditorWidget(QWidget):
         try:
             if DEBUG: print("updating node in display")
             for node in self.scene.nodes:
-                if node.category.id == cat.id:
+                if node.category.cat_id == cat.cat_id:
                     if DEBUG: print("found node to update")
                     node.category = cat
                     if DEBUG: print(str(node.category))
@@ -84,7 +84,13 @@ class EditorWidget(QWidget):
                     node.content.wdg_label.displayVisuals(cat)
 
                     # Clearing edges so they can be redrawn.
-                    self.scene.clearAllEdges()
+                    # self.scene.clearAllEdges()
+                    for parent in node.parents:
+                        parent.children.remove(node)
+
+                    for child in node.children:
+                        child.parent.remove(node)
+
                     node.parents = []
                     node.children = []
 
@@ -429,37 +435,37 @@ class EditorWidget(QWidget):
             print(ex)
             handleError(ex)
 
-    @pyqtSlot(Tag)
-    def addChildClicked(self, cat):
-        try:
-            if DEBUG: print("In slot of editor widget")
-            template = cat.findTag("template")
-            if DEBUG: print("template tags list: " + str(template.tags))
-            if template.findTag("condition") is None and template.findTag("random") is None:
-                if DEBUG: print("no table inside template")
-                thatStr = self.getLastSentence(cat)
-                if DEBUG: print(thatStr)
-                self.childClicked.emit(thatStr[0])  # emitting to Editor Window
-            else:
-                if self.tableContainsTail(template) is False:
-                    if DEBUG: print("table is last thing in template. Must choose response to use for that")
-                    template = cat.findTag("template")
-                    condition = template.findTag("condition")
-                    random = template.findTag("random")
-                    if condition is not None:
-                        if DEBUG: print("create response table out of condition items")
-                        self.responseTable = ResponseSelection(tag=condition, category=cat, editspace=self)
-                    else:
-                        if DEBUG: print("create response table out of random items")
-                        self.responseTable = ResponseSelection(tag=random, category=cat, editspace=self)
-                else:
-                    if DEBUG: print("table contains tail, there is only one possible sentence to use for that")
-                    thatStr = self.getLastSentence(cat)
-                    if DEBUG: print(thatStr[0])
-                    self.childClicked.emit(thatStr[0]) # emitting to Editor Window
-        except Exception as ex:
-            print(ex)
-            handleError(ex)
+    # @pyqtSlot(Tag)
+    # def addChildClicked(self, cat):
+    #     try:
+    #         if DEBUG: print("In slot of editor widget")
+    #         template = cat.findTag("template")
+    #         if DEBUG: print("template tags list: " + str(template.tags))
+    #         if template.findTag("condition") is None and template.findTag("random") is None:
+    #             if DEBUG: print("no table inside template")
+    #             thatStr = self.getLastSentence(cat)
+    #             if DEBUG: print(thatStr)
+    #             self.childClicked.emit(thatStr[0])  # emitting to Editor Window
+    #         else:
+    #             if self.tableContainsTail(template) is False:
+    #                 if DEBUG: print("table is last thing in template. Must choose response to use for that")
+    #                 template = cat.findTag("template")
+    #                 condition = template.findTag("condition")
+    #                 random = template.findTag("random")
+    #                 if condition is not None:
+    #                     if DEBUG: print("create response table out of condition items")
+    #                     self.responseTable = ResponseSelection(tag=condition, category=cat, editspace=self)
+    #                 else:
+    #                     if DEBUG: print("create response table out of random items")
+    #                     self.responseTable = ResponseSelection(tag=random, category=cat, editspace=self)
+    #             else:
+    #                 if DEBUG: print("table contains tail, there is only one possible sentence to use for that")
+    #                 thatStr = self.getLastSentence(cat)
+    #                 if DEBUG: print(thatStr[0])
+    #                 self.childClicked.emit(thatStr[0]) # emitting to Editor Window
+    #     except Exception as ex:
+    #         print(ex)
+    #         handleError(ex)
 
     def setNodeStyleSheet(self, node):
         node.content.setStyleSheet(self.stylesheet_filename)
@@ -476,7 +482,7 @@ class EditorWidget(QWidget):
             # FIXME: Optimize me. Maybe place parent and children nodes in something other than lists.
             for node in self.scene.nodes:
                 if DEBUG: print("Searching for correct node")
-                if node.category.id == cat.id:
+                if node.category.cat_id == cat.cat_id:
                     for child in node.children:
                         if DEBUG: print("Changing background of child")
                         child.content.setStyleSheet("QDMNodeContentWidget { background: #f82f04; }")

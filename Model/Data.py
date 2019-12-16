@@ -5,7 +5,7 @@ from PyQt5.QtCore import QUuid
 from GUI.Node.Utils.Serializable import Serializable
 from collections import OrderedDict
 
-DEBUG = False
+DEBUG = True
 
 
 class Tag(Serializable):
@@ -106,15 +106,15 @@ class Tag(Serializable):
     def setAttrib(self, attrib):
         self.attrib = attrib
 
-    def find(self, id):
-        if DEBUG: print("trying to find category with id of " + str(id))
-        if id is None:
+    def find(self, cat_id):
+        if DEBUG: print("trying to find category with id of " + str(cat_id))
+        if cat_id is None:
             if DEBUG: print("Bad id, id was never generated and is currently null")
             return None
 
         for cat in self.tags:
             if cat.type == "category":
-                if cat.id == id:
+                if cat.cat_id == cat_id:
                     return cat
             else:
                 if DEBUG: print("tag type: " + cat.type)
@@ -124,26 +124,28 @@ class Tag(Serializable):
 
     def update(self, newCat):
         if DEBUG: print("UPDATING CATEGORY")
-        if id is None:
+        if newCat.cat_id is None:
             if DEBUG: print("Bad id, id was never generated and is currently null")
             return None
-
+        if DEBUG: print(f"tags in aiml:{self.tags}")
+        if DEBUG: print(f"looking for id: {newCat.cat_id}")
         for index, cat in enumerate(self.tags):
+            if DEBUG: print(f"looking at id: {cat.cat_id}")
             if cat.type == "category":
-                if cat.id == newCat.id:
+                if cat.cat_id == newCat.cat_id:
                     if DEBUG: print("category to be removed: " + str(cat))
                     self.tags.remove(cat)
                     self.tags.append(newCat)
             elif cat.type == "topic":
                 if DEBUG: print("topic tag")
                 for ind, tag in enumerate(cat.tags):
-                    if tag.id == newCat.id:
+                    if tag.cat_id == newCat.cat_id:
                         if DEBUG: print("category to be removed: " + str(tag))
                         cat.tags.remove(tag)
                 cat.tags.append(tag)
             else:
                 if DEBUG: print("tag type: " + cat.type)
-
+        if DEBUG: print("End of loop")
         return newCat
 
     """
@@ -297,15 +299,15 @@ class Topic(Tag):
 
 
 class Category(Tag):
-    def __init__(self, id=""):
+    def __init__(self, cat_id=""):
         super().__init__("category", acceptable_tags=[
             Pattern, Template, Think, That, Comment])
         # id to distinguish categories within an AIML object
-        if id == "":
+        if cat_id == "":
             newId = QUuid.createUuid()
-            self.id = newId.toString()
+            self.cat_id = newId.toString()
         else:
-            self.id = id
+            self.cat_id = cat_id
 
 
 class Pattern(Tag):

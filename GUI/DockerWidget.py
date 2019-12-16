@@ -129,7 +129,7 @@ class DockerWidget(QDockWidget):
 
         # Making connection to incoming signals
         self.window.catClicked.connect(self.categoryClicked)
-        self.window.childClicked.connect(self.addChildClicked)
+        # self.window.childClicked.connect(self.addChildClicked)
 
         # Click events
         self.create.clicked.connect(self.createClicked)
@@ -148,6 +148,8 @@ class DockerWidget(QDockWidget):
         self.videoEdit.clear()
         self.imageEdit.clear()
 
+        self.cat = None
+
         # NOTE: resetting style sheet of parent and children nodes.
         stylesheet_filename = 'GUI/style/nodestyle.qss'
         for node in self.window.editSpace.graphview.scene.nodes:
@@ -156,11 +158,11 @@ class DockerWidget(QDockWidget):
         if self.update.isVisible() is True:
             self.update.setVisible(False)
 
-    @pyqtSlot(str)
-    def addChildClicked(self, thatStr):
-        print("In slot in Docker Widget")
-        print("String to append to <that> field: " + thatStr)
-        self.thatEdit.setText(thatStr)
+    # @pyqtSlot(str)
+    # def addChildClicked(self, thatStr):
+    #     print("In slot in Docker Widget")
+    #     print("String to append to <that> field: " + thatStr)
+    #     self.thatEdit.setText(thatStr)
 
     @pyqtSlot(Tag)
     def categoryClicked(self, cat):
@@ -196,10 +198,10 @@ class DockerWidget(QDockWidget):
                 print(ex)
 
     def updateClicked(self):
-        print("update button clicked")
+        print("UPDATE BUTTON CLICKED")
 
         # initializing tag objects
-        self.cat = Category(self.cat.id)
+        self.cat = Category(cat_id=self.cat.cat_id)
         self.pattern = Pattern()
         self.template = Template()
         self.that = That()
@@ -336,10 +338,10 @@ class DockerWidget(QDockWidget):
     def createClicked(self):
         print("Create Clicked")
         # Initialize tag objects
-        id = QUuid()
-        id = id.createUuid()
-        id = id.toString()
-        self.cat = Category(id)
+        cat_id = QUuid()
+        cat_id = cat_id.createUuid()
+        cat_id = cat_id.toString()
+        self.cat = Category(cat_id)
         self.pattern = Pattern()
         self.template = Template()
         self.that = That()

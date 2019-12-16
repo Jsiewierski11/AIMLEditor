@@ -106,7 +106,7 @@ class EditorWindow(QMainWindow):
 
         ########## making connections to slots ################
         self.editSpace.graphview.catClicked.connect(self.categoryClicked) # connecting signal from EditorWidget to slot
-        self.editSpace.childClicked.connect(self.addChildClicked) # connecting signal from EditorWidget
+        # self.editSpace.childClicked.connect(self.addChildClicked) # connecting signal from EditorWidget
 
 
         # status bar
@@ -127,10 +127,10 @@ class EditorWindow(QMainWindow):
         # emitting signal to send category received from docker to EditorWidget slot
         self.catCreated.emit(cat) 
 
-    @pyqtSlot(str)
-    def addChildClicked(self, thatStr):
-        if DEBUG: print("In slot in Editor Window - addChildClicked()")
-        self.childClicked.emit(thatStr) # Emitting signal to Docker Widget
+    # @pyqtSlot(str)
+    # def addChildClicked(self, thatStr):
+    #     if DEBUG: print("In slot in Editor Window - addChildClicked()")
+    #     self.childClicked.emit(thatStr) # Emitting signal to Docker Widget
 
     @pyqtSlot(Tag)
     def categoryClicked(self, cat):
@@ -339,12 +339,16 @@ class EditorWindow(QMainWindow):
                 if DEBUG: print("did not compile properly")
                 return
             if DEBUG: print("compiling complete")
+
+            # Updating code editor
             self.editSpace.editSpace.aiml = aiml
             if DEBUG: print(f"new model for the aiml:\n{self.editSpace.editSpace.aiml}")
-            
-            # Code to update graph view.
+
+            # Updating graph view.
+            # NOTE: This is code makes it so when updating in graph view, 
+            #       changes will not be made in code editor.
             self.editSpace.graphview.scene.clear()
-            for cat in aiml.tags:
+            for cat in self.editSpace.editSpace.aiml.tags:
                 self.editSpace.create_category_graph_view(cat) # Sending categories to be drawn on graph view
 
             self.editSpace.up_to_date = True
