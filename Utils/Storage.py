@@ -162,9 +162,10 @@ def compileToAIML(str_contents):
         print("exception trying to compile project to AIML")
         print(ex)
 
-def count_categories(aiml):
-    num_cats = 0
-    for tag in aiml.tags:
-        if tag.type == 'category':
-            num_cats += 1
-    return num_cats
+# Function currently unsued
+# def count_categories(aiml):
+#     num_cats = 0
+#     for tag in aiml.tags:
+#         if tag.type == 'category':
+#             num_cats += 1
+#     return num_cats

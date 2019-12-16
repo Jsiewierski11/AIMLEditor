@@ -119,13 +119,9 @@ class TabController(QWidget):
         zoomFactor -= (self.graphview.view.zoomStep * 0.5)
         self.graphview.view.scale(zoomFactor, zoomFactor)
 
-
-    # slot function for a category being created and displaying on editSpace
-    @pyqtSlot(Tag)
-    def categoryCreated(self, cat):
-        # This is for the CodeEditor
+    
+    def create_category_code_editor(self, cat):
         try:
-            if DEBUG: print("In TabController Slot - categoryCreated()")
             if self.aiml is not None:
                 if DEBUG: print(f"Current aiml Model:\n{self.aiml}")
                 if DEBUG: print("Ok to add category")
@@ -144,6 +140,8 @@ class TabController(QWidget):
             print("Exception caught in TabController case 1 - categoryCreated()")
             print(ex)
 
+
+    def create_category_graph_view(self, cat):
         # This is for the EditorWidget
         try:
             if cat.type == "topic":
@@ -198,6 +196,15 @@ class TabController(QWidget):
             print(ex)
             handleError(ex)
 
+
+    # slot function for a category being created and displaying on editSpace
+    @pyqtSlot(Tag)
+    def categoryCreated(self, cat):
+        if DEBUG: print("In TabController Slot - categoryCreated()")
+        self.create_category_code_editor(cat)
+        self.create_category_graph_view(cat)
+        
+
     # Slot function for updating categories.
     @pyqtSlot(Tag)
     def categoryUpdated(self, cat):
@@ -205,7 +212,7 @@ class TabController(QWidget):
         try:
             updatedCat = self.aiml.update(cat)
             if DEBUG: print(f'Updated aiml object:\n{self.aiml}')
-            updatedNode = self.graphview.updateNode(cat)
+            updatedNode = self.graphview.updateNode(cat) # Updating graphview display
             if DEBUG: print("display updated")
             if DEBUG: print(f"updated category:\n{updatedCat}")
             self.catUpdated.emit(self.aiml) # Sending the updated aiml object to the CodeEditor.

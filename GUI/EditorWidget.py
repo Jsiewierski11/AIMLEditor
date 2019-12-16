@@ -84,8 +84,9 @@ class EditorWidget(QWidget):
                     node.content.wdg_label.displayVisuals(cat)
 
                     # Clearing edges so they can be redrawn.
-                    # if DEBUG: print("Clearing edges from node")
-                    # node = self.clearEdges(node)
+                    self.scene.clearAllEdges()
+                    node.parents = []
+                    node.children = []
 
                     # Finding parent and children nodes.
                     if DEBUG: print("Redrawing edges")
@@ -100,30 +101,6 @@ class EditorWidget(QWidget):
         except Exception as ex:
             print(ex)
 
-    def clearEdges(self, node):
-        # Clearing children, parents, inputs, outputs list of new node
-        #FIXME: This gets rid of edges on current node but there is still
-        #       connections to parent and child that will get redrawn.  
-        #       Currently this function is causing the program to crash.       
-        # for socket in node.inputs + node.outputs:
-        #     socket.edge.remove()
-
-        # for parent in node.parents:
-        #     parent.children.remove(node)
-
-        # for child in node.children:
-        #     child.parents.remove(node)
-
-        node.parents = []
-        node.children = []
-
-        for edge in self.scene.edges:
-            edge.start_socket = []
-            edge.end_socket = []
-            self.scene.edges.remove(edge)
-
-        if DEBUG: print("all edges removed")
-        return node
 
     def addDebugContent(self):
         greenBrush = QBrush(Qt.green)
