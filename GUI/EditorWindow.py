@@ -345,11 +345,12 @@ class EditorWindow(QMainWindow):
             if DEBUG: print(f"new model for the aiml:\n{self.editSpace.editSpace.aiml}")
 
             # Updating graph view.
-            # NOTE: This is code makes it so when updating in graph view, 
+            # FIXME: This is code makes it so when updating in graph view, 
             #       changes will not be made in code editor.
-            self.editSpace.graphview.scene.clear()
-            for cat in self.editSpace.editSpace.aiml.tags:
-                self.editSpace.create_category_graph_view(cat) # Sending categories to be drawn on graph view
+            # FIXME: Also causing system to crash if you move nodes then try to compile.
+            # self.editSpace.graphview.scene.clear()
+            # for cat in self.editSpace.editSpace.aiml.tags:
+            #     self.editSpace.create_category_graph_view(cat) # Sending categories to be drawn on graph view
 
             self.editSpace.up_to_date = True
             self.editSpace.tabs.setStyleSheet('')

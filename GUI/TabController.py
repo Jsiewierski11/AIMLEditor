@@ -171,6 +171,8 @@ class TabController(QWidget):
                     aNode.content.catClicked.connect(self.graphview.categoryClicked) # connecting signals coming from Content Widget
                     # if DEBUG: print("trying to connect addChild button")
                     # aNode.content.childClicked.connect(self.graphview.addChildClicked) # connecting signals coming from Content Widget
+            elif cat.type == "comment":
+                print("Comment found, don't display comments on graphview.")
             else:
                 thatToCheck = self.graphview.getLastSentence(cat)
                 if DEBUG: print("got last sentence of category")
