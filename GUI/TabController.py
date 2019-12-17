@@ -217,10 +217,11 @@ class TabController(QWidget):
             updatedCat = self.aiml.update(cat)
             if DEBUG: print(f'Updated aiml object:\n{self.aiml}')
             updatedNode = self.graphview.updateNode(cat) # Updating graphview display
-            if DEBUG: print("display updated")
+            if DEBUG: print("EditorWidget successfully updated")
             if DEBUG: print(f"updated category:\n{updatedCat}")
             if DEBUG: print(f"aiml object to set (TabController):\n{self.aiml}")
             self.catUpdated.emit(self.aiml) # Sending the updated aiml object to the CodeEditor.
         except Exception as ex:
             print("Exception caught trying to update Node in TabController")
             print(ex)
+            handleError(ex)

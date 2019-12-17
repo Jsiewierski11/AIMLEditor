@@ -89,7 +89,7 @@ class EditorWidget(QWidget):
                         parent.children.remove(node)
 
                     for child in node.children:
-                        child.parent.remove(node)
+                        child.parents.remove(node)
 
                     node.parents = []
                     node.children = []
@@ -101,6 +101,7 @@ class EditorWidget(QWidget):
                         if DEBUG: print("Looking for parent nodes")
                         self.findParentNodes(node)
                     thatStr = self.getLastSentence(cat)
+                    if DEBUG: print(f"thatStr: {thatStr}")
                     self.findChildNodes(node, thatStr[0])
                     node.updateConnectedEdges()
                     return node
@@ -217,7 +218,7 @@ class EditorWidget(QWidget):
                     index = index + 1
 
                 # If made it to end of array without finding another punctiation mark. return full text in template
-                if sentences is None:
+                if len(sentences) is 0:
                     if DEBUG: print(f"appending: {tempString}")
                     sentences.append(tempString)
                 return sentences

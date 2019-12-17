@@ -221,6 +221,7 @@ class QCodeEditor(QPlainTextEdit):
         if DEBUG: print(f"aiml object to set (CodeEditor):\n{aiml}")
         try:
             self.setPlainText(str(aiml))
+            if DEBUG: print("Updated CodeEditor successfully")
         except Exception as ex:
             handleError(ex)
             print("Exception caught in CodeEditor - categoryUpdated()")

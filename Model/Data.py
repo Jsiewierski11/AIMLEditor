@@ -130,8 +130,8 @@ class Tag(Serializable):
         if DEBUG: print(f"tags in aiml:{self.tags}")
         if DEBUG: print(f"looking for id: {newCat.cat_id}")
         for index, cat in enumerate(self.tags):
-            if DEBUG: print(f"looking at id: {cat.cat_id}")
             if cat.type == "category":
+                if DEBUG: print(f"looking at id: {cat.cat_id}")
                 if cat.cat_id == newCat.cat_id:
                     if DEBUG: print("category to be removed: " + str(cat))
                     self.tags.remove(cat)

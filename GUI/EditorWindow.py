@@ -348,9 +348,8 @@ class EditorWindow(QMainWindow):
             if DEBUG: print(f"new model for the aiml:\n{self.editSpace.aiml}")
 
             # Updating graph view.
-            # FIXME: This is code makes it so when updating in graph view, 
-            #       changes will not be made in code editor.
             # FIXME: Also causing system to crash if you move nodes then try to compile.
+            # NOTE: This issue might be fixed but not positive.
             self.editSpace.graphview.scene.clearAllNodes()
             self.editSpace.graphview.scene.clearAllEdges()
             for cat in self.editSpace.aiml.tags:
