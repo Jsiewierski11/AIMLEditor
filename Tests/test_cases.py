@@ -10,8 +10,7 @@ from Tests.aiml_creator import AimlCreator
 from Tests.category_creator import CategoryCreator
 from Tests.test_widget import TestEditorWidget
 from GUI.Node.Node import Node
-from GUI.EditorWindow import EditorWindow
-from GUI.DockerWidget import DockerWidget
+
 
 app = QApplication([])
 
@@ -173,13 +172,6 @@ class TestFunctions(unittest.TestCase):
         result = widget.getLastSentence(category)
         print(f"category created for test:\n{category}")
         self.assertEqual(result, true)
-
-    def test_update_category(self):
-        window = EditorWindow()
-        docker = DockerWidget(window)
-        qtbot.addWidget(window)
-        window.show()
-        print("TEST UPDATE CATEGORY")
 
     # def test_findChildNodes(self):
     #     print("creating widget")

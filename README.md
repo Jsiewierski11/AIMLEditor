@@ -30,6 +30,15 @@ Once you hit the "Create" button, a Category tag will be generated with the text
     ```
     python -m unittest -v test_cases.py
     ```
+- test_signals.py uses a library called pytest-qt to test signals and GUI functionality
+    - To install pytest-qt run:
+    ```
+    pip install pytest-qt
+    ```
+    - To run test_signals.py run:
+    ```
+    py.test test.py --color=yes -q
+    ```
 
 ## To Compile to an Executable
 - Install pyinstaller with:
