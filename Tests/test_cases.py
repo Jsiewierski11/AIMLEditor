@@ -25,6 +25,7 @@ class TestFunctions(unittest.TestCase):
         template = Template()
         cat.append(template)
         self.assertEqual(str(cat), '<category>\n    <pattern>HELLO *</pattern>\n    <template></template>\n</category>')
+        
     
     def test_save_restore_aiml(self):
         ac = AimlCreator()
@@ -33,6 +34,7 @@ class TestFunctions(unittest.TestCase):
         aiml2 = Storage.restore('test_pickle/test1')
         self.assertEqual(str(aiml), str(aiml2))
 
+
     def test_import(self):
         ac = AimlCreator()
         expected = ac.make_aiml2()
@@ -40,6 +42,7 @@ class TestFunctions(unittest.TestCase):
         #      Causes an aborted core dump. Why?
         imported = Storage.importAIML('./test_aimls/atomic')
         self.assertEqual(str(expected), str(imported))
+
 
     def test_export(self):
         #NOTE: Works with make_aiml2 but NOT make_aiml() might have
@@ -54,6 +57,7 @@ class TestFunctions(unittest.TestCase):
     def test_print_comment(self):
         comment = Comment()
         self.assertEqual(str(comment), "<!--  -->")
+
 
     def test_parsing_commented_tree(self):
         parser = ET.XMLParser(target=CommentedTreeBuilder())
@@ -94,7 +98,7 @@ class TestFunctions(unittest.TestCase):
         exported = Storage.importAIML('./test_aimls/mexican_food_exp')
         # print(f'TEST:\n{imported}')
         # print(f'EXPECTED:\n{exported}')
-        self.assertEqual(str(imported),str(exported))
+        self.assertEqual(str(imported), str(exported))
     
 
     # def test_map_to_string(self):
