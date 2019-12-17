@@ -222,6 +222,7 @@ class TestEditorWidget(object):
                     if DEBUG: print("looking at node with category: " + str(node.category))
                     self.updateParentSockets(newnode, node, thatText)
         except Exception as ex:
+            print("Exception caught in test_widget - findParentNodes()")
             print(ex)
             handleError(ex)
 

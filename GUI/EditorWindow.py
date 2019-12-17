@@ -16,7 +16,7 @@ from GUI.Node.QDM.GraphicsScene import *
 from Utils.ErrorMessage import handleError, handleCompileMsg
 
 
-DEBUG = False
+DEBUG = True
 
 
 class EditorWindow(QMainWindow):
@@ -200,8 +200,8 @@ class EditorWindow(QMainWindow):
                 if os.path.isfile(fname):
                     if DEBUG: print("found file")
                     self.filename = os.path.splitext(fname)[0]  # removing extension from path name
-                    self.editSpace.scene.loadFromFile(self.filename)
-                    for node in self.editSpace.scene.nodes:
+                    self.editSpace.graphview.scene.loadFromFile(self.filename)
+                    for node in self.editSpace.graphview.scene.nodes:
                         self.editSpace.aiml.append(node.category)
                         node.content.catClicked.connect(self.editSpace.categoryClicked)
                     if DEBUG: print("Opened file successfully")
@@ -213,7 +213,7 @@ class EditorWindow(QMainWindow):
     def onFileSave(self):
         try:
             if self.filename is None: return self.onFileSaveAs()
-            self.editSpace.scene.saveToFile(self.filename)
+            self.editSpace.graphview.scene.saveToFile(self.filename)
             # Storage.save(self.filename, self.editSpace.aiml)  # save as a pickle file
             self.statusBar().showMessage("Successfully saved %s" % self.filename)
             return True
@@ -274,6 +274,8 @@ class EditorWindow(QMainWindow):
             #     node.setPos(x, yoffset)
             #     yoffset = yoffset + 500
             print("file import successful")
+            self.onCompile()
+            print("Compile after import sucessful!")
         except Exception as ex:
             handleError(ex)
             print(ex)
@@ -328,6 +330,7 @@ class EditorWindow(QMainWindow):
         self.centralWidget().scene.clipboard.deserializeFromClipboard(data)
 
     def onCompile(self):
+        if DEBUG: print("Compile Pressed!!!")
         str_to_parse = self.editSpace.editSpace.toPlainText() # Grabs text from the text display
         if DEBUG: print("text to compile:\n{}".format(str_to_parse))
         if str_to_parse.isspace():
@@ -348,12 +351,17 @@ class EditorWindow(QMainWindow):
             # FIXME: This is code makes it so when updating in graph view, 
             #       changes will not be made in code editor.
             # FIXME: Also causing system to crash if you move nodes then try to compile.
-            # self.editSpace.graphview.scene.clear()
+            # self.editSpace.graphview.scene.clearAllNodes()
+            # self.editSpace.graphview.scene.clearAllEdges()
             # for cat in self.editSpace.editSpace.aiml.tags:
             #     self.editSpace.create_category_graph_view(cat) # Sending categories to be drawn on graph view
 
+            if DEBUG: print("finished redrawing nodes")
+
             self.editSpace.up_to_date = True
+            if DEBUG: print("set up_to_date to True")
             self.editSpace.tabs.setStyleSheet('')
+            if DEBUG: print("set style sheet for tabs.")
         except Exception as ex:
             print("Exception caught trying to compile project")
             print(ex)

@@ -105,6 +105,7 @@ class EditorWidget(QWidget):
                     node.updateConnectedEdges()
                     return node
         except Exception as ex:
+            print("EXCEPTION CAUGHT! In EditorWidget - updateNode()")
             print(ex)
 
 
@@ -351,6 +352,7 @@ class EditorWidget(QWidget):
                     if DEBUG: print("looking at node with category: " + str(node.category))
                     self.updateParentSockets(newnode, node, thatText)
         except Exception as ex:
+            print("Exception caught in EditorWidget - findParentNodes()")
             print(ex)
             handleError(ex)
 

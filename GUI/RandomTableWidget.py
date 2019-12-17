@@ -78,5 +78,6 @@ class RandomTableWidget(QMainWindow):
             # closing window
             self.close()
         except Exception as ex:
+            print("Exception caught in RandomTableWidget - createClicked()")
             handleError(ex)
             print(ex)

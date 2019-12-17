@@ -95,6 +95,7 @@ def recursive_decoding(head, tag_xml):
                 head.append(ET.tostring(child, encoding="unicode"))
             recursive_decoding(tag_obj, child)
     except Exception as ex:
+        print("Exception caught in Storage - recursive_decoding()")
         handleError(ex)
         print(ex)
 
@@ -109,6 +110,7 @@ def importAIML(filename, tempFile=False):
         else:
             tree = ET.parse(filename+".aiml", parser)
     except Exception as ex:
+        print("Exception caught in Storage - importAIML()")
         print(ex)
         handleError(ex)
     try:
@@ -117,7 +119,7 @@ def importAIML(filename, tempFile=False):
         return decode_root(root)
     except Exception as ex:
         handleError(ex)
-        print("exception caught in import of file (storage)!")
+        print("Exception caught in Storage - importAIML()")
         print(ex)
 
 def parse_text(contents):

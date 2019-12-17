@@ -74,7 +74,7 @@ class Scene(Serializable):
             # self.removeEdge(edge)
             edge.remove()
 
-    def clear(self):
+    def clearAllNodes(self):
         while len(self.nodes) > 0:
             self.nodes[0].remove()
 

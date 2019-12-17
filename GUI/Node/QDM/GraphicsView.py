@@ -175,6 +175,7 @@ class QDMGraphicsView(QGraphicsView):
             coor = event.pos()
             self.grScene.update(coor.x(), coor.y(), self.grScene.scene.scene_width, self.grScene.scene.scene_height)
         except Exception as ex:
+            print("Exception caught in GraphicsView - rightMouseButtonPress()")
             print(ex)
 
         if DEBUG:

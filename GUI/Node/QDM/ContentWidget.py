@@ -86,6 +86,7 @@ class QDMNodeContentWidget(QWidget, Serializable):
                     print("Exception caught in ContentWidget - categoryClicked()")
                     print(ex)
         except Exception as ex:
+            print("Exception caught in ContentWidget - categoryClicked()")
             print(ex)
 
 

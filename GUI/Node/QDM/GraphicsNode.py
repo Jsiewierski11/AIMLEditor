@@ -111,13 +111,17 @@ class QDMGraphicsNode(QGraphicsItem):
 
             if self.wasMoved:
                 self.wasMoved = False
-                self.node.scene.history.storeHistory(
-                    "Node moved", setModified=True)
+                # NOTE: self.node is somehow being set to 
+                #       a TabController object which throws an
+                #       error here.
+                # self.node.scene.history.storeHistory(
+                #     "Node moved", setModified=True)
             self.handleSelected = None
             self.mousePressPos = None
             self.mousePressRect = None
             self.update()
         except Exception as ex:
+            print("Exception caught in GraphicsNode - mouseReleaseEvent()")
             print(ex)
 
     @property
