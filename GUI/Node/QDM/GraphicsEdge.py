@@ -3,9 +3,11 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 
-
+from Utils.ErrorMessage import handleError
 from GUI.Node.Utils.Socket import *
 
+
+DEBUG = True
 
 EDGE_CP_ROUNDNESS = 100
 
@@ -46,14 +48,20 @@ class QDMGraphicsEdge(QGraphicsPathItem):
         return self.calcPath()
 
     def paint(self, painter, QStyleOptionGraphicsItem, widget=None):
-        self.setPath(self.calcPath())
+        try:
+            self.setPath(self.calcPath())
 
-        if self.edge.end_socket is None:
-            painter.setPen(self._pen_dragging)
-        else:
-            painter.setPen(self._pen if not self.isSelected() else self._pen_selected)
-        painter.setBrush(Qt.NoBrush)
-        painter.drawPath(self.path())
+            if self.edge.end_socket is None:
+                painter.setPen(self._pen_dragging)
+            else:
+                painter.setPen(self._pen if not self.isSelected() else self._pen_selected)
+            painter.setBrush(Qt.NoBrush)
+            painter.drawPath(self.path())
+        except Exception as ex:
+            print("Exception caught in GraphicsEdge - paint()")
+            print(ex)
+            handleError(ex)
+
 
     def intersectsWith(self, p1, p2):
         cutpath = QPainterPath(p1)
@@ -68,42 +76,52 @@ class QDMGraphicsEdge(QGraphicsPathItem):
 
 class QDMGraphicsEdgeDirect(QDMGraphicsEdge):
     def calcPath(self):
-        path = QPainterPath(QPointF(self.posSource[0], self.posSource[1]))
-        path.lineTo(self.posDestination[0], self.posDestination[1])
-        return path
+        try:
+            path = QPainterPath(QPointF(self.posSource[0], self.posSource[1]))
+            path.lineTo(self.posDestination[0], self.posDestination[1])
+            return path
+        except Exception as ex:
+            print("Exception caught in GraphicsEdge - calPath() Direct")
+            print(ex)
+            handleError(ex)
 
 
 class QDMGraphicsEdgeBezier(QDMGraphicsEdge):
     def calcPath(self):
-        s = self.posSource
-        d = self.posDestination
-        dist = (d[0] - s[0]) * 0.5
+        try:
+            s = self.posSource
+            d = self.posDestination
+            dist = (d[0] - s[0]) * 0.5
 
-        cpx_s = +dist
-        cpx_d = -dist
-        cpy_s = 0
-        cpy_d = 0
+            cpx_s = +dist
+            cpx_d = -dist
+            cpy_s = 0
+            cpy_d = 0
 
-        if self.edge.start_socket is not None:
-            sspos = self.edge.start_socket.position
+            if self.edge.start_socket is not None:
+                sspos = self.edge.start_socket.position
 
-            if (s[0] > d[0] and sspos in (RIGHT_TOP, RIGHT_BOTTOM)) or (s[0] < d[0] and sspos in (LEFT_BOTTOM, LEFT_TOP)):
-                cpx_d *= -1
-                cpx_s *= -1
+                if (s[0] > d[0] and sspos in (RIGHT_TOP, RIGHT_BOTTOM)) or (s[0] < d[0] and sspos in (LEFT_BOTTOM, LEFT_TOP)):
+                    cpx_d *= -1
+                    cpx_s *= -1
 
-                cpy_d = (
-                    (s[1] - d[1]) / math.fabs(
-                        (s[1] - d[1]) if (s[1] - d[1]) != 0 else 0.00001
-                    )
-                ) * EDGE_CP_ROUNDNESS
-                cpy_s = (
-                    (d[1] - s[1]) / math.fabs(
-                        (d[1] - s[1]) if (d[1] - s[1]) != 0 else 0.00001
-                    )
-                ) * EDGE_CP_ROUNDNESS
+                    cpy_d = (
+                        (s[1] - d[1]) / math.fabs(
+                            (s[1] - d[1]) if (s[1] - d[1]) != 0 else 0.00001
+                        )
+                    ) * EDGE_CP_ROUNDNESS
+                    cpy_s = (
+                        (d[1] - s[1]) / math.fabs(
+                            (d[1] - s[1]) if (d[1] - s[1]) != 0 else 0.00001
+                        )
+                    ) * EDGE_CP_ROUNDNESS
 
 
-        path = QPainterPath(QPointF(self.posSource[0], self.posSource[1]))
-        path.cubicTo( s[0] + cpx_s, s[1] + cpy_s, d[0] + cpx_d, d[1] + cpy_d, self.posDestination[0], self.posDestination[1])
+            path = QPainterPath(QPointF(self.posSource[0], self.posSource[1]))
+            path.cubicTo( s[0] + cpx_s, s[1] + cpy_s, d[0] + cpx_d, d[1] + cpy_d, self.posDestination[0], self.posDestination[1])
 
-        return path
+            return path
+        except Exception as ex:
+            print("Exception caught in GraphicsEdge - calPath() Bezier")
+            print(ex)
+            handleError(ex)
