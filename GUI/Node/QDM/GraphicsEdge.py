@@ -36,6 +36,7 @@ class QDMGraphicsEdge(QGraphicsPathItem):
         self.posDestination = [200, 100]
 
     def setSource(self, x, y):
+        if DEBUG: print("In setSource()")
         try:
             self.posSource = [x, y]
         except Exception as ex:
@@ -44,6 +45,7 @@ class QDMGraphicsEdge(QGraphicsPathItem):
             handleError(ex)
 
     def setDestination(self, x, y):
+        if DEBUG: print("In setDestination()")
         try:
             self.posDestination = [x, y]
         except Exception as ex:
@@ -52,6 +54,7 @@ class QDMGraphicsEdge(QGraphicsPathItem):
             handleError(ex)
 
     def boundingRect(self):
+        if DEBUG: print("in boundingRect")
         try:
             return self.shape().boundingRect()
         except Exception as ex:
@@ -60,6 +63,7 @@ class QDMGraphicsEdge(QGraphicsPathItem):
             handleError(ex)
 
     def shape(self):
+        if DEBUG: print("In shape()")
         try:
             return self.calcPath()
         except Exception as ex:
@@ -68,6 +72,7 @@ class QDMGraphicsEdge(QGraphicsPathItem):
             handleError(ex)
 
     def paint(self, painter, QStyleOptionGraphicsItem, widget=None):
+        if DEBUG: print("In paint()")
         try:
             self.setPath(self.calcPath())
 
@@ -84,6 +89,7 @@ class QDMGraphicsEdge(QGraphicsPathItem):
 
 
     def intersectsWith(self, p1, p2):
+        if DEBUG: print("In intersectsWith()")
         try:
             cutpath = QPainterPath(p1)
             cutpath.lineTo(p2)
@@ -101,6 +107,7 @@ class QDMGraphicsEdge(QGraphicsPathItem):
 
 class QDMGraphicsEdgeDirect(QDMGraphicsEdge):
     def calcPath(self):
+        if DEBUG: print("In calcPath Direct")
         try:
             path = QPainterPath(QPointF(self.posSource[0], self.posSource[1]))
             path.lineTo(self.posDestination[0], self.posDestination[1])
@@ -113,6 +120,7 @@ class QDMGraphicsEdgeDirect(QDMGraphicsEdge):
 
 class QDMGraphicsEdgeBezier(QDMGraphicsEdge):
     def calcPath(self):
+        if DEBUG: print("In calcPath Bezier")
         try:
             s = self.posSource
             d = self.posDestination

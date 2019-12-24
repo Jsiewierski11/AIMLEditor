@@ -8,6 +8,8 @@ from GUI.Node.Node import *
 from PyQt5 import QtCore
 from Utils.ErrorMessage import handleError
 
+DEBUG = True
+
 
 class QDMNodeContentWidget(QWidget, Serializable):
 
@@ -49,7 +51,12 @@ class QDMNodeContentWidget(QWidget, Serializable):
     #     self.childClicked.emit(self.node.category) #emitting signal to editor widget
 
     def setEditingFlag(self, value):
-        self.node.scene.grScene.views()[0].editingFlag = value
+        try:
+            self.node.scene.grScene.views()[0].editingFlag = value
+        except Exception as ex:
+            print("Exception caught in ContentWidget - seEditingFlag()")
+            print(ex)
+            handleError(ex)
 
     def serialize(self):
         return OrderedDict([
@@ -61,28 +68,28 @@ class QDMNodeContentWidget(QWidget, Serializable):
 
     @pyqtSlot()
     def categoryClicked(self):
-        print("slot in ContentWidget - categoryClicked()")
-        print(self.node.category)
+        if DEBUG: print("slot in ContentWidget - categoryClicked()")
+        if DEBUG: print(self.node.category)
         try:
             if self.node.category.cat_id == "":
-                print("id is empty string")
+                if DEBUG: print("id is empty string")
                 cat_id = QUuid()
                 cat_id = cat_id.createUuid()
                 cat_id = cat_id.toString()
                 self.node.category.cat_id = cat_id
-                print(self.node.category.cat_id)
+                if DEBUG: print(self.node.category.cat_id)
                 try:
                     self.catClicked.emit(self.node.category) # emitting signal up to Editor Widget
-                    print("signal emitted")
+                    if DEBUG: print("signal emitted")
                 except Exception as ex:
                     print("Exception caught in ContentWidget - categoryClicked()")
                     print(ex)
             else:
-                print("id exists")
-                print(self.node.category.cat_id)
+                if DEBUG: print("id exists")
+                if DEBUG: print(self.node.category.cat_id)
                 try:
                     self.catClicked.emit(self.node.category) # emitting signal up to Editor Widget
-                    print("signal emitted")
+                    if DEBUG: print("signal emitted")
                 except Exception as ex:
                     print("Exception caught in ContentWidget - categoryClicked()")
                     print(ex)
@@ -97,13 +104,21 @@ class QDMTextEdit(QTextEdit):
         # self.setGeometry(QtCore.QRect(90, 30, 291, 21))
 
     def focusInEvent(self, event):
-        self.parentWidget().setEditingFlag(True)
-        super().focusInEvent(event)
+        if DEBUG: print("in focusInEvent()")
+        try:
+            self.parentWidget().setEditingFlag(True)
+            super().focusInEvent(event)
+        except Exception as ex:
+            print("Exception caught in ContentWidget - focusInEvent()")
+            print(ex)
+            handleError(ex)
 
     def focusOutEvent(self, event):
-        self.parentWidget().setEditingFlag(False)
-        super().focusOutEvent(event)
-
-
-# class CategoryEditor(QWidget):
-#     def __init__(self)
+        if DEBUG: print("in focusOutEvent()")
+        try:
+            self.parentWidget().setEditingFlag(False)
+            super().focusOutEvent(event)
+        except Exception as ex:
+            print("Exception caught in ContentWidget - focusOutEvent()")
+            print(ex)
+            handleError(ex)
