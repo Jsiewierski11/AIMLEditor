@@ -6,6 +6,7 @@ from GUI.QLabel_Clickable import *
 from Model.Data import *
 from GUI.Node.Node import *
 from PyQt5 import QtCore
+from Utils.ErrorMessage import handleError
 
 
 class QDMNodeContentWidget(QWidget, Serializable):
@@ -88,7 +89,7 @@ class QDMNodeContentWidget(QWidget, Serializable):
         except Exception as ex:
             print("Exception caught in ContentWidget - categoryClicked()")
             print(ex)
-
+            handleError(ex)
 
 class QDMTextEdit(QTextEdit):
     def __init__(self, input):

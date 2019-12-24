@@ -36,16 +36,36 @@ class QDMGraphicsEdge(QGraphicsPathItem):
         self.posDestination = [200, 100]
 
     def setSource(self, x, y):
-        self.posSource = [x, y]
+        try:
+            self.posSource = [x, y]
+        except Exception as ex:
+            print("Exception caught in GraphicsEdge - setSource()")
+            print(ex)
+            handleError(ex)
 
     def setDestination(self, x, y):
-        self.posDestination = [x, y]
+        try:
+            self.posDestination = [x, y]
+        except Exception as ex:
+            print("Exception caught in GraphicsEdge - setDestination()")
+            print(ex)
+            handleError(ex)
 
     def boundingRect(self):
-        return self.shape().boundingRect()
+        try:
+            return self.shape().boundingRect()
+        except Exception as ex:
+            print("Exception caught in GraphicsEdge - boundingRect()")
+            print(ex)
+            handleError(ex)
 
     def shape(self):
-        return self.calcPath()
+        try:
+            return self.calcPath()
+        except Exception as ex:
+            print("Exception caught in GraphicsEdge - shape()")
+            print(ex)
+            handleError(ex)
 
     def paint(self, painter, QStyleOptionGraphicsItem, widget=None):
         try:
@@ -64,10 +84,15 @@ class QDMGraphicsEdge(QGraphicsPathItem):
 
 
     def intersectsWith(self, p1, p2):
-        cutpath = QPainterPath(p1)
-        cutpath.lineTo(p2)
-        path = self.calcPath()
-        return cutpath.intersects(path)
+        try:
+            cutpath = QPainterPath(p1)
+            cutpath.lineTo(p2)
+            path = self.calcPath()
+            return cutpath.intersects(path)
+        except Exception as ex:
+            print("Exception caught in GraphicsEdge - intersectsWith()")
+            print(ex)
+            handleError(ex)
 
     def calcPath(self):
         """ Will handle drawing QPainterPath from Point A to B """

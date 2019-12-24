@@ -68,6 +68,7 @@ class QDMGraphicsScene(QGraphicsScene):
 
             painter.setPen(self._pen_dark)
             painter.drawLines(*lines_dark)
+            if DEBUG: print("finished drawing backgroud")
         except Exception as ex:
             print("Exception caught in GraphicsScene - drawBackground()")
             print(ex)

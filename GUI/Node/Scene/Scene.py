@@ -10,6 +10,7 @@ from PyQt5.QtCore import pyqtSlot, pyqtSignal
 from Model.Data import *
 from PyQt5.QtWidgets import QWidget, QLabel, QVBoxLayout
 from PyQt5.QtGui import QFont
+from Utils.ErrorMessage import handleError
 
 DEBUG = True
 
@@ -50,22 +51,47 @@ class Scene(Serializable):
         self._has_been_modified_listeners.append(callback)
 
     def initUI(self):
-        self.grScene = QDMGraphicsScene(self)
-        if DEBUG: print("Created graphics scene")
-        self.grScene.setGrScene(self.scene_width, self.scene_height)
-        if DEBUG: print("Set scene dimensions")
+        try:
+            self.grScene = QDMGraphicsScene(self)
+            if DEBUG: print("Created graphics scene")
+            self.grScene.setGrScene(self.scene_width, self.scene_height)
+            if DEBUG: print("Set scene dimensions")
+        except Exception as ex:
+            print("Exception caught in Scene - initUI()")
+            print(ex)
+            handleError(ex)
 
     def addNode(self, node):
-        self.nodes.append(node)
+        try:
+            self.nodes.append(node)
+        except Exception as ex:
+            print("Exception caught in Scene - addNode()")
+            print(ex)
+            handleError(ex)
 
     def addEdge(self, edge):
-        self.edges.append(edge)
+        try:
+            self.edges.append(edge)
+        except Exception as ex:
+            print("Exception caught in Scene - addEdge()")
+            print(ex)
+            handleError(ex)
 
     def removeNode(self, node):
-        self.nodes.remove(node)
+        try:
+            self.nodes.remove(node)
+        except Exception as ex:
+            print("Exception caught in Scene - removeNode()")
+            print(ex)
+            handleError(ex)
 
     def removeEdge(self, edge):
-        self.edges.remove(edge)
+        try:
+            self.edges.remove(edge)
+        except Exception as ex:
+            print("Exception caught in Scene - removeEdge()")
+            print(ex)
+            handleError(ex)
 
     def clearAllEdges(self):
         for edge in self.edges:

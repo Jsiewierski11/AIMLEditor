@@ -140,8 +140,7 @@ class TabController(QWidget):
         except Exception as ex:
             handleError(ex)
             print("Exception caught in TabController - create_category_code_editor()")
-            print(ex)
-            
+            print(ex)            
 
 
     def create_category_graph_view(self, cat):
