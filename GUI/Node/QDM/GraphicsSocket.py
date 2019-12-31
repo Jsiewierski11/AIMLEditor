@@ -1,10 +1,15 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
+from Utils.ErrorMessage import handleError
+
+
+DEBUG = True
 
 
 class QDMGraphicsSocket(QGraphicsItem):
     def __init__(self, socket, socket_type=1):
+        if DEBUG: print("In Graphics Socket constructor")
         self.socket = socket
         super().__init__(socket.node.grNode)
 
@@ -26,10 +31,15 @@ class QDMGraphicsSocket(QGraphicsItem):
         self._brush = QBrush(self._color_background)
 
     def paint(self, painter, QStyleOptionGraphicsItem, widget=None):
-        # painting circle
-        painter.setBrush(self._brush)
-        painter.setPen(self._pen)
-        painter.drawEllipse(-self.radius, -self.radius, 2 * self.radius, 2 * self.radius)
+        try:
+            # painting circle
+            painter.setBrush(self._brush)
+            painter.setPen(self._pen)
+            painter.drawEllipse(-self.radius, -self.radius, 2 * self.radius, 2 * self.radius)
+        except Exception as ex:
+            print("Exception caught in GraphicsSocket - paint()")
+            print(ex)
+            handleError(ex)
 
     def boundingRect(self):
         return QRectF(
