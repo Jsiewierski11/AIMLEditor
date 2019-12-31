@@ -203,9 +203,14 @@ class TabController(QWidget):
     # slot function for a category being created and displaying on editSpace
     @pyqtSlot(Tag)
     def categoryCreated(self, cat):
-        if DEBUG: print("In TabController Slot - categoryCreated()")
-        cat = self.create_category_code_editor(cat)
-        self.create_category_graph_view(cat)
+        try:
+            if DEBUG: print("In TabController Slot - categoryCreated()")
+            cat = self.create_category_code_editor(cat)
+            self.create_category_graph_view(cat)
+        except Exception as ex:
+            print("Exception caught in TabController - categoryCreated()")
+            print(ex)
+            handleError(ex)
         
 
     # Slot function for updating categories.

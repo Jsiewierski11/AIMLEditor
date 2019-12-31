@@ -3,6 +3,9 @@ from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 
 
+DEBUG = True
+
+
 class QDMCutLine(QGraphicsItem):
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -16,9 +19,11 @@ class QDMCutLine(QGraphicsItem):
         self.setZValue(2)
 
     def boundingRect(self):
+        if DEBUG: print("in GraphicsCutline - boundingRect()")
         return self.shape().boundingRect()
 
     def shape(self):
+        if DEBUG: print("in GraphicsCutline - shape()")
         poly = QPolygonF(self.line_points)
 
         if len(self.line_points) > 1:
@@ -32,6 +37,7 @@ class QDMCutLine(QGraphicsItem):
         return path
 
     def paint(self, painter, QStyleOptionGraphicsItem, widget=None):
+        if DEBUG: print("in GraphicsCutline - paint()")
         painter.setRenderHint(QPainter.Antialiasing)
         painter.setBrush(Qt.NoBrush)
         painter.setPen(self._pen)

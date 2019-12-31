@@ -14,6 +14,7 @@ EDGE_CP_ROUNDNESS = 100
 
 class QDMGraphicsEdge(QGraphicsPathItem):
     def __init__(self, edge, parent=None):
+        if DEBUG: print("In QDMGraphicsEdge constructor")
         super().__init__(parent)
 
         self.edge = edge
@@ -54,7 +55,7 @@ class QDMGraphicsEdge(QGraphicsPathItem):
             handleError(ex)
 
     def boundingRect(self):
-        if DEBUG: print("in boundingRect")
+        if DEBUG: print("in boundingRect()")
         try:
             return self.shape().boundingRect()
         except Exception as ex:
@@ -102,6 +103,7 @@ class QDMGraphicsEdge(QGraphicsPathItem):
 
     def calcPath(self):
         """ Will handle drawing QPainterPath from Point A to B """
+        if DEBUG: print("In calcPath Abstract function")
         raise NotImplemented("This method has to be overridden in a child class")
 
 
@@ -111,6 +113,7 @@ class QDMGraphicsEdgeDirect(QDMGraphicsEdge):
         try:
             path = QPainterPath(QPointF(self.posSource[0], self.posSource[1]))
             path.lineTo(self.posDestination[0], self.posDestination[1])
+            if DEBUG: print("returning path")
             return path
         except Exception as ex:
             print("Exception caught in GraphicsEdge - calPath() Direct")

@@ -16,6 +16,7 @@ DEBUG = True
 
 class Scene(Serializable):
     def __init__(self):
+        if DEBUG: print("In Scene constructor")
         super().__init__()
         self.nodes = []
         self.edges = []
@@ -34,18 +35,30 @@ class Scene(Serializable):
 
     @property
     def has_been_modified(self):
-        return self._has_been_modified
+        if DEBUG: print("In has_been_modified @property")
+        try:
+            return self._has_been_modified
+        except Exception as ex:
+            print("Exception caught in Scene - has_been_modified @property")
+            print(ex)
+            handleError(ex)
 
     @has_been_modified.setter
     def has_been_modified(self, value):
-        if not self._has_been_modified and value:
+        if DEBUG: print("In has_been_modified @property")
+        try:
+            if not self._has_been_modified and value:
+                self._has_been_modified = value
+
+                # call all registered listeners
+                for callback in self._has_been_modified_listeners:
+                    callback()
+
             self._has_been_modified = value
-
-            # call all registered listeners
-            for callback in self._has_been_modified_listeners:
-                callback()
-
-        self._has_been_modified = value
+        except Exception as ex:
+            print("Exception caught in Scene - has_been_modified @setter")
+            print(ex)
+            handleError(ex)
 
     def addHasBeenModifiedListener(self, callback):
         self._has_been_modified_listeners.append(callback)
@@ -94,17 +107,27 @@ class Scene(Serializable):
             handleError(ex)
 
     def clearAllEdges(self):
-        for edge in self.edges:
-            # edge.start_socket = []
-            # edge.end_socket = []
-            # self.removeEdge(edge)
-            edge.remove()
+        try:
+            for edge in self.edges:
+                # edge.start_socket = []
+                # edge.end_socket = []
+                # self.removeEdge(edge)
+                edge.remove()
+        except Exception as ex:
+            print("Exception caught in Scene - clearAllEdges()")
+            print(ex)
+            handleError(ex)
 
     def clearAllNodes(self):
-        while len(self.nodes) > 0:
-            self.nodes[0].remove()
+        try:
+            while len(self.nodes) > 0:
+                self.nodes[0].remove()
 
-        self.has_been_modified = False
+            self.has_been_modified = False
+        except Exception as ex:
+            print("Exception caught in Scene - clearAllNodes()")
+            print(ex)
+            handleError(ex)
 
     def saveToFile(self, filename):
         with open(filename+'.aib', "w") as file:
