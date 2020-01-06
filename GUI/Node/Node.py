@@ -6,8 +6,9 @@ from GUI.Node.Utils.Socket import *
 from PyQt5.QtCore import pyqtSignal, pyqtSlot, Qt, QObject
 from Model.Data import *
 from GUI import EditorWidget
+from Utils.ErrorMessage import handleError
 
-DEBUG = False
+DEBUG = True
 
 
 class Node(Serializable):
@@ -75,18 +76,33 @@ class Node(Serializable):
         return "<Node %s..%s>" % (hex(id(self))[2:5], hex(id(self))[-3:])
 
     def updateSocketPos(self):
-        for item in self.inputs:
-            item.setSocketPosition()
+        try:
+            for item in self.inputs:
+                item.setSocketPosition()
 
-        for item in self.outputs:
-            item.setSocketPosition()
+            for item in self.outputs:
+                item.setSocketPosition()
+        except Exception as ex:
+            print("Exception caught in Node - updateSocketPos()")
+            print(ex)
+            handleError(ex)
 
     @property
     def pos(self):
-        return self.grNode.pos()        # QPointF
+        try:
+            return self.grNode.pos()        # QPointF
+        except Exception as ex:
+            print("Exception caught in Node - pos() @property")
+            print(ex)
+            handleError(ex)
 
     def setPos(self, x, y):
-        self.grNode.setPos(x, y)
+        try:
+            self.grNode.setPos(x, y)
+        except Exception as ex:
+            print("Exception caught in Node - setPos()")
+            print(ex)
+            handleError(ex)
 
     @property
     def title(self): return self._title
@@ -97,23 +113,32 @@ class Node(Serializable):
         self.grNode.title = self._title
 
     def getSocketPosition(self, index, position):
-        x = 0 if (position in (LEFT_TOP, LEFT_BOTTOM)) else self.grNode.width
+        if DEBUG: print("in getSocketPosition()")
+        try:
+            x = 0 if (position in (LEFT_TOP, LEFT_BOTTOM)) else self.grNode.width
 
-        if position in (LEFT_BOTTOM, RIGHT_BOTTOM):
-            # start from bottom
-            y = self.grNode.height - self.grNode.edge_size - \
-                self.grNode._padding - index * self.socket_spacing
-        else:
-            # start from top
-            y = self.grNode.title_height + self.grNode._padding + \
-                self.grNode.edge_size + index * self.socket_spacing
+            if position in (LEFT_BOTTOM, RIGHT_BOTTOM):
+                # start from bottom
+                y = self.grNode.height - self.grNode.edge_size - \
+                    self.grNode._padding - index * self.socket_spacing
+            else:
+                # start from top
+                y = self.grNode.title_height + self.grNode._padding + \
+                    self.grNode.edge_size + index * self.socket_spacing
 
-        return [x, y]
+            return [x, y]
+        except Exception as ex:
+            print("Exception caught in Node - getSocketPosition()")
 
     def updateConnectedEdges(self):
-        for socket in self.inputs + self.outputs:
-            if socket.hasEdge():
-                socket.edge.updatePositions()
+        try:
+            for socket in self.inputs + self.outputs:
+                if socket.hasEdge():
+                    socket.edge.updatePositions()
+        except Exception as ex:
+            print("Exception caught in Node - updateConnectedEdges()")
+            print(ex)
+            handleError(ex)
 
     def remove(self):
         try:

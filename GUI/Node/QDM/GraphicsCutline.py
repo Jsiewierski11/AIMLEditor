@@ -2,6 +2,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 
+from Utils.ErrorMessage import handleError
 
 DEBUG = True
 
@@ -19,28 +20,43 @@ class QDMCutLine(QGraphicsItem):
         self.setZValue(2)
 
     def boundingRect(self):
-        if DEBUG: print("in GraphicsCutline - boundingRect()")
-        return self.shape().boundingRect()
+        try:
+            if DEBUG: print("in GraphicsCutline - boundingRect()")
+            return self.shape().boundingRect()
+        except Exception as ex:
+            print("Exception caught in GraphicsCutline - boundingRect()")
+            print(ex)
+            handleError(ex)
 
     def shape(self):
-        if DEBUG: print("in GraphicsCutline - shape()")
-        poly = QPolygonF(self.line_points)
+        try:
+            if DEBUG: print("in GraphicsCutline - shape()")
+            poly = QPolygonF(self.line_points)
 
-        if len(self.line_points) > 1:
-            path = QPainterPath(self.line_points[0])
-            for pt in self.line_points[1:]:
-                path.lineTo(pt)
-        else:
-            path = QPainterPath(QPointF(0,0))
-            path.lineTo(QPointF(1,1))
+            if len(self.line_points) > 1:
+                path = QPainterPath(self.line_points[0])
+                for pt in self.line_points[1:]:
+                    path.lineTo(pt)
+            else:
+                path = QPainterPath(QPointF(0,0))
+                path.lineTo(QPointF(1,1))
 
-        return path
+            return path
+        except Exception as ex:
+            print("Exception caught in GraphicsCutline - shape()")
+            print(ex)
+            handleError(ex)
 
     def paint(self, painter, QStyleOptionGraphicsItem, widget=None):
-        if DEBUG: print("in GraphicsCutline - paint()")
-        painter.setRenderHint(QPainter.Antialiasing)
-        painter.setBrush(Qt.NoBrush)
-        painter.setPen(self._pen)
+        try:
+            if DEBUG: print("in GraphicsCutline - paint()")
+            painter.setRenderHint(QPainter.Antialiasing)
+            painter.setBrush(Qt.NoBrush)
+            painter.setPen(self._pen)
 
-        poly = QPolygonF(self.line_points)
-        painter.drawPolyline(poly)
+            poly = QPolygonF(self.line_points)
+            painter.drawPolyline(poly)
+        except Exception as ex:
+            print("Exception caught in GraphicsCutline - paint()")
+            print(ex)
+            handleError(ex)

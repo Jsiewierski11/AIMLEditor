@@ -160,7 +160,7 @@ class TabController(QWidget):
                         for that in thatToCheck:
                             self.graphview.findChildNodes(aNode, that)
                     
-                    # FIXME: Nodes only get placed if there are <that> tags
+                    # FIXME: Nodes only get placed if there are <that> tags otherwise get stacked in default place.
                     self.graphview.findParentNodes(aNode)
                     self.graphview.placeNodes(self.graphview.scene.nodes)
 
@@ -192,8 +192,6 @@ class TabController(QWidget):
                     node.updateConnectedEdges()
 
                 aNode.content.catClicked.connect(self.graphview.categoryClicked) # connecting signals coming from Content Widget
-                # if DEBUG: print("trying to connect addChild button")
-                # aNode.content.childClicked.connect(self.graphview.addChildClicked) # connecting signals coming from Content Widget
         except Exception as ex:
             print("Exception caught in TabController - create_category_graph_view()")
             print(ex)

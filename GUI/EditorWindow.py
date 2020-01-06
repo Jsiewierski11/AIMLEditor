@@ -343,15 +343,16 @@ class EditorWindow(QMainWindow):
                 return
             if DEBUG: print("compiling complete")
 
+            # Updating graph view.
+            # FIXME: Also causing system to crash if you move nodes then try to compile.
+            if DEBUG: print("Clearing scene of nodes and edges")
+            self.editSpace.graphview.scene.clearAllNodes()
+            # self.editSpace.graphview.scene.clearAllEdges()
+
             # Updating code editor
             self.editSpace.aiml = aiml
             if DEBUG: print(f"new model for the aiml:\n{self.editSpace.aiml}")
 
-            # Updating graph view.
-            # FIXME: Also causing system to crash if you move nodes then try to compile.
-            # NOTE: This issue might be fixed but not positive.
-            self.editSpace.graphview.scene.clearAllNodes()
-            self.editSpace.graphview.scene.clearAllEdges()
             for cat in self.editSpace.aiml.tags:
                 self.editSpace.create_category_graph_view(cat) # Sending categories to be drawn on graph view
 

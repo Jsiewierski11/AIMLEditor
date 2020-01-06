@@ -108,11 +108,8 @@ class Scene(Serializable):
 
     def clearAllEdges(self):
         try:
-            for edge in self.edges:
-                # edge.start_socket = []
-                # edge.end_socket = []
-                # self.removeEdge(edge)
-                edge.remove()
+            while len(self.edges) > 0:
+                self.edges[0].remove()
         except Exception as ex:
             print("Exception caught in Scene - clearAllEdges()")
             print(ex)

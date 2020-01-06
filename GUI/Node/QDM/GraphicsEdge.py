@@ -55,7 +55,7 @@ class QDMGraphicsEdge(QGraphicsPathItem):
             handleError(ex)
 
     def boundingRect(self):
-        if DEBUG: print("in boundingRect()")
+        if DEBUG: print("In boundingRect()")
         try:
             return self.shape().boundingRect()
         except Exception as ex:
@@ -87,7 +87,6 @@ class QDMGraphicsEdge(QGraphicsPathItem):
             print("Exception caught in GraphicsEdge - paint()")
             print(ex)
             handleError(ex)
-
 
     def intersectsWith(self, p1, p2):
         if DEBUG: print("In intersectsWith()")

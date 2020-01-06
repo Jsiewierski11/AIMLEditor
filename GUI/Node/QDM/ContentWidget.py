@@ -24,27 +24,32 @@ class QDMNodeContentWidget(QWidget, Serializable):
         self.initUI()
 
     def initUI(self):
-        self.layout = QVBoxLayout()
-        self.layout.setContentsMargins(0, 0, 0, 0)
-        self.setLayout(self.layout)
+        try:
+            self.layout = QVBoxLayout()
+            self.layout.setContentsMargins(0, 0, 0, 0)
+            self.setLayout(self.layout)
 
-        # self.wdg_label = QLabel("Category")
-        self.layout.addWidget(self.wdg_label)
+            # self.wdg_label = QLabel("Category")
+            self.layout.addWidget(self.wdg_label)
 
-        # add child button
-        # self.addChild = QPushButton("Add child")
-        # self.layout.addWidget(self.addChild)
+            # add child button
+            # self.addChild = QPushButton("Add child")
+            # self.layout.addWidget(self.addChild)
 
-        # connecting label to allow signals to be sent to slot
-        self.wdg_label.templateLabel.catClicked.connect(self.categoryClicked)
-        self.wdg_label.patternLabel.catClicked.connect(self.categoryClicked)
-        self.wdg_label.thatLabel.catClicked.connect(self.categoryClicked)
-        # self.addChild.clicked.connect(self.addChildClicked)
+            # connecting label to allow signals to be sent to slot
+            self.wdg_label.templateLabel.catClicked.connect(self.categoryClicked)
+            self.wdg_label.patternLabel.catClicked.connect(self.categoryClicked)
+            self.wdg_label.thatLabel.catClicked.connect(self.categoryClicked)
+            # self.addChild.clicked.connect(self.addChildClicked)
 
-        # self.layout.addWidget(QLabel("What Ryan Hears:"))
-        # self.layout.addWidget(QDMTextEdit(""))
-        # self.layout.addWidget(QLabel("What Ryan Says:"))
-        # self.layout.addWidget(QDMTextEdit(""))
+            # self.layout.addWidget(QLabel("What Ryan Hears:"))
+            # self.layout.addWidget(QDMTextEdit(""))
+            # self.layout.addWidget(QLabel("What Ryan Says:"))
+            # self.layout.addWidget(QDMTextEdit(""))
+        except Exception as ex:
+            print("Exception caught in ContentWidget - initUI()")
+            print(ex)
+            handleError(ex)
 
     # def addChildClicked(self):
     #     print("add child clicked")
@@ -100,8 +105,13 @@ class QDMNodeContentWidget(QWidget, Serializable):
 
 class QDMTextEdit(QTextEdit):
     def __init__(self, input):
-        super().__init__(input)
-        # self.setGeometry(QtCore.QRect(90, 30, 291, 21))
+        try:
+            super().__init__(input)
+            # self.setGeometry(QtCore.QRect(90, 30, 291, 21))
+        except Exception as ex:
+            print("Exception caught in ContentWidget - QDMTextEdit __init__()")
+            print(ex)
+            handleError(ex)
 
     def focusInEvent(self, event):
         if DEBUG: print("in focusInEvent()")
