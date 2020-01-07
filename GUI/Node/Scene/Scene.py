@@ -17,21 +17,26 @@ DEBUG = True
 class Scene(Serializable):
     def __init__(self):
         if DEBUG: print("In Scene constructor")
-        super().__init__()
-        self.nodes = []
-        self.edges = []
+        try:
+            super().__init__()
+            self.nodes = []
+            self.edges = []
 
-        self.scene_width = 64000
-        self.scene_height = 64000
+            self.scene_width = 64000
+            self.scene_height = 64000
 
-        self._has_been_modified = False
-        self._has_been_modified_listeners = []
+            self._has_been_modified = False
+            self._has_been_modified_listeners = []
 
-        if DEBUG: print("Initializing UI")
-        self.initUI()
-        if DEBUG: print("UI Initialized")
-        self.history = SceneHistory(self)
-        self.clipboard = SceneClipboard(self)
+            if DEBUG: print("Initializing UI")
+            self.initUI()
+            if DEBUG: print("UI Initialized")
+            self.history = SceneHistory(self)
+            self.clipboard = SceneClipboard(self)
+        except Exception as ex:
+            print("Exception caught in Scene - __init__()")
+            print(ex)
+            handleError(ex)
 
     @property
     def has_been_modified(self):
@@ -61,7 +66,12 @@ class Scene(Serializable):
             handleError(ex)
 
     def addHasBeenModifiedListener(self, callback):
-        self._has_been_modified_listeners.append(callback)
+        try:
+            self._has_been_modified_listeners.append(callback)
+        except Exception as ex:
+            print("Exception caught in Scene - addHasBeenModifiedListener()")
+            print(ex)
+            handleError(ex)
 
     def initUI(self):
         try:

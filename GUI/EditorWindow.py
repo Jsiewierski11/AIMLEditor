@@ -35,8 +35,7 @@ class EditorWindow(QMainWindow):
         self.display = None # Used for graphing out categories
         self.aiml = AIML()
 
-        # create dockable widget to have as place to write content in categories
-        # Creating docker that can create categories
+        # Creating dockable widget to have as place to write content in categories
         self.docker = DockerWidget(self)
 
         self.initUI()
@@ -85,35 +84,24 @@ class EditorWindow(QMainWindow):
 
         # create dockable widget to have as place to write content in categories
         # Creating docker that can create categories
-        # docker = None
-        # docker = DockerWidget(self)
         self.addDockWidget(Qt.LeftDockWidgetArea, self.docker)
 
         # Creating table to hold and control tabs
-        # self.tab_controller = TabController(self)
         self.editSpace = TabController(self, self.docker, window=self)
         self.setCentralWidget(self.editSpace)
 
         # Setting main editing area where Files will be displayed and can be edited
-        # self.editSpace = QCodeEditor(docker)
-        # self.setCentralWidget(self.editSpace)
-
-
         # create node editor widget (visualization of categories)
-        # self.editSpace = EditorWidget(self)
         self.editSpace.graphview.scene.addHasBeenModifiedListener(self.changeTitle)
-        # self.setCentralWidget(self.editSpace)
 
         ########## making connections to slots ################
         self.editSpace.graphview.catClicked.connect(self.categoryClicked) # connecting signal from EditorWidget to slot
-        # self.editSpace.childClicked.connect(self.addChildClicked) # connecting signal from EditorWidget
 
 
         # status bar
         self.statusBar().showMessage("")
         self.status_mouse_pos = QLabel("")
         self.statusBar().addPermanentWidget(self.status_mouse_pos)
-        # nodeeditor.view.scenePosChanged.connect(self.onScenePosChanged)
 
         # set window properties
         self.setWindowTitle("Program-R AIML Editor")
@@ -344,10 +332,9 @@ class EditorWindow(QMainWindow):
             if DEBUG: print("compiling complete")
 
             # Updating graph view.
-            # FIXME: Also causing system to crash if you move nodes then try to compile.
+            # FIXME: Causing system to crash if you move nodes then try to compile.
             if DEBUG: print("Clearing scene of nodes and edges")
             self.editSpace.graphview.scene.clearAllNodes()
-            # self.editSpace.graphview.scene.clearAllEdges()
 
             # Updating code editor
             self.editSpace.aiml = aiml

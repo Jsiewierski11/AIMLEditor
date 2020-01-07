@@ -24,13 +24,18 @@ class EditorWidget(QWidget):
     childClicked = pyqtSignal(str)
 
     def __init__(self, window, parent=None):
-        super().__init__(parent)
+        try:
+            super().__init__(parent)
 
-        self.stylesheet_filename = 'GUI/style/nodestyle.qss'
-        self.loadStylesheet(self.stylesheet_filename)
-        self.responseTable = None
+            self.stylesheet_filename = 'GUI/style/nodestyle.qss'
+            self.loadStylesheet(self.stylesheet_filename)
+            self.responseTable = None
 
-        self.initUI(window)
+            self.initUI(window)
+        except Exception as ex:
+            print("Exception caught in EditorWidget - __init__()")
+            print(ex)
+            handleError(ex)
 
     def initUI(self, window):
         try:
@@ -73,8 +78,13 @@ class EditorWidget(QWidget):
     #         self.scene, node2.outputs[0], node3.inputs[0], edge_type=EDGE_TYPE_BEZIER)
 
     def addNode(self, title, inputs, outputs, posx, posy):
-        node1 = Node(self.scene, title=title, inputs=inputs, outputs=outputs)
-        node1.setPos(posx, posy)
+        try:
+            node1 = Node(self.scene, title=title, inputs=inputs, outputs=outputs)
+            node1.setPos(posx, posy)
+        except Exception as ex:
+            print("Exception caught in EditorWidget - addNode()")
+            print(ex)
+            handleError(ex)
 
     def updateNode(self, cat):
         try:
@@ -377,47 +387,57 @@ class EditorWidget(QWidget):
     Function to update the edges connecting to child nodes.
     """
     def updateChildSockets(self, newnode, node):
-        parentsocket = Socket(newnode, position=RIGHT_BOTTOM, socket_type=2)
-        newnode.inputs.append(parentsocket) # outputs is children
+        try:
+            parentsocket = Socket(newnode, position=RIGHT_BOTTOM, socket_type=2)
+            newnode.inputs.append(parentsocket) # outputs is children
 
-        if node not in newnode.children:
-            newnode.children.append(node)
+            if node not in newnode.children:
+                newnode.children.append(node)
 
-        childsocket = Socket(node)
-        node.outputs.append(childsocket)
+            childsocket = Socket(node)
+            node.outputs.append(childsocket)
 
-        if newnode not in node.parents:
-            node.parents.append(newnode)
+            if newnode not in node.parents:
+                node.parents.append(newnode)
 
-        edge = Edge(self.scene, parentsocket, childsocket)
-        
-        return edge
+            edge = Edge(self.scene, parentsocket, childsocket)
+            
+            return edge
+        except Exception as ex:
+            print("Exception caught in EditorWidget - updateChildSockets()")
+            print(ex)
+            handleError(ex)
 
 
     """
     Function to update the edges connecting to parent nodes.
     """
     def updateParentSockets(self, newnode, node, thatText):
-        templateText = self.getLastSentence(node.category)
-        for text in templateText:
-            if thatText.lower() == text.lower():
-                if DEBUG: print("Found parent node!")
-                parentsocket = Socket(node, position=RIGHT_BOTTOM, socket_type=2)
-                node.inputs.append(parentsocket)
+        try:
+            templateText = self.getLastSentence(node.category)
+            for text in templateText:
+                if thatText.lower() == text.lower():
+                    if DEBUG: print("Found parent node!")
+                    parentsocket = Socket(node, position=RIGHT_BOTTOM, socket_type=2)
+                    node.inputs.append(parentsocket)
 
-                # need to check if node exists in list before appending
-                if newnode not in node.children:
-                    node.children.append(newnode)
+                    # need to check if node exists in list before appending
+                    if newnode not in node.children:
+                        node.children.append(newnode)
 
-                childsocket = Socket(newnode)
-                newnode.outputs.append(childsocket)
+                    childsocket = Socket(newnode)
+                    newnode.outputs.append(childsocket)
 
-                if node not in newnode.parents:
-                    newnode.parents.append(node)
+                    if node not in newnode.parents:
+                        newnode.parents.append(node)
 
-                edge = Edge(self.scene, parentsocket, childsocket)
-            else:
-                if DEBUG: print("Not a match for a parent")
+                    edge = Edge(self.scene, parentsocket, childsocket)
+                else:
+                    if DEBUG: print("Not a match for a parent")
+        except Exception as ex:
+            print("Exception caught in EditorWidget - updateParentSockets()")
+            print(ex)
+            handleError(ex)
   
 
     """

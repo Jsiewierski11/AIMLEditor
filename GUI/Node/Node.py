@@ -166,7 +166,7 @@ class Node(Serializable):
             print(ex)
 
     def serialize(self):
-        print("Serializing Node")
+        if DEBUG: print("Serializing Node")
         inputs, outputs = [], []
         for socket in self.inputs:
             inputs.append(socket.serialize())
@@ -184,16 +184,16 @@ class Node(Serializable):
         ])
 
     def deserialize(self, data, hashmap={}, restore_id=True):
-        print("Deserializing Node")
+        if DEBUG: print("Deserializing Node")
         if restore_id:
             self.objId = data['id']
         hashmap[data['id']] = self
 
         self.setPos(data['pos_x'], data['pos_y'])
         self.title = data['title']
-        print("tag type: " + data['category']['type'])
+        if DEBUG: print("tag type: " + data['category']['type'])
         self.category = self.decode_tag(data['category']['type'])
-        print(self.category)
+        if DEBUG: print(self.category)
         self.category.deserialize(data['category'])
 
         self.content.node = self

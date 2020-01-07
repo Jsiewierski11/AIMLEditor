@@ -10,24 +10,30 @@ DEBUG = True
 
 class QDMGraphicsScene(QGraphicsScene):
     def __init__(self, scene, parent=None):
-        super().__init__(parent)
+        try:
+            if DEBUG: print("In __init__ of GraphicsScene")
+            super().__init__(parent)
 
-        self.scene = scene
+            self.scene = scene
 
-        # settings
-        self.gridSize = 20
-        self.gridSquares = 5
+            # settings
+            self.gridSize = 20
+            self.gridSquares = 5
 
-        self._color_background = QColor("#393939")
-        self._color_light = QColor("#2f2f2f")
-        self._color_dark = QColor("#292929")
+            self._color_background = QColor("#393939")
+            self._color_light = QColor("#2f2f2f")
+            self._color_dark = QColor("#292929")
 
-        self._pen_light = QPen(self._color_light)
-        self._pen_light.setWidth(1)
-        self._pen_dark = QPen(self._color_dark)
-        self._pen_dark.setWidth(2)
+            self._pen_light = QPen(self._color_light)
+            self._pen_light.setWidth(1)
+            self._pen_dark = QPen(self._color_dark)
+            self._pen_dark.setWidth(2)
 
-        self.setBackgroundBrush(self._color_background)
+            self.setBackgroundBrush(self._color_background)
+        except Exception as ex:
+            print("Exception caught in GraphicsScene - __init__()")
+            print(ex)
+            handleError(ex)
 
     def setGrScene(self, width, height):
         try:
