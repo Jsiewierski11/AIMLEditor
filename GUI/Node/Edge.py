@@ -13,21 +13,26 @@ DEBUG = True
 class Edge(Serializable):
     def __init__(self, scene, start_socket=None, end_socket=None, edge_type=EDGE_TYPE_DIRECT):
         if DEBUG: print("In Edge constructor")
-        super().__init__()
-        self.scene = scene
+        try:
+            super().__init__()
+            self.scene = scene
 
-        self.start_socket = start_socket
-        self.end_socket = end_socket
-        self.edge_type = edge_type
+            self.start_socket = start_socket
+            self.end_socket = end_socket
+            self.edge_type = edge_type
 
-        self.scene.addEdge(self)
+            self.scene.addEdge(self)
+        except Exception as ex:
+            print("Exception caught in Edge - __init__()")
+            print(ex)
+            handleError(ex) 
 
     def __str__(self):
         return "<Edge %s..%s>" % (hex(id(self))[2:5], hex(id(self))[-3:])
 
     @property
     def start_socket(self): 
-        if DEBUG: print("in start_socket @property")
+        if DEBUG: print("in start_socket() @property")
         try:
             return self._start_socket
         except Exception as ex:
@@ -37,7 +42,7 @@ class Edge(Serializable):
 
     @start_socket.setter
     def start_socket(self, value):
-        if DEBUG: print("in start_socket @property")
+        if DEBUG: print("in start_socket() @property")
         try:
             self._start_socket = value
             if self.start_socket is not None:
@@ -47,8 +52,8 @@ class Edge(Serializable):
 
     @property
     def end_socket(self): 
-        if DEBUG: print("In end_socket() @property")
         try:
+            if DEBUG: print("In end_socket() @property")
             return self._end_socket
         except Exception as ex:
             print("Exception caught in Edge - end_socket() @property")

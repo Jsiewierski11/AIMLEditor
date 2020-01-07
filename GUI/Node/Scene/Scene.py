@@ -40,7 +40,7 @@ class Scene(Serializable):
 
     @property
     def has_been_modified(self):
-        if DEBUG: print("In has_been_modified @property")
+        if DEBUG: print("In has_been_modified() @property")
         try:
             return self._has_been_modified
         except Exception as ex:
@@ -66,6 +66,7 @@ class Scene(Serializable):
             handleError(ex)
 
     def addHasBeenModifiedListener(self, callback):
+        if DEBUG: print("In addHasBeenModifiedListener()")
         try:
             self._has_been_modified_listeners.append(callback)
         except Exception as ex:
@@ -131,6 +132,8 @@ class Scene(Serializable):
                 self.nodes[0].remove()
 
             self.has_been_modified = False
+            self.history = SceneHistory(self)
+            self.clipboard = SceneClipboard(self)
         except Exception as ex:
             print("Exception caught in Scene - clearAllNodes()")
             print(ex)

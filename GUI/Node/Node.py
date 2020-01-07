@@ -76,6 +76,7 @@ class Node(Serializable):
         return "<Node %s..%s>" % (hex(id(self))[2:5], hex(id(self))[-3:])
 
     def updateSocketPos(self):
+        if DEBUG: print("In Node - updateSocketPos()")
         try:
             for item in self.inputs:
                 item.setSocketPosition()
@@ -131,6 +132,7 @@ class Node(Serializable):
             print("Exception caught in Node - getSocketPosition()")
 
     def updateConnectedEdges(self):
+        if DEBUG: print("In Node - updateConnectedEdges()")
         try:
             for socket in self.inputs + self.outputs:
                 if socket.hasEdge():

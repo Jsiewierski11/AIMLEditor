@@ -14,6 +14,7 @@ from GUI.CodeEditor import *
 from GUI.QLabel_Clickable import *
 from GUI.Node.QDM.GraphicsScene import *
 from Utils.ErrorMessage import handleError, handleCompileMsg
+from GUI.Node.Scene.Scene import Scene
 
 
 DEBUG = True
@@ -332,9 +333,10 @@ class EditorWindow(QMainWindow):
             if DEBUG: print("compiling complete")
 
             # Updating graph view.
-            # FIXME: Causing system to crash if you move nodes then try to compile.
+            # FIXME: Causing system to crash if you move nodes, update, then try to compile.
             if DEBUG: print("Clearing scene of nodes and edges")
             self.editSpace.graphview.scene.clearAllNodes()
+            # self.editSpace.graphview.scene.initUI()
 
             # Updating code editor
             self.editSpace.aiml = aiml

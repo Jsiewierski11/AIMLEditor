@@ -15,26 +15,31 @@ EDGE_CP_ROUNDNESS = 100
 class QDMGraphicsEdge(QGraphicsPathItem):
     def __init__(self, edge, parent=None):
         if DEBUG: print("In QDMGraphicsEdge constructor")
-        super().__init__(parent)
+        try:
+            super().__init__(parent)
 
-        self.edge = edge
+            self.edge = edge
 
-        self._color = QColor("#f5fc1e")
-        self._color_selected = QColor("#00ff00")
-        self._pen = QPen(self._color)
-        self._pen_selected = QPen(self._color_selected)
-        self._pen_dragging = QPen(self._color)
-        self._pen_dragging.setStyle(Qt.DashLine)
-        self._pen.setWidthF(2.0)
-        self._pen_selected.setWidthF(2.0)
-        self._pen_dragging.setWidthF(2.0)
+            self._color = QColor("#f5fc1e")
+            self._color_selected = QColor("#00ff00")
+            self._pen = QPen(self._color)
+            self._pen_selected = QPen(self._color_selected)
+            self._pen_dragging = QPen(self._color)
+            self._pen_dragging.setStyle(Qt.DashLine)
+            self._pen.setWidthF(2.0)
+            self._pen_selected.setWidthF(2.0)
+            self._pen_dragging.setWidthF(2.0)
 
-        self.setFlag(QGraphicsItem.ItemIsSelectable)
+            self.setFlag(QGraphicsItem.ItemIsSelectable)
 
-        self.setZValue(-1)
+            self.setZValue(-1)
 
-        self.posSource = [0, 0]
-        self.posDestination = [200, 100]
+            self.posSource = [0, 0]
+            self.posDestination = [200, 100]
+        except Exception as ex:
+            print("Exception caught in GraphicsEdge - __init__()")
+            print(ex)
+            handleError(ex)
 
     def setSource(self, x, y):
         if DEBUG: print("In setSource()")
@@ -55,7 +60,7 @@ class QDMGraphicsEdge(QGraphicsPathItem):
             handleError(ex)
 
     def boundingRect(self):
-        if DEBUG: print("In boundingRect()")
+        if DEBUG: print("In boundingRect() GraphicsEdge")
         try:
             return self.shape().boundingRect()
         except Exception as ex:
@@ -101,18 +106,23 @@ class QDMGraphicsEdge(QGraphicsPathItem):
             handleError(ex)
 
     def calcPath(self):
-        """ Will handle drawing QPainterPath from Point A to B """
-        if DEBUG: print("In calcPath Abstract function")
-        raise NotImplemented("This method has to be overridden in a child class")
+        try:
+            """ Will handle drawing QPainterPath from Point A to B """
+            if DEBUG: print("In calcPath Abstract function")
+            raise NotImplemented("This method has to be overridden in a child class")
+        except Exception as ex:
+            print("Exception caught in GraphicsEdge - calcPath() Abstract")
+            print(ex)
+            handleError(ex)
 
 
 class QDMGraphicsEdgeDirect(QDMGraphicsEdge):
     def calcPath(self):
-        if DEBUG: print("In calcPath Direct")
+        if DEBUG: print("In calcPath() Direct")
         try:
             path = QPainterPath(QPointF(self.posSource[0], self.posSource[1]))
             path.lineTo(self.posDestination[0], self.posDestination[1])
-            if DEBUG: print("returning path")
+            if DEBUG: print("returning direct path")
             return path
         except Exception as ex:
             print("Exception caught in GraphicsEdge - calPath() Direct")
@@ -122,7 +132,7 @@ class QDMGraphicsEdgeDirect(QDMGraphicsEdge):
 
 class QDMGraphicsEdgeBezier(QDMGraphicsEdge):
     def calcPath(self):
-        if DEBUG: print("In calcPath Bezier")
+        if DEBUG: print("In calcPath() Bezier")
         try:
             s = self.posSource
             d = self.posDestination

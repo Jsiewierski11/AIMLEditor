@@ -9,15 +9,20 @@ DEBUG = True
 
 class QDMCutLine(QGraphicsItem):
     def __init__(self, parent=None):
-        super().__init__(parent)
+        try:
+            super().__init__(parent)
 
-        self.line_points = []
+            self.line_points = []
 
-        self._pen = QPen(Qt.white)
-        self._pen.setWidthF(2.0)
-        self._pen.setDashPattern([3, 3])
+            self._pen = QPen(Qt.white)
+            self._pen.setWidthF(2.0)
+            self._pen.setDashPattern([3, 3])
 
-        self.setZValue(2)
+            self.setZValue(2)
+        except Exception as ex:
+            print("Exception caught in GraphicsCutline - __init__()")
+            print(ex)
+            handleError(ex)
 
     def boundingRect(self):
         try:

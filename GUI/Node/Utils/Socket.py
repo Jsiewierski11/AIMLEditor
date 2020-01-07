@@ -1,6 +1,7 @@
 from collections import OrderedDict
 from GUI.Node.Utils.Serializable import Serializable
 from GUI.Node.QDM.GraphicsSocket import QDMGraphicsSocket
+from Utils.ErrorMessage import handleError
 
 
 LEFT_TOP = 1
@@ -9,48 +10,76 @@ RIGHT_TOP = 3
 RIGHT_BOTTOM = 4
 
 
-DEBUG = False
+DEBUG = True
 
 
 class Socket(Serializable):
     def __init__(self, node, index=0, position=LEFT_TOP, socket_type=1):
-        super().__init__()
+        try:
+            super().__init__()
 
-        self.node = node
-        self.index = index
-        self.position = position
-        self.socket_type = socket_type
+            self.node = node
+            self.index = index
+            self.position = position
+            self.socket_type = socket_type
 
-        if DEBUG:
-            print("Socket -- creating with", self.index,
-                  self.position, "for node", self.node)
+            if DEBUG:
+                print("Socket -- creating with", self.index,
+                    self.position, "for node", self.node)
 
-        self.grSocket = QDMGraphicsSocket(self, self.socket_type)
+            self.grSocket = QDMGraphicsSocket(self, self.socket_type)
 
-        self.grSocket.setPos(*self.node.getSocketPosition(index, position))
+            self.grSocket.setPos(*self.node.getSocketPosition(index, position))
 
-        self.edge = None
+            self.edge = None
+        except Exception as ex:
+            print("Exception caught in Socket - __init__()")
+            print(ex)
+            handleError(ex)
 
     def __str__(self):
         return "<Socket %s..%s>" % (hex(id(self))[2:5], hex(id(self))[-3:])
 
     def getSocketPosition(self):
-        if DEBUG:
-            print("  GSP: ", self.index, self.position, "node:", self.node)
-        res = self.node.getSocketPosition(self.index, self.position)
-        if DEBUG:
-            print("  res", res)
-        return res
+        try:
+            if DEBUG:
+                print("  GSP: ", self.index, self.position, "node:", self.node)
+            res = self.node.getSocketPosition(self.index, self.position)
+            if DEBUG:
+                print("  res", res)
+            return res
+        except Exception as ex:
+            print("Exception caught in Socket - getSocketPosition()")
+            print(ex)
+            handleError(ex)
 
     def setSocketPosition(self):
-        self.grSocket.setPos(
-            *self.node.getSocketPosition(self.index, self.position))
+        if DEBUG: print("In setSocketPosition()")
+        try:
+            self.grSocket.setPos(
+                *self.node.getSocketPosition(self.index, self.position))
+        except Exception as ex:
+            print("Exception caught in Socket - setSocketPosition()")
+            print(ex)
+            handleError(ex)
 
     def setConnectedEdge(self, edge=None):
-        self.edge = edge
+        if DEBUG: print("In setConnectedEdge()")
+        try:
+            self.edge = edge
+        except Exception as ex:
+            print("Exception caught in Socket - setConnectedEdge()")
+            print(ex)
+            handleError(ex)
 
     def hasEdge(self):
-        return self.edge is not None
+        if DEBUG: print("In hasEdge()")
+        try:
+            return self.edge is not None
+        except Exception as ex:
+            print("Exception caught in Socket - hasEdge()")
+            print(ex)
+            handleError(ex)
 
     def serialize(self):
         return OrderedDict([

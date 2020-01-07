@@ -100,26 +100,26 @@ class EditorWidget(QWidget):
 
                     # Clearing edges so they can be redrawn.
                     # self.scene.clearAllEdges()
-                    for parent in node.parents:
-                        parent.children.remove(node)
+                    # for parent in node.parents:
+                    #     parent.children.remove(node)
 
-                    for child in node.children:
-                        child.parents.remove(node)
+                    # for child in node.children:
+                    #     child.parents.remove(node)
 
-                    node.parents = []
-                    node.children = []
+                    # node.parents = []
+                    # node.children = []
 
                     # Finding parent and children nodes.
-                    if DEBUG: print("Redrawing edges")
-                    that = cat.findTag("that")
-                    if that is not None:
-                        if DEBUG: print("Looking for parent nodes")
-                        self.findParentNodes(node)
-                    thatStr = self.getLastSentence(cat)
-                    if DEBUG: print(f"thatStr: {thatStr}")
-                    self.findChildNodes(node, thatStr[0])
-                    node.updateConnectedEdges()
-                    return node
+                    # if DEBUG: print("Redrawing edges")
+                    # that = cat.findTag("that")
+                    # if that is not None:
+                    #     if DEBUG: print("Looking for parent nodes")
+                    #     self.findParentNodes(node)
+                    # thatStr = self.getLastSentence(cat)
+                    # if DEBUG: print(f"thatStr: {thatStr}")
+                    # self.findChildNodes(node, thatStr[0])
+                    # node.updateConnectedEdges()
+                    # return node
         except Exception as ex:
             print("EXCEPTION CAUGHT! In EditorWidget - updateNode()")
             print(ex)
