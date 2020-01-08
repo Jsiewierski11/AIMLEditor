@@ -118,6 +118,7 @@ class QDMGraphicsNode(QGraphicsItem):
 
     def mouseMoveEvent(self, event):
         try:
+            if DEBUG: print("MOVING NODE!!")
             # optimize me! just update the selected nodes
             for node in self.scene().scene.nodes:
                 if node.grNode.isSelected():
