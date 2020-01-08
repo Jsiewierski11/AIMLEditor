@@ -25,7 +25,6 @@ class EditorWindow(QMainWindow):
     # Adding signal
     catCreated = pyqtSignal(Tag)
     catClicked = pyqtSignal(Tag)
-    catUpdated = pyqtSignal(Tag)
     childClicked = pyqtSignal(str)
 
     def __init__(self):
@@ -55,7 +54,7 @@ class EditorWindow(QMainWindow):
         # initialize Menu
         fileMenu = menubar.addMenu('&File')
         
-        #NOTE: These are unneeded menu options since we do not have the graph view
+        #NOTE: These need to be implemented so we can save position and state of graphview
         # fileMenu.addAction(self.createAct('&New', 'Ctrl+N', "Create new graph", self.onFileNew))
         # fileMenu.addSeparator()
         # fileMenu.addAction(self.createAct('&Open', 'Ctrl+O', "Open file", self.onFileOpen))
@@ -133,7 +132,7 @@ class EditorWindow(QMainWindow):
         else:
             title += os.path.basename(self.filename)
 
-        if self.centralWidget().scene.has_been_modified:
+        if self.centralWidget().graphview.scene.has_been_modified:
             title += "*"
 
         self.setWindowTitle(title)
@@ -146,7 +145,7 @@ class EditorWindow(QMainWindow):
         #     event.ignore()
 
     def isModified(self):
-        return self.centralWidget().scene.has_been_modified
+        return self.centralWidget().graphview.scene.has_been_modified
 
     def maybeSave(self):
         if not self.isModified():

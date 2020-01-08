@@ -144,8 +144,8 @@ class QDMGraphicsNode(QGraphicsItem):
                 # NOTE: self.node is somehow being set to 
                 #       a TabController object which throws an
                 #       error here.
-                # self.node.scene.history.storeHistory(
-                #     "Node moved", setModified=True)
+                self.node.scene.history.storeHistory(
+                    "Node moved", setModified=True)
             self.handleSelected = None
             self.mousePressPos = None
             self.mousePressRect = None

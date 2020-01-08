@@ -50,7 +50,7 @@ class Scene(Serializable):
 
     @has_been_modified.setter
     def has_been_modified(self, value):
-        if DEBUG: print("In has_been_modified @property")
+        if DEBUG: print("In has_been_modified @setter")
         try:
             if not self._has_been_modified and value:
                 self._has_been_modified = value
