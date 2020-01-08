@@ -26,7 +26,7 @@ class QDMCutLine(QGraphicsItem):
 
     def boundingRect(self):
         try:
-            if DEBUG: print("in GraphicsCutline - boundingRect()")
+            if DEBUG: print("In GraphicsCutline - boundingRect()")
             return self.shape().boundingRect()
         except Exception as ex:
             print("Exception caught in GraphicsCutline - boundingRect()")
@@ -35,7 +35,7 @@ class QDMCutLine(QGraphicsItem):
 
     def shape(self):
         try:
-            if DEBUG: print("in GraphicsCutline - shape()")
+            if DEBUG: print("In GraphicsCutline - shape()")
             poly = QPolygonF(self.line_points)
 
             if len(self.line_points) > 1:
@@ -54,7 +54,7 @@ class QDMCutLine(QGraphicsItem):
 
     def paint(self, painter, QStyleOptionGraphicsItem, widget=None):
         try:
-            if DEBUG: print("in GraphicsCutline - paint()")
+            if DEBUG: print("In GraphicsCutline - paint()")
             painter.setRenderHint(QPainter.Antialiasing)
             painter.setBrush(Qt.NoBrush)
             painter.setPen(self._pen)

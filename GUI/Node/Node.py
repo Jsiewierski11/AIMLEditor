@@ -166,24 +166,30 @@ class Node(Serializable):
         except Exception as ex:
             print("Exception caught in Node - remove()")
             print(ex)
+            handleError(ex)
 
     def serialize(self):
         if DEBUG: print("Serializing Node")
-        inputs, outputs = [], []
-        for socket in self.inputs:
-            inputs.append(socket.serialize())
-        for socket in self.outputs:
-            outputs.append(socket.serialize())
-        return OrderedDict([
-            ('id', self.objId),
-            ('title', self.title),
-            ('pos_x', self.grNode.scenePos().x()),
-            ('pos_y', self.grNode.scenePos().y()),
-            ('inputs', inputs),
-            ('outputs', outputs),
-            ('content', self.content.serialize()),
-            ('category', self.category.serialize())
-        ])
+        try:
+            inputs, outputs = [], []
+            for socket in self.inputs:
+                inputs.append(socket.serialize())
+            for socket in self.outputs:
+                outputs.append(socket.serialize())
+            return OrderedDict([
+                ('id', self.objId),
+                ('title', self.title),
+                ('pos_x', self.grNode.scenePos().x()),
+                ('pos_y', self.grNode.scenePos().y()),
+                ('inputs', inputs),
+                ('outputs', outputs),
+                ('content', self.content.serialize()),
+                ('category', self.category.serialize())
+            ])
+        except Exception as ex:
+            print("Exception caught in Node - serialize()")
+            print(ex)
+            handleError(ex)
 
     def deserialize(self, data, hashmap={}, restore_id=True):
         if DEBUG: print("Deserializing Node")

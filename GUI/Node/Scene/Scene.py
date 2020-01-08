@@ -154,16 +154,21 @@ class Scene(Serializable):
 
     def serialize(self):
         if DEBUG: print("Serializing Scene")
-        nodes, edges = [], []
-        for node in self.nodes: nodes.append(node.serialize())
-        for edge in self.edges: edges.append(edge.serialize())
-        return OrderedDict([
-            ('id', self.objId),
-            ('scene_width', self.scene_width),
-            ('scene_height', self.scene_height),
-            ('nodes', nodes),
-            ('edges', edges),
-        ])
+        try:
+            nodes, edges = [], []
+            for node in self.nodes: nodes.append(node.serialize())
+            for edge in self.edges: edges.append(edge.serialize())
+            return OrderedDict([
+                ('id', self.objId),
+                ('scene_width', self.scene_width),
+                ('scene_height', self.scene_height),
+                ('nodes', nodes),
+                ('edges', edges),
+            ])
+        except Exception as ex:
+            print("Exception caught in Scene - serialize()")
+            print(ex)
+            handleError(ex)
 
     def deserialize(self, data, hashmap={}, restore_id=True):
         if DEBUG: print("Deserializing scene")

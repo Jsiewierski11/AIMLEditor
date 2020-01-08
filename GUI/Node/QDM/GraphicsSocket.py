@@ -48,7 +48,7 @@ class QDMGraphicsSocket(QGraphicsItem):
             handleError(ex)
 
     def boundingRect(self):
-        if DEBUG: print("In boundingRect() GraphicsSocket")
+        if DEBUG: print("In GraphicsSocket - boundingRect()")
         try:
             return QRectF(
                 - self.radius - self.outline_width,

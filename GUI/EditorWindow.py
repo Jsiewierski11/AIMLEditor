@@ -278,26 +278,26 @@ class EditorWindow(QMainWindow):
         return True
 
     def onEditUndo(self):
-        self.centralWidget().scene.history.undo()
+        self.centralWidget().graphview.scene.history.undo()
 
     def onEditRedo(self):
-        self.centralWidget().scene.history.redo()
+        self.centralWidget().graphview.scene.history.redo()
 
     def onEditDelete(self):
-        self.centralWidget().scene.grScene.views()[0].deleteSelected()
+        self.centralWidget().graphview.scene.grScene.views()[0].deleteSelected()
 
     def onEditAdd(self):
-        widget = self.centralWidget()
+        widget = self.centralWidget().graphview
         assert isinstance(widget, EditorWidget)
         widget.addNode("new", [0], [0], 0, 0)
 
     def onEditCut(self):
-        data = self.centralWidget().scene.clipboard.serializeSelected(delete=True)
+        data = self.centralWidget().graphview.scene.clipboard.serializeSelected(delete=True)
         str_data = json.dumps(data, indent=4)
         QApplication.instance().clipboard().setText(str_data)
 
     def onEditCopy(self):
-        data = self.centralWidget().scene.clipboard.serializeSelected(delete=False)
+        data = self.centralWidget().graphview.scene.clipboard.serializeSelected(delete=False)
         str_data = json.dumps(data, indent=4)
         QApplication.instance().clipboard().setText(str_data)
 
@@ -315,7 +315,7 @@ class EditorWindow(QMainWindow):
             if DEBUG: print("JSON does not contain any nodes!")
             return
 
-        self.centralWidget().scene.clipboard.deserializeFromClipboard(data)
+        self.centralWidget().graphview.scene.clipboard.deserializeFromClipboard(data)
 
     def onCompile(self):
         if DEBUG: print("Compile Pressed!!!")
@@ -331,7 +331,7 @@ class EditorWindow(QMainWindow):
                 return
             if DEBUG: print("compiling complete")
 
-            # Updating graph view.
+            # clearing before updating graph view.
             # FIXME: Causing system to crash if you move nodes then try to compile.
             if DEBUG: print("Clearing scene of nodes and edges")
             self.editSpace.graphview.scene.clearAllNodes()

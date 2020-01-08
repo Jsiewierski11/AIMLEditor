@@ -1,4 +1,5 @@
 from GUI.Node.QDM.GraphicsEdge import QDMGraphicsEdge
+from Utils.ErrorMessage import handleError
 
 
 DEBUG = True
@@ -34,47 +35,57 @@ class SceneHistory():
 
 
     def storeHistory(self, desc, setModified=False):
-        if setModified:
-            self.scene.has_been_modified = True
+        try:
+            if setModified:
+                self.scene.has_been_modified = True
 
-        if DEBUG: print("Storing history", '"%s"' % desc,
-                        ".... current_step: @%d" % self.history_current_step,
-                        "(%d)" % len(self.history_stack))
+            if DEBUG: print("Storing history", '"%s"' % desc,
+                            ".... current_step: @%d" % self.history_current_step,
+                            "(%d)" % len(self.history_stack))
 
-        # if the pointer (history_current_step) is not at the end of history_stack
-        if self.history_current_step+1 < len(self.history_stack):
-            self.history_stack = self.history_stack[0:self.history_current_step+1]
+            # if the pointer (history_current_step) is not at the end of history_stack
+            if self.history_current_step+1 < len(self.history_stack):
+                self.history_stack = self.history_stack[0:self.history_current_step+1]
 
-        # history is outside of the limits
-        if self.history_current_step+1 >= self.history_limit:
-            self.history_stack = self.history_stack[1:]
-            self.history_current_step -= 1
+            # history is outside of the limits
+            if self.history_current_step+1 >= self.history_limit:
+                self.history_stack = self.history_stack[1:]
+                self.history_current_step -= 1
 
-        hs = self.createHistoryStamp(desc)
+            hs = self.createHistoryStamp(desc)
 
-        self.history_stack.append(hs)
-        self.history_current_step += 1
-        if DEBUG: print("  -- setting step to:", self.history_current_step)
+            self.history_stack.append(hs)
+            self.history_current_step += 1
+            if DEBUG: print("  -- setting step to:", self.history_current_step)
+        except Exception as ex:
+            print("Exception caught in SceneHistory - storeHistory()")
+            print(ex)
+            handleError(ex)
 
 
     def createHistoryStamp(self, desc):
-        sel_obj = {
-            'nodes': [],
-            'edges': [],
-        }
-        for item in self.scene.grScene.selectedItems():
-            if hasattr(item, 'node'):
-                sel_obj['nodes'].append(item.node.objId)
-            elif isinstance(item, QDMGraphicsEdge):
-                sel_obj['edges'].append(item.edge.objId)
+        try:
+            sel_obj = {
+                'nodes': [],
+                'edges': [],
+            }
+            for item in self.scene.grScene.selectedItems():
+                if hasattr(item, 'node'):
+                    sel_obj['nodes'].append(item.node.objId)
+                elif isinstance(item, QDMGraphicsEdge):
+                    sel_obj['edges'].append(item.edge.objId)
 
-        history_stamp = {
-            'desc': desc,
-            'snapshot': self.scene.serialize(),
-            'selection': sel_obj,
-        }
+            history_stamp = {
+                'desc': desc,
+                'snapshot': self.scene.serialize(),
+                'selection': sel_obj,
+            }
 
-        return history_stamp
+            return history_stamp
+        except Exception as ex:
+            print("Exception caught in SceneHistory - createHistoryStamp()")
+            print(ex)
+            handleError(ex)
 
     def restoreHistoryStamp(self, history_stamp):
         if DEBUG: print("RHS: ", history_stamp['desc'])

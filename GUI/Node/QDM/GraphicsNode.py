@@ -67,7 +67,15 @@ class QDMGraphicsNode(QGraphicsItem):
             handleError(ex)
 
     def boundingRect(self):
-        return self.rect
+        if DEBUG: print("In GraphicsNode - boundingRect()")
+        try:
+            if DEBUG: print(f"\t> GraphicsNode - self.rect: {self.rect}")
+            if DEBUG: print(f"\t> Category ID: {self.node.category.cat_id}")
+            return self.rect
+        except Exception as ex:
+            print("Exception caught in GraphicsNode - boundingRect()")
+            print(ex)
+            handleError(ex)
 
     def hoverMoveEvent(self, moveEvent):
         try:
@@ -103,7 +111,7 @@ class QDMGraphicsNode(QGraphicsItem):
             """
             Executed when the mouse is pressed on the item.
             """
-            if DEBUG: print("MOUSE PRESS ON NODE")
+            if DEBUG: print("\nMOUSE PRESS ON NODE\n")
 
             if self.handle.contains(mouseEvent.pos()):
                 self.handleSelected = "Bottom Right"
@@ -135,17 +143,15 @@ class QDMGraphicsNode(QGraphicsItem):
             handleError(ex)
 
     def mouseReleaseEvent(self, event):
-        if DEBUG: print("MOUSE RELEASED")
+        if DEBUG: print("\nMOUSE RELEASED\n")
         try:
             super().mouseReleaseEvent(event)
 
             if self.wasMoved:
                 self.wasMoved = False
-                # NOTE: self.node is somehow being set to 
-                #       a TabController object which throws an
-                #       error here.
                 self.node.scene.history.storeHistory(
                     "Node moved", setModified=True)
+
             self.handleSelected = None
             self.mousePressPos = None
             self.mousePressRect = None
@@ -155,26 +161,59 @@ class QDMGraphicsNode(QGraphicsItem):
             print(ex)
 
     @property
-    def title(self): return self._title
+    def title(self): 
+        try:
+            return self._title
+        except Exception as ex:
+            print("Exception caught in GraphicsNode - title() @property")
+            print(ex)
+            handleError(ex)
 
     @title.setter
     def title(self, value):
-        self._title = value
-        self.title_item.setPlainText(self._title)
+        try:
+            self._title = value
+            self.title_item.setPlainText(self._title)
+        except Exception as ex:
+            print("Exception caught in GraphicsNode - title() @setter")
+            print(ex)
+            handleError(ex)
 
     @property
-    def width(self): return self.rect.width()
+    def width(self): 
+        try:
+            return self.rect.width()
+        except Exception as ex:
+            print("Exception caught in GraphicsNode - width() @property")
+            print(ex)
+            handleError(ex)
 
     @width.setter
     def width(self, value):
-        self.rect.setWidth(value)
+        try:
+            self.rect.setWidth(value)
+        except Exception as ex:
+            print("Exception caught in GraphicsNode - width() @setter")
+            print(ex)
+            handleError(ex)
 
     @property
-    def height(self): return self.rect.height()
+    def height(self): 
+        try:
+            return self.rect.height()
+        except Exception as ex:
+            print("Exception caught in GraphicsNode - height() @property")
+            print(ex)
+            handleError(ex)
 
     @height.setter
     def height(self, value):
-        self.rect.setheight(value)
+        try:
+            self.rect.setheight(value)
+        except Exception as ex:
+            print("Exception caught in GraphicsNode - height() @setter")
+            print(ex)
+            handleError(ex)
 
     def initUI(self):
         try:

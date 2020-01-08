@@ -7,7 +7,7 @@ from GUI.DockerWidget import DockerWidget
 from GUI.EditorWidget import EditorWidget
 from GUI.Node.Node import Node
 from Model.Data import *
-
+from Utils.ErrorMessage import handleError
 
 DEBUG = True
 
@@ -217,12 +217,20 @@ class TabController(QWidget):
         if DEBUG: print("slot in TabController - categoryUpdated()")
         try:
             updatedCat = self.aiml.update(cat)
+
+            # NOTE: This should be a safer alternative rather than updating
+            #       then requiring user to manually compile. But this still
+            #       runs into the same issue as compiling manually after
+            #       moving and updating nodes.
+            # self.editSpace.setPlainText(str(self.aiml))
+            # self.window.onCompile()
+
             if DEBUG: print(f'Updated aiml object:\n{self.aiml}')
             self.graphview.updateNode(cat) # Updating graphview display
             if DEBUG: print("EditorWidget successfully updated")
             if DEBUG: print(f"aiml object to set (TabController):\n{self.aiml}")
             self.catUpdated.emit(self.aiml) # Sending the updated aiml object to the CodeEditor.
         except Exception as ex:
-            print("Exception caught trying to update Node in TabController")
+            print("Exception caught in TabController - categoryUpdated()")
             print(ex)
             handleError(ex)
