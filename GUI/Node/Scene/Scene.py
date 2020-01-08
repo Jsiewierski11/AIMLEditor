@@ -103,6 +103,7 @@ class Scene(Serializable):
 
     def removeNode(self, node):
         try:
+            if DEBUG: print("In removeNode()")
             self.nodes.remove(node)
         except Exception as ex:
             print("Exception caught in Scene - removeNode()")
@@ -111,6 +112,7 @@ class Scene(Serializable):
 
     def removeEdge(self, edge):
         try:
+            if DEBUG: print("In removeEdge()")
             self.edges.remove(edge)
         except Exception as ex:
             print("Exception caught in Scene - removeEdge()")
@@ -119,6 +121,7 @@ class Scene(Serializable):
 
     def clearAllEdges(self):
         try:
+            if DEBUG: print("In clearAllEdges()")
             while len(self.edges) > 0:
                 self.edges[0].remove()
         except Exception as ex:
@@ -128,10 +131,13 @@ class Scene(Serializable):
 
     def clearAllNodes(self):
         try:
+            if DEBUG: print("In clearAllNodes()")
             while len(self.nodes) > 0:
                 self.nodes[0].remove()
 
-            self.has_been_modified = False
+            self._has_been_modified_listeners.clear()
+
+            self._has_been_modified = False
         except Exception as ex:
             print("Exception caught in Scene - clearAllNodes()")
             print(ex)
@@ -142,7 +148,7 @@ class Scene(Serializable):
             file.write( json.dumps( self.serialize(), indent=4 ) )
             if DEBUG: print("saving to ", filename, " was successful.")
 
-            self.has_been_modified = False
+            self._has_been_modified = False
 
     def loadFromFile(self, filename):
         with open(filename+'.aib', "r") as file:
@@ -150,7 +156,7 @@ class Scene(Serializable):
             data = json.loads(raw_data, encoding='utf-8')
             self.deserialize(data)
             
-            self.has_been_modified = False
+            self._has_been_modified = False
 
     def serialize(self):
         if DEBUG: print("Serializing Scene")

@@ -94,6 +94,7 @@ class EditorWidget(QWidget):
                     if DEBUG: print("found node to update")
                     node.category = cat
                     if DEBUG: print(str(node.category))
+                    
                     # Displaying updated content on node.
                     node.content.wdg_label.clear()
                     node.content.wdg_label.displayVisuals(cat)

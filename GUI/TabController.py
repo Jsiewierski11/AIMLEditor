@@ -168,6 +168,8 @@ class TabController(QWidget):
                         node.updateConnectedEdges()
 
                     aNode.content.catClicked.connect(self.graphview.categoryClicked) # connecting signals coming from Content Widget
+
+                    # NOTE: When addChildClicked has been implemented then this can be uncommented
                     # if DEBUG: print("trying to connect addChild button")
                     # aNode.content.childClicked.connect(self.graphview.addChildClicked) # connecting signals coming from Content Widget
             elif cat.type == "comment":
