@@ -5,7 +5,7 @@ from PyQt5.QtCore import QUuid
 from GUI.Node.Utils.Serializable import Serializable
 from collections import OrderedDict
 
-DEBUG = True
+DEBUG = False
 
 
 class Tag(Serializable):

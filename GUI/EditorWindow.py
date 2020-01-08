@@ -333,10 +333,9 @@ class EditorWindow(QMainWindow):
             if DEBUG: print("compiling complete")
 
             # Updating graph view.
-            # FIXME: Causing system to crash if you move nodes, update, then try to compile.
+            # FIXME: Causing system to crash if you move nodes then try to compile.
             if DEBUG: print("Clearing scene of nodes and edges")
             self.editSpace.graphview.scene.clearAllNodes()
-            # self.editSpace.graphview.scene.initUI()
 
             # Updating code editor
             self.editSpace.aiml = aiml
@@ -344,11 +343,11 @@ class EditorWindow(QMainWindow):
 
             for cat in self.editSpace.aiml.tags:
                 self.editSpace.create_category_graph_view(cat) # Sending categories to be drawn on graph view
-
             if DEBUG: print("finished redrawing nodes")
 
             self.editSpace.up_to_date = True
             if DEBUG: print("set up_to_date to True")
+            
             self.editSpace.tabs.setStyleSheet('')
             if DEBUG: print("set style sheet for tabs.")
         except Exception as ex:

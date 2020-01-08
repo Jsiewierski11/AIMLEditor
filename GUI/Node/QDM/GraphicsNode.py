@@ -4,6 +4,8 @@ from PyQt5.QtGui import *
 from Model.Data import *
 from Utils.ErrorMessage import handleError
 
+DEBUG = True
+
 class QDMGraphicsNode(QGraphicsItem):
 
     handleBottomRight = 8
@@ -101,6 +103,7 @@ class QDMGraphicsNode(QGraphicsItem):
             """
             Executed when the mouse is pressed on the item.
             """
+            if DEBUG: print("MOUSE PRESS ON NODE")
 
             if self.handle.contains(mouseEvent.pos()):
                 self.handleSelected = "Bottom Right"
@@ -131,7 +134,7 @@ class QDMGraphicsNode(QGraphicsItem):
             handleError(ex)
 
     def mouseReleaseEvent(self, event):
-        print("mouse released")
+        if DEBUG: print("MOUSE RELEASED")
         try:
             super().mouseReleaseEvent(event)
 

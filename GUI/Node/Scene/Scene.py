@@ -132,8 +132,6 @@ class Scene(Serializable):
                 self.nodes[0].remove()
 
             self.has_been_modified = False
-            self.history = SceneHistory(self)
-            self.clipboard = SceneClipboard(self)
         except Exception as ex:
             print("Exception caught in Scene - clearAllNodes()")
             print(ex)
