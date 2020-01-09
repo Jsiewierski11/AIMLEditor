@@ -130,6 +130,8 @@ class Node(Serializable):
             return [x, y]
         except Exception as ex:
             print("Exception caught in Node - getSocketPosition()")
+            print(ex)
+            handleError(ex)
 
     def updateConnectedEdges(self):
         if DEBUG: print("In Node - updateConnectedEdges()")

@@ -119,27 +119,15 @@ class Scene(Serializable):
             print(ex)
             handleError(ex)
 
-    def clearAllEdges(self):
+    def clear(self):
         try:
-            if DEBUG: print("In clearAllEdges()")
-            while len(self.edges) > 0:
-                self.edges[0].remove()
-        except Exception as ex:
-            print("Exception caught in Scene - clearAllEdges()")
-            print(ex)
-            handleError(ex)
-
-    def clearAllNodes(self):
-        try:
-            if DEBUG: print("In clearAllNodes()")
+            if DEBUG: print("In clear()")
             while len(self.nodes) > 0:
                 self.nodes[0].remove()
-
-            self._has_been_modified_listeners.clear()
-
+                
             self._has_been_modified = False
         except Exception as ex:
-            print("Exception caught in Scene - clearAllNodes()")
+            print("Exception caught in Scene - clear()")
             print(ex)
             handleError(ex)
 
