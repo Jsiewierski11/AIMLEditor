@@ -7,7 +7,7 @@ from Utils.ErrorMessage import handleError
 from GUI.Node.Utils.Socket import *
 
 
-DEBUG = True
+DEBUG = False
 
 EDGE_CP_ROUNDNESS = 100
 

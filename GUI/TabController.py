@@ -9,7 +9,7 @@ from GUI.Node.Node import Node
 from Model.Data import *
 from Utils.ErrorMessage import handleError
 
-DEBUG = True
+DEBUG = False
 
 
 class TabController(QWidget):

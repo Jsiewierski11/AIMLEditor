@@ -12,7 +12,7 @@ from PyQt5.QtWidgets import QWidget, QLabel, QVBoxLayout
 from PyQt5.QtGui import QFont
 from Utils.ErrorMessage import handleError
 
-DEBUG = True
+DEBUG = False
 
 class Scene(Serializable):
     def __init__(self):
@@ -124,7 +124,7 @@ class Scene(Serializable):
             if DEBUG: print("In clear()")
             while len(self.nodes) > 0:
                 self.nodes[0].remove()
-                
+
             self._has_been_modified = False
         except Exception as ex:
             print("Exception caught in Scene - clear()")

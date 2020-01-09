@@ -7,7 +7,7 @@ from Utils.ErrorMessage import handleError
 EDGE_TYPE_DIRECT = 1
 EDGE_TYPE_BEZIER = 2
 
-DEBUG = True
+DEBUG = False
 
 
 class Edge(Serializable):

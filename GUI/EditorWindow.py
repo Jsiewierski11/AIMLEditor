@@ -17,7 +17,7 @@ from Utils.ErrorMessage import handleError, handleCompileMsg
 from GUI.Node.Scene.Scene import Scene
 
 
-DEBUG = True
+DEBUG = False
 
 
 class EditorWindow(QMainWindow):

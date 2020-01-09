@@ -8,7 +8,7 @@ from Model.Data import *
 from GUI import EditorWidget
 from Utils.ErrorMessage import handleError
 
-DEBUG = True
+DEBUG = False
 
 
 class Node(Serializable):

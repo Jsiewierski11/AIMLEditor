@@ -2,7 +2,7 @@ from GUI.Node.QDM.GraphicsEdge import QDMGraphicsEdge
 from Utils.ErrorMessage import handleError
 
 
-DEBUG = True
+DEBUG = False
 
 
 class SceneHistory():

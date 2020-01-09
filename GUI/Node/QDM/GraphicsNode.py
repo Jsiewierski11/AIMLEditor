@@ -4,7 +4,7 @@ from PyQt5.QtGui import *
 from Model.Data import *
 from Utils.ErrorMessage import handleError
 
-DEBUG = True
+DEBUG = False
 
 class QDMGraphicsNode(QGraphicsItem):
 

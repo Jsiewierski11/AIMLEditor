@@ -13,7 +13,7 @@ from GUI.Node.QDM.GraphicsView import QDMGraphicsView
 from GUI.Node.QDM.GraphicsNode import *
 from GUI.Node.Utils.Socket import *
 
-DEBUG = True
+DEBUG = False
 
 
 class EditorWidget(QWidget):

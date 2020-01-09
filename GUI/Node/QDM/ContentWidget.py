@@ -8,7 +8,7 @@ from GUI.Node.Node import *
 from PyQt5 import QtCore
 from Utils.ErrorMessage import handleError
 
-DEBUG = True
+DEBUG = False
 
 
 class QDMNodeContentWidget(QWidget, Serializable):

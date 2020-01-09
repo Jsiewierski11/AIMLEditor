@@ -47,7 +47,7 @@ def handleError(error):
     em.showMessage(str(error))
 
 
-DEBUG = True
+DEBUG = False
 
 
 

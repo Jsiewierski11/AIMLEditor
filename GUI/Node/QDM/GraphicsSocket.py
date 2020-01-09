@@ -4,7 +4,7 @@ from PyQt5.QtCore import *
 from Utils.ErrorMessage import handleError
 
 
-DEBUG = True
+DEBUG = False
 
 
 class QDMGraphicsSocket(QGraphicsItem):

@@ -6,7 +6,7 @@ from PyQt5.QtGui import *
 from Utils.ErrorMessage import handleError
 
 
-DEBUG = True
+DEBUG = False
 
 
 class QDMGraphicsScene(QGraphicsScene):

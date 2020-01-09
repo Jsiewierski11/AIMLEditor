@@ -10,7 +10,7 @@ RIGHT_TOP = 3
 RIGHT_BOTTOM = 4
 
 
-DEBUG = True
+DEBUG = False
 
 
 class Socket(Serializable):
