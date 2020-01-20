@@ -65,6 +65,9 @@ class DockerWidget(QDockWidget):
 
     def initDocker(self):
 
+        # Disabling close button
+        self.setFeatures(QDockWidget.DockWidgetFloatable | QDockWidget.DockWidgetMovable)
+
         # initializing content inside widget
         self.setWindowTitle("Edit Category")
         line = QFrame()
