@@ -14,3 +14,8 @@ def handleCompileMsg():
     
     retval = msg_box.exec_()
     return retval
+
+def compileSuccessful():
+    msg_box = QMessageBox()
+    msg_box.setText("Compile Succesful!")
+    msg_box.exec_()

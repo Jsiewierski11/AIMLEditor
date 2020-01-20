@@ -13,7 +13,7 @@ import Utils.AIMLHighlighter as HL
 from GUI.CodeEditor import *
 from GUI.QLabel_Clickable import *
 from GUI.Node.QDM.GraphicsScene import *
-from Utils.ErrorMessage import handleError, handleCompileMsg
+from Utils.ErrorMessage import handleError, handleCompileMsg, compileSuccessful
 from GUI.Node.Scene.Scene import Scene
 
 
@@ -350,6 +350,8 @@ class EditorWindow(QMainWindow):
             
             self.editSpace.tabs.setStyleSheet('')
             if DEBUG: print("set style sheet for tabs.")
+
+            compileSuccessful()
         except Exception as ex:
             print("Exception caught trying to compile project")
             print(ex)
