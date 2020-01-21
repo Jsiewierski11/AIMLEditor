@@ -60,6 +60,7 @@ class EditorWindow(QMainWindow):
         # fileMenu.addAction(self.createAct('&Open', 'Ctrl+O', "Open file", self.onFileOpen))
         # fileMenu.addAction(self.createAct('&Save', 'Ctrl+S', "Save file", self.onFileSave))
         # fileMenu.addAction(self.createAct('Save &As...', 'Ctrl+Shift+S', "Save file as...", self.onFileSaveAs))
+        
         fileMenu.addAction(self.createAct('&Export', 'Ctrl+Shift+E', 'Export File', self.onFileExport))
         fileMenu.addAction(self.createAct('&Import', 'Ctrl+Shift+I', 'Import File', self.onFileImport))
         fileMenu.addSeparator()
@@ -256,14 +257,9 @@ class EditorWindow(QMainWindow):
                 self.catCreated.emit(cat)
                 numCats = numCats + 1
             if DEBUG: print("Finished creating " + str(numCats) + " categories")
-
-            # for node in self.editSpace.graphview.scene.nodes:
-            #     x = node.grNode.x()
-            #     node.setPos(x, yoffset)
-            #     yoffset = yoffset + 500
-            print("file import successful")
+            if DEBUG: print("file import successful")
             self.onCompile()
-            print("Compile after import sucessful!")
+            if DEBUG: print("Compile after import sucessful!")
         except Exception as ex:
             handleError(ex)
             print(ex)
@@ -351,6 +347,7 @@ class EditorWindow(QMainWindow):
             self.editSpace.tabs.setStyleSheet('')
             if DEBUG: print("set style sheet for tabs.")
 
+            # Display dialog
             compileSuccessful()
         except Exception as ex:
             print("Exception caught trying to compile project")

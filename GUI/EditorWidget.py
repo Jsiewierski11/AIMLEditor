@@ -13,7 +13,7 @@ from GUI.Node.QDM.GraphicsView import QDMGraphicsView
 from GUI.Node.QDM.GraphicsNode import *
 from GUI.Node.Utils.Socket import *
 
-DEBUG = False
+DEBUG = True
 
 
 class EditorWidget(QWidget):
@@ -422,7 +422,7 @@ class EditorWidget(QWidget):
     """
     Function to organize nodes based on parents and children
     """
-    def placeNodes(self, nodes, depth=0):
+    def placeNodes(self, nodes, depth=0, yOffset=0):
         # TODO: Recursively look through children. place parents on left, children on the right.
         try:
             if DEBUG: print("placing nodes")
@@ -431,22 +431,23 @@ class EditorWidget(QWidget):
                 return
 
             xOffset = 500
+            
             for node in nodes:
-                yOffset = 0
                 if len(node.parents) is 0:
                     if DEBUG: print("node has no parents place to the left.")
                     node.setPos(-900, -900 + yOffset)
-                    yOffset = yOffset + 300
+                    yOffset += 575
                 else:
                     if DEBUG: print("node has parents")
+                    yOffset = 0
                     for child in node.children:
                         depth = depth + 1
                         y = node.grNode.y()
                         child.setPos(xOffset, y + yOffset)
-                        xOffset = xOffset + 100
-                        yOffset = yOffset + 575
-                        self.placeNodes(child.children, depth)
-                    xOffset = xOffset + 300
+                        xOffset += 100
+                        yOffset += 575
+                        self.placeNodes(child.children, depth, yOffset)
+                    xOffset += 300
         except Exception as ex:
             print("Exception caught placing nodes!")
             print(ex)
@@ -496,10 +497,11 @@ class EditorWidget(QWidget):
         self.scene.nodes = list(map(self.setNodeStyleSheet, self.scene.nodes))
         
         try:
-            # FIXME: Optimize me. Maybe place parent and children nodes in something other than lists.
+            # FIXME: Optimize by maybe place parent and children nodes in something other than lists.
             for node in self.scene.nodes:
                 if DEBUG: print("Searching for correct node")
                 if node.category.cat_id == cat.cat_id:
+                    node.content.setStyleSheet("QDMNodeContentWidget { background: #ffff1a; }")
                     for child in node.children:
                         if DEBUG: print("Changing background of child")
                         child.content.setStyleSheet("QDMNodeContentWidget { background: #f82f04; }")
@@ -507,8 +509,9 @@ class EditorWidget(QWidget):
                     for parent in node.parents:
                         if DEBUG: print("Changing background of parent")
                         parent.content.setStyleSheet("QDMNodeContentWidget { background: #0cfdd8; }")
-
+            
             self.catClicked.emit(cat) # emitting signal to be sent to EditorWindow
         except Exception as ex:
             print("Exception caught when category is clicked.")
             print(ex)
+            handleError(ex)

@@ -101,7 +101,7 @@ class TabController(QWidget):
         self.legendLabel.setText("1st textbox represents the Pattern Tag\n"
                                  "2nd textbox represents the That Tag\n"
                                  "3rd textbox represents the Template Tag\n"
-                                 "Red nodes are children, Turquoise nodes are parents.")
+                                 "Yellow node is node currently selected, Red nodes are children, Turquoise nodes are parents.")
         self.legendLabel.setStyleSheet("QLabel {background-color: black; color: white; border: 1px solid "
                                        "#01DFD7; border-radius: 5px;}")
 
