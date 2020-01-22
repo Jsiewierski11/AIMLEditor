@@ -14,7 +14,7 @@
 
     <category>
         <pattern># JUPITER ^</pattern>
-        <that>WHICH # PLANET IS YOUR FAVORITE?</that>
+        <that>WHICH PLANET IS YOUR FAVORITE?</that>
         <template>
             How could jupiter not be your favorite! It's the largest object in our solar system so it commands a lot of attention. You could say that it has gravity, ha ha ha. Apparently Jupiter is 4 and a half billion years old, which makes it the oldest planet in our solar system. Did you know that about Jupiter?
             <oob><robot></robot></oob>

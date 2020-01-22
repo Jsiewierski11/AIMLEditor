@@ -435,6 +435,7 @@ class EditorWidget(QWidget):
             for node in nodes:
                 if len(node.parents) is 0:
                     if DEBUG: print("node has no parents place to the left.")
+                    if DEBUG: print(f"Placing category:\n{node.category}")
                     node.setPos(-900, -900 + yOffset)
                     yOffset += 575
                 else:
@@ -444,9 +445,11 @@ class EditorWidget(QWidget):
                         depth = depth + 1
                         y = node.grNode.y()
                         child.setPos(xOffset, y + yOffset)
-                        xOffset += 100
+                        xOffset += 200
                         yOffset += 575
+                        if DEBUG: print(f"Placing category:\n{node.category}")
                         self.placeNodes(child.children, depth, yOffset)
+                    node.setPos(xOffset, yOffset)
                     xOffset += 300
         except Exception as ex:
             print("Exception caught placing nodes!")
