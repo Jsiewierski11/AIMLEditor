@@ -89,13 +89,13 @@ Once you hit the "Create" button, a Category tag will be generated with the text
 
 ![import demo](Media/import_demo.gif)
 
-### Edit the file using the text display
-
-![edit demo](Media/textEdit_edit_demo.gif)
-
-### Compile your changes
+### Edit existing text of the file
 
 ![compile demo](Media/textEdit_compile_demo.gif)
+
+### Create a new category and compile your changes
+
+![edit demo](Media/textEdit_edit_demo.gif)
 
 ### Update your newly created category using the graph display
 
