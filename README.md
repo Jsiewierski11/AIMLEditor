@@ -87,23 +87,23 @@ Once you hit the "Create" button, a Category tag will be generated with the text
 # Video Demo
 - Import file
 
-<video src="Media/import_demo.webm" width="320" height="200" controls preload></video>
+![import demo](Media/import_demo.gif)
 
 - Edit the file using the text display
 
-<video src="Media/textEdit_edit_demo.webm" width="320" height="200" controls preload></video>
+![edit demo](Media/textEdit_edit_demo.gif)
 
 - Compile your changes
 
-<video src="Media/textEdit_compile_demo.webm" width="320" height="200" controls preload></video>
+![compile demo](Media/textEdit_compile_demo.gif)
 
 - Update your newly created category using the graph display
 
-<video src="Media/graphView_update_demo.webm" width="320" height="200" controls preload></video>
+![update demo](Media/graphView_update_demo.gif)
 
 - Export your changes to a new file
 
-<video src="Media/export_demo.webm" width="320" height="200" controls preload></video>
+![export demo](Media/export_demo.gif)
 
 
 ## Useful Shortcut Commands
