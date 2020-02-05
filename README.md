@@ -7,9 +7,9 @@ AIML is a markup language used to create chatbots created by [Richard Wallace](h
 # GUI
 The editor has 2 different displays.
 - A text editor display akin to notepad++.
-![code view](Images/codeview.png)
+![code view](Media/codeview.png)
 - A graphical view to display conversation flow.
-![graph view](Images/graphview.png)
+![graph view](Media/graphview.png)
 - The Node Editor for the graph view is borrowed from [here](https://gitlab.com/pavel.krupala/pyqt-node-editor-tutorials).
 
 Once you hit the "Create" button, a Category tag will be generated with the text in the fields on the left.
@@ -83,6 +83,28 @@ Once you hit the "Create" button, a Category tag will be generated with the text
     5. Export.
 - When exporting to a file DO NOT add the .aiml to the end of your filename. That will be added automatically.
 - Importing a file will overwrite whatever is currently on the edit space.
+
+# Video Demo
+- Import file
+
+<video src="Media/import_demo.webm" width="320" height="200" controls preload></video>
+
+- Edit the file using the text display
+
+<video src="Media/textEdit_edit_demo.webm" width="320" height="200" controls preload></video>
+
+- Compile your changes
+
+<video src="Media/textEdit_compile_demo.webm" width="320" height="200" controls preload></video>
+
+- Update your newly created category using the graph display
+
+<video src="Media/graphView_update_demo.webm" width="320" height="200" controls preload></video>
+
+- Export your changes to a new file
+
+<video src="Media/export_demo.webm" width="320" height="200" controls preload></video>
+
 
 ## Useful Shortcut Commands
 - Ctrl + Shift + I - Imports a file
