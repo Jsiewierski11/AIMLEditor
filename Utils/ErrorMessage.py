@@ -19,3 +19,8 @@ def compileSuccessful():
     msg_box = QMessageBox()
     msg_box.setText("Compile Succesful!")
     msg_box.exec_()
+
+def exportSuccessful():
+    msg_box = QMessageBox()
+    msg_box.setText("Export Succesful!")
+    msg_box.exec_()

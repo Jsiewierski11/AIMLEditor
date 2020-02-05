@@ -13,7 +13,7 @@ import Utils.AIMLHighlighter as HL
 from GUI.CodeEditor import *
 from GUI.QLabel_Clickable import *
 from GUI.Node.QDM.GraphicsScene import *
-from Utils.ErrorMessage import handleError, handleCompileMsg, compileSuccessful
+from Utils.ErrorMessage import handleError, handleCompileMsg, compileSuccessful, exportSuccessful
 from GUI.Node.Scene.Scene import Scene
 
 
@@ -233,7 +233,10 @@ class EditorWindow(QMainWindow):
             if fname == "":
                 if DEBUG: print("Cancel clicked")
                 return
-            Storage.exportAIML(fname, self.editSpace.editSpace.aiml) # save as an aiml file
+            Storage.exportAIML(fname, self.editSpace.aiml) # save as an aiml file
+
+            # Display Dialog
+            exportSuccessful()
         except Exception as ex:
             print("Exception caught trying to export")
             print(ex)
