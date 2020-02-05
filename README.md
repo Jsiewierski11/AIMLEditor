@@ -85,23 +85,23 @@ Once you hit the "Create" button, a Category tag will be generated with the text
 - Importing a file will overwrite whatever is currently on the edit space.
 
 # Video Demo
-- Import file
+### Import file
 
 ![import demo](Media/import_demo.gif)
 
-- Edit the file using the text display
+### Edit the file using the text display
 
 ![edit demo](Media/textEdit_edit_demo.gif)
 
-- Compile your changes
+### Compile your changes
 
 ![compile demo](Media/textEdit_compile_demo.gif)
 
-- Update your newly created category using the graph display
+### Update your newly created category using the graph display
 
 ![update demo](Media/graphView_update_demo.gif)
 
-- Export your changes to a new file
+### Export your changes to a new file
 
 ![export demo](Media/export_demo.gif)
 
