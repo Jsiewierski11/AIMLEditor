@@ -60,8 +60,8 @@ Once you hit the "Create" button, a Category tag will be generated with the text
     ```
     - A dist folder will be created but will only contain a file named 'main.exe'.
     
-
-# Using the Editor
+# Tutorials
+## Using the Editor
 - Any time a change is made to the editspace be sure to compile to properly save what you are showing on screen.
 - The tabs labeled as "Text Display" and "Graph Display" will turn red when changes are made indicating you need to compile the code.
 - Once the code has been properly compiled the tabs will be reset to their normal color.
@@ -84,7 +84,7 @@ Once you hit the "Create" button, a Category tag will be generated with the text
 - When exporting to a file DO NOT add the .aiml to the end of your filename. That will be added automatically.
 - Importing a file will overwrite whatever is currently on the edit space.
 
-# Video Demo
+## Video Demo
 ### Import file
 
 ![import demo](Media/import_demo.gif)
