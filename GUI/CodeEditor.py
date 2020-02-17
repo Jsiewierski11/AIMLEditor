@@ -31,12 +31,12 @@ if pyQtVersion == "PyQt4":
     from PyQt4.QtCore import Qt, QRect, QRegExp
     from PyQt4.QtGui import (QWidget, QTextEdit, QPlainTextEdit, QColor,
                              QPainter, QFont, QSyntaxHighlighter,
-                             QTextFormat, QTextCharFormat)
+                             QTextFormat, QTextCharFormat, QPalette)
 else:
     from PyQt5.QtCore import Qt, QRect, QRegExp, pyqtSlot, QFileInfo, pyqtSignal
     from PyQt5.QtWidgets import QWidget, QTextEdit, QPlainTextEdit, QErrorMessage
     from PyQt5.QtGui import (QColor, QPainter, QFont, QSyntaxHighlighter,
-                             QTextFormat, QTextCharFormat)
+                             QTextFormat, QTextCharFormat, QPalette)
     from Model.Data import *
     import Utils.AIMLHighlighter as HL
     import re
@@ -90,7 +90,7 @@ class QCodeEditor(QPlainTextEdit):
                 blockNumber = block.blockNumber()
                 block_top = self.editor.blockBoundingGeometry(block).translated(self.editor.contentOffset()).top()
 
-                # Check if the position of the block is out side of the visible area.
+                # Check if the position of the block is outside of the visible area.
                 if not block.isVisible() or block_top >= event.rect().bottom():
                     break
 
@@ -137,7 +137,7 @@ class QCodeEditor(QPlainTextEdit):
                 self.updateWidth()
 
     def __init__(self, tab_controller, DISPLAY_LINE_NUMBERS=True, HIGHLIGHT_CURRENT_LINE=True,
-                 SyntaxHighlighter=None, *args):
+                 SyntaxHighlighter=None, self.theme_color='light', *args):
         '''
         Parameters
         ----------
@@ -149,6 +149,15 @@ class QCodeEditor(QPlainTextEdit):
             should be inherited from QSyntaxHighlighter
         '''
         super(QCodeEditor, self).__init__()
+
+        
+        if self.theme_color == 'dark':
+            # Setting background color to dark blue
+            palette = self.palette()
+            palette.setColor(QPalette.Active, QPalette.Base, QColor(0, 39, 97))
+            palette.setColor(QPalette.Active, QPalette.Text, QColor(255, 255, 255))
+            self.setPalette(palette)
+            self.setBackgroundVisible(False)
 
         self.setFont(QFont("Ubuntu Mono", 11))
         self.setLineWrapMode(QPlainTextEdit.NoWrap)
