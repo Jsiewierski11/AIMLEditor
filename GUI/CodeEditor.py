@@ -61,7 +61,6 @@ class QCodeEditor(QPlainTextEdit):
     references:
         https://john.nachtimwald.com/2009/08/19/better-qplaintextedit-with-line-numbers/
         http://doc.qt.io/qt-5/qtwidgets-widgets-codeeditor-example.html
-
     '''
     # Adding signal
     catCreated = pyqtSignal(Tag)
@@ -137,7 +136,7 @@ class QCodeEditor(QPlainTextEdit):
                 self.updateWidth()
 
     def __init__(self, tab_controller, DISPLAY_LINE_NUMBERS=True, HIGHLIGHT_CURRENT_LINE=True,
-                 SyntaxHighlighter=None, theme_color='dark', *args):
+                 SyntaxHighlighter=None, theme_color='light', *args):
         '''
         Parameters
         ----------
@@ -184,10 +183,26 @@ class QCodeEditor(QPlainTextEdit):
             self.cursorPositionChanged.connect(self.highligtCurrentLine)
 
         if SyntaxHighlighter is None:  # add highlighter to textdocument
-            self.highlighter = HL.AIMLHIghlighter(self.document())  # add highlighter to textdocument
+            self.highlighter = HL.AIMLHIghlighter(self.document(), styles=self.theme_color)
         
         self.setPlainText('\n\n\n\n\n\n\n\n\n\n')
         
+
+    def setThemeColor(self, color):
+        self.theme_color=color
+
+        if self.theme_color == 'dark':
+            # Setting background color to dark blue
+            palette = self.palette()
+            palette.setColor(QPalette.Active, QPalette.Base, QColor(0, 39, 97))
+            palette.setColor(QPalette.Active, QPalette.Text, QColor(255, 255, 255))
+            self.setPalette(palette)
+            self.setBackgroundVisible(False)
+
+        if self.theme_color == 'light':
+            palette = self.palette()
+            self.setPalette(palette)
+
 
     def resizeEvent(self, *e):
         '''overload resizeEvent handler'''

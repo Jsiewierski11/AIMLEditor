@@ -17,7 +17,7 @@ from Utils.ErrorMessage import handleError, handleCompileMsg, compileSuccessful,
 from GUI.Node.Scene.Scene import Scene
 
 
-DEBUG = False
+DEBUG = True
 
 
 class EditorWindow(QMainWindow):
@@ -82,6 +82,9 @@ class EditorWindow(QMainWindow):
         compileMenu = menubar.addMenu('Compile')
         compileMenu.addAction(self.createAct('Compile project', 'Ctrl+Shift+C', 'Compile project to export', self.onCompile))
 
+        themeMenu = menubar.addMenu('Color Theme')
+        themeMenu.addAction(self.createAct('Dark Theme', 'Ctrl+Shift+D', 'Switch Text Editor to Dark Theme', self.switchToDark))
+        themeMenu.addAction(self.createAct('Light Theme', 'Ctrl+Shift+L', 'Switch Text Editor to Light Theme', self.switchToLight))
 
         # create dockable widget to have as place to write content in categories
         # Creating docker that can create categories
@@ -137,6 +140,20 @@ class EditorWindow(QMainWindow):
             title += "*"
 
         self.setWindowTitle(title)
+
+    def switchToDark(self):
+        if DEBUG: print("switching to dark theme")
+        self.editSpace.tab1.layout.removeWidget(self.editSpace.editSpace)
+        self.editSpace.editSpace = QCodeEditor(self.editSpace, theme_color='dark')
+        self.editSpace.tab1.layout.addWidget(self.editSpace.editSpace)
+        self.editSpace.editSpace.setPlainText(str(self.editSpace.aiml))
+    
+    def switchToLight(self):
+        if DEBUG: print("switching to light theme")
+        self.editSpace.tab1.layout.removeWidget(self.editSpace.editSpace)
+        self.editSpace.editSpace = QCodeEditor(self.editSpace, theme_color='light')
+        self.editSpace.tab1.layout.addWidget(self.editSpace.editSpace)
+        self.editSpace.editSpace.setPlainText(str(self.editSpace.aiml))
 
     def closeEvent(self, event):
         if DEBUG: print("closeEvent")

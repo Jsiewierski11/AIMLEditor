@@ -20,7 +20,7 @@ class TabController(QWidget):
     catUpdated = pyqtSignal(Tag)
     childClicked = pyqtSignal(str)
     
-    def __init__(self, parent, docker, window):
+    def __init__(self, parent, docker, window, editSpace_theme='light'):
         super(QWidget, self).__init__(parent)
         self.layout = QVBoxLayout(self)
         self.editSpace = None # Used for displaying source code
@@ -29,6 +29,7 @@ class TabController(QWidget):
         self.docker = docker
         self.window = window
         self.up_to_date = True
+        self.editSpace_theme = editSpace_theme
         
         # Initialize tab screen
         self.tabs = QTabWidget()
@@ -62,7 +63,7 @@ class TabController(QWidget):
     def add_editspace(self, tab):
         tab.layout = QVBoxLayout(self)
         # Setting main editing area where Files will be displayed and can be edited
-        self.editSpace = QCodeEditor(self)
+        self.editSpace = QCodeEditor(self, theme_color=self.editSpace_theme)
         self.tab1.layout.addWidget(self.editSpace)
         tab.setLayout(tab.layout)
 

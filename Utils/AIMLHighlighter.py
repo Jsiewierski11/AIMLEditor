@@ -90,7 +90,7 @@ class AIMLHIghlighter (QSyntaxHighlighter):
         "/>"
     ]
 
-    def __init__(self, document, styles='dark'):
+    def __init__(self, document, styles='light'):
         QSyntaxHighlighter.__init__(self, document)
 
         self.styles = styles
