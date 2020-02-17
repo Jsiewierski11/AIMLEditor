@@ -30,13 +30,13 @@ def format(color, style=''):
 
 # Syntax styles that can be shared by all languages
 STYLES_DARK = {
-    'keyword': format('lightskyblue', 'bold'),
+    'keyword': format('silver', 'bold'),
     'operator': format([50, 175, 50]),
-    'brace': format('blue'),
-    'string': format('cyan'),
-    'string2': format('cyan'),
+    'brace': format('goldenrod'),
+    'string': format('lightblue'),
+    'string2': format('lightblue'),
     'comment': format([128, 128, 128]),
-    'numbers': format('lightgreen'),
+    'numbers': format('greenyellow'),
 }
 
 STYLES_LIGHT = {

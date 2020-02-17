@@ -179,7 +179,8 @@ class QCodeEditor(QPlainTextEdit):
         if HIGHLIGHT_CURRENT_LINE:
             self.currentLineNumber = None
             # self.currentLineColor = self.palette().alternateBase()
-            self.currentLineColor = QColor("#f6f79e")
+            if self.theme_color == 'light': self.currentLineColor = QColor("#f6f79e")
+            if self.theme_color == 'dark': self.currentLineColor = QColor("#84852a")
             self.cursorPositionChanged.connect(self.highligtCurrentLine)
 
         if SyntaxHighlighter is None:  # add highlighter to textdocument
