@@ -137,7 +137,7 @@ class QCodeEditor(QPlainTextEdit):
                 self.updateWidth()
 
     def __init__(self, tab_controller, DISPLAY_LINE_NUMBERS=True, HIGHLIGHT_CURRENT_LINE=True,
-                 SyntaxHighlighter=None, self.theme_color='light', *args):
+                 SyntaxHighlighter=None, theme_color='dark', *args):
         '''
         Parameters
         ----------
@@ -149,6 +149,8 @@ class QCodeEditor(QPlainTextEdit):
             should be inherited from QSyntaxHighlighter
         '''
         super(QCodeEditor, self).__init__()
+
+        self.theme_color = theme_color
 
         
         if self.theme_color == 'dark':

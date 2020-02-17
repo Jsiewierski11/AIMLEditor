@@ -29,17 +29,17 @@ def format(color, style=''):
 
 
 # Syntax styles that can be shared by all languages
-STYLES_LIGHT = {
-    'keyword': format('blue', 'bold'),
+STYLES_DARK = {
+    'keyword': format('lightskyblue', 'bold'),
     'operator': format([50, 175, 50]),
-    'brace': format('darkBlue'),
-    'string': format('darkCyan'),
-    'string2': format('darkCyan'),
+    'brace': format('blue'),
+    'string': format('cyan'),
+    'string2': format('cyan'),
     'comment': format([128, 128, 128]),
-    'numbers': format('green'),
+    'numbers': format('lightgreen'),
 }
 
-STYLES_DARK = {
+STYLES_LIGHT = {
     'keyword': format('blue', 'bold'),
     'operator': format([50, 175, 50]),
     'brace': format('darkBlue'),
@@ -90,28 +90,34 @@ class AIMLHIghlighter (QSyntaxHighlighter):
         "/>"
     ]
 
-    def __init__(self, document):
+    def __init__(self, document, styles='dark'):
         QSyntaxHighlighter.__init__(self, document)
+
+        self.styles = styles
+        if self.styles == 'light':
+            STYLES = STYLES_LIGHT
+        elif self.styles == 'dark':
+            STYLES = STYLES_DARK
 
         # Multi-line strings (expression, flag, style)
         # FIXME: The triple-quotes in these two lines will mess up the
         # syntax highlighting from this point onward (this is an issue if we were doing python syntax. Simply an
         # artifact that was left from the code that this was based off of)
-        self.tri_single = (QRegExp("'''"), 1, STYLES_LIGHT['string2'])
-        self.tri_double = (QRegExp('"""'), 2, STYLES__LIGHT['string2'])
+        self.tri_single = (QRegExp("'''"), 1, STYLES['string2'])
+        self.tri_double = (QRegExp('"""'), 2, STYLES['string2'])
 
         # NOTE: For multiline comments
-        self.comments_start = (QRegExp("<!--"), 1, STYLES_LIGHT['comment'])
+        self.comments_start = (QRegExp("<!--"), 1, STYLES['comment'])
         self.comments_end = QRegExp("-->")
 
         rules = []
 
         # Keyword, operator, and brace rules
-        rules += [(r'(<|</)\b%s\b' % w, 0, STYLES_LIGHT['keyword'])
+        rules += [(r'(<|</)\b%s\b' % w, 0, STYLES['keyword'])
                   for w in AIMLHIghlighter.keywords]
-        rules += [(r'%s' % o, 0, STYLES_LIGHT['operator'])
+        rules += [(r'%s' % o, 0, STYLES['operator'])
                   for o in AIMLHIghlighter.operators]
-        rules += [(r'%s' % b, 0, STYLES_LIGHT['brace'])
+        rules += [(r'%s' % b, 0, STYLES['brace'])
                   for b in AIMLHIghlighter.braces]
 
         self.rules = [(QRegExp(pat), index, fmt)
@@ -121,16 +127,16 @@ class AIMLHIghlighter (QSyntaxHighlighter):
         rules += [
 
             # Double-quoted string, possibly containing escape sequences
-            (r'"[^"\\]*(\\.[^"\\]*)*"', 0, STYLES_LIGHT['string']),
+            (r'"[^"\\]*(\\.[^"\\]*)*"', 0, STYLES['string']),
 
             # # Single-quoted string, possibly containing escape sequences
             # (r"'[^'\\]*(\\.[^'\\]*)*'", 0, STYLES['string']),
 
 
             # Numeric literals
-            (r'\b[+-]?[0-9]+[lL]?\b', 0, STYLES_LIGHT['numbers']),
-            (r'\b[+-]?0[xX][0-9A-Fa-f]+[lL]?\b', 0, STYLES_LIGHT['numbers']),
-            (r'\b[+-]?[0-9]+(?:\.[0-9]+)?(?:[eE][+-]?[0-9]+)?\b', 0, STYLES_LIGHT['numbers']),
+            (r'\b[+-]?[0-9]+[lL]?\b', 0, STYLES['numbers']),
+            (r'\b[+-]?0[xX][0-9A-Fa-f]+[lL]?\b', 0, STYLES['numbers']),
+            (r'\b[+-]?[0-9]+(?:\.[0-9]+)?(?:[eE][+-]?[0-9]+)?\b', 0, STYLES['numbers']),
         ]
 
         # Build a QRegExp for each pattern
