@@ -38,7 +38,8 @@ class Tag(Serializable):
             "srai": Srai,
             "bot": Bot,
             "star": Star,
-            "comment": Comment}
+            "comment": Comment,
+            "map": Map}
 
     def decode_tag(self, tag_type):
         if tag_type in tag_list:
@@ -318,7 +319,7 @@ class Pattern(Tag):
 class Template(Tag):
     def __init__(self):
         super().__init__("template", acceptable_tags=[
-            Set, Think, Condition, Oob, Random, Srai, Bot, Star, Comment, str])
+            Set, Think, Condition, Oob, Random, Srai, Bot, Star, Map, Comment, str])
 
 
 class That(Tag):
@@ -380,6 +381,15 @@ class Set(Tag):
 class Think(Tag):
     def __init__(self):
         super().__init__("think", acceptable_tags=[Set, Star, Comment, str])
+
+
+class Map(Tag):
+    def __init__(self, name=""):
+        if name != "":
+            super().__init__("map", attrib={
+                'name': name}, acceptable_tags=[Star, Comment, str])
+        else:
+            super().__init__("map", acceptable_tags=[Star, Comment, str])
 
 
 class Oob(Tag):

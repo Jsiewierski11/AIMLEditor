@@ -65,7 +65,12 @@ class Node(Serializable):
                          "option": Option,
                          "image": Image,
                          "video": Video,
-                         "filename": Filename}
+                         "filename": Filename,
+                         "srai": Srai,
+                         "bot": Bot,
+                         "star": Star,
+                         "comment": Comment,
+                         "map": Map}
 
     def decode_tag(self, tag_type):
         if tag_type in self.tag_list:

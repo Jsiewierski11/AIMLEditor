@@ -61,7 +61,8 @@ tag_list = {"aiml": AIML,
             "srai": Srai,
             "bot": Bot,
             "star": Star,
-            "comment": Comment}
+            "comment": Comment,
+            "map": Map}
 
 
 def decode_tag(tag_type):
