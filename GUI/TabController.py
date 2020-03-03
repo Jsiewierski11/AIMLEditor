@@ -6,6 +6,7 @@ from PyQt5.QtCore import Qt, pyqtSlot, QFileInfo, pyqtSignal
 from GUI.DockerWidget import DockerWidget
 from GUI.EditorWidget import EditorWidget
 from GUI.Node.Node import Node
+from GUI.CodeCompleter import CodeCompleter
 from Model.Data import *
 from Utils.ErrorMessage import handleError
 

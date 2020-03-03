@@ -33,13 +33,16 @@ if pyQtVersion == "PyQt4":
                              QPainter, QFont, QSyntaxHighlighter,
                              QTextFormat, QTextCharFormat, QPalette)
 else:
-    from PyQt5.QtCore import Qt, QRect, QRegExp, pyqtSlot, QFileInfo, pyqtSignal
-    from PyQt5.QtWidgets import QWidget, QTextEdit, QPlainTextEdit, QErrorMessage
-    from PyQt5.QtGui import (QColor, QPainter, QFont, QSyntaxHighlighter,
-                             QTextFormat, QTextCharFormat, QPalette)
+    from PyQt5 import QtWidgets
+    from PyQt5.QtCore import Qt, QRect, QRegExp, pyqtSlot, QFileInfo, pyqtSignal, QFile, QStringListModel
+    from PyQt5.QtWidgets import QWidget, QTextEdit, QPlainTextEdit, QErrorMessage, QCompleter, QApplication
+    from PyQt5.QtGui import (QColor, QPainter, QFont, QSyntaxHighlighter, QCursor,
+                             QTextFormat, QTextCharFormat, QPalette, QTextCursor)
     from Model.Data import *
     import Utils.AIMLHighlighter as HL
     import re
+
+from GUI.CodeCompleter import CodeCompleter
 
 
 def handleError(error):
@@ -151,6 +154,14 @@ class QCodeEditor(QPlainTextEdit):
 
         self.theme_color = theme_color
 
+        # Code completer object
+        self._completer = CodeCompleter()
+        self._completer.setModel(self.modelFromFile(':/style/keywords.txt'))
+        self._completer.setModelSorting(QCompleter.CaseInsensitivelySortedModel)
+        self._completer.setCompletionMode(QtWidgets.QCompleter.PopupCompletion)
+        self._completer.setCaseSensitivity(Qt.CaseInsensitive)
+        self._completer.insertText.connect(self.insertCompletion)
+
         
         if self.theme_color == 'dark':
             # Setting background color to dark blue
@@ -229,6 +240,91 @@ class QCodeEditor(QPlainTextEdit):
     def make_connection(self, tab_controller):
         tab_controller.catCreated.connect(self.categoryCreated)
         tab_controller.catUpdated.connect(self.categoryUpdated)
+
+    def insertCompletion(self, completion):
+        if self._completer.widget() is not self:
+            return
+
+        tc = self.textCursor()
+        extra = len(completion) - len(self._completer.completionPrefix())
+        tc.movePosition(QTextCursor.Left)
+        tc.movePosition(QTextCursor.EndOfWord)
+        tc.insertText(completion[-extra:])
+        self.setTextCursor(tc)
+
+    def textUnderCursor(self):
+        tc = self.textCursor()
+        tc.select(QTextCursor.WordUnderCursor)
+
+        return tc.selectedText()
+
+    def focusInEvent(self, e):
+        if self._completer is not None:
+            self._completer.setWidget(self)
+
+        super(QPlainTextEdit, self).focusInEvent(e)
+
+    # def keyPressEvent(self, e):
+    #     print("IN KEYPRESSEVENT")
+    #     if self._completer is not None and self._completer.popup().isVisible():
+    #         print("In first if")
+    #         # The following keys are forwarded by the completer to the widget.
+    #         if e.key() in (Qt.Key_Enter, Qt.Key_Return, Qt.Key_Escape, Qt.Key_Tab, Qt.Key_Backtab):
+    #             e.ignore()
+    #             # Let the completer do default behavior.
+    #             print("in 1st return")
+    #             return
+
+    #     isShortcut = ((e.modifiers() & Qt.ControlModifier) != 0 and e.key() == Qt.Key_E)
+    #     if self._completer is None or not isShortcut:
+    #         # Do not process the shortcut when we have a completer.
+    #         super(QPlainTextEdit, self).keyPressEvent(e)
+
+    #     ctrlOrShift = e.modifiers() & (Qt.ControlModifier | Qt.ShiftModifier)
+    #     if self._completer is None or (ctrlOrShift and len(e.text()) == 0):
+    #         print("in 2nd return")
+    #         return
+
+    #     eow = "~!@#$%^&*()_+{}|:\"<>?,./;'[]\\-="
+    #     hasModifier = (e.modifiers() != Qt.NoModifier) and not ctrlOrShift
+    #     completionPrefix = self.textUnderCursor()
+
+    #     if not isShortcut and (hasModifier or len(e.text()) == 0 or len(completionPrefix) < 3 or e.text()[-1] in eow):
+    #         self._completer.popup().hide()
+    #         print("in 3rd return")
+    #         return
+
+    #     if completionPrefix != self._completer.completionPrefix():
+    #         self._completer.setCompletionPrefix(completionPrefix)
+    #         self._completer.popup().setCurrentIndex(
+    #                 self._completer.completionModel().index(0, 0))
+
+    #     print("Showing popup")
+    #     cr = self.cursorRect()
+    #     cr.setWidth(self._completer.popup().sizeHintForColumn(0) + self._completer.popup().verticalScrollBar().sizeHint().width())
+    #     self._completer.complete(cr)
+
+    def modelFromFile(self, fileName):
+        f = QFile(fileName)
+        if not f.open(QFile.ReadOnly):
+            return QStringListModel(self._completer)
+
+        QApplication.setOverrideCursor(QCursor(Qt.WaitCursor))
+
+        words = []
+        while not f.atEnd():
+            line = f.readLine().trimmed()
+            if line.length() != 0:
+                try:
+                    line = str(line, encoding='ascii')
+                except TypeError:
+                    line = str(line)
+
+                words.append(line)
+
+        QApplication.restoreOverrideCursor()
+
+        return QStringListModel(words, self._completer)
 
     # slot function for a category being created and displaying on editSpace
     @pyqtSlot(Tag)

@@ -42,8 +42,8 @@ class Tag(Serializable):
             "map": Map}
 
     def decode_tag(self, tag_type):
-        if tag_type in tag_list:
-            return tag_list[tag_type]()
+        if tag_type in self.tag_list:
+            return self.tag_list[tag_type]()
         return False
 
     def serialize(self):
