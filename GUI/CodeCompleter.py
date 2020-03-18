@@ -33,7 +33,7 @@ class CodeCompleter(QCompleter):
             "star"
         ]
         self.setCompletionMode(QCompleter.PopupCompletion)
-        self.highlighted.connect(self.setHighlighted)
+        self.activated.connect(self.setHighlighted)
 
     def setHighlighted(self, text):
         print("IN SETHIGHLIGHTED!!")

@@ -256,53 +256,51 @@ class QCodeEditor(QPlainTextEdit):
         tc = self.textCursor()
         tc.select(QTextCursor.WordUnderCursor)
 
+        print("textUnderCursor returning: {}".format(tc.selectedText()))
         return tc.selectedText()
 
     def focusInEvent(self, e):
         if self._completer is not None:
             self._completer.setWidget(self)
 
-        super(QPlainTextEdit, self).focusInEvent(e)
+        super().focusInEvent(e)
 
-    # def keyPressEvent(self, e):
-    #     print("IN KEYPRESSEVENT")
-    #     if self._completer is not None and self._completer.popup().isVisible():
-    #         print("In first if")
-    #         # The following keys are forwarded by the completer to the widget.
-    #         if e.key() in (Qt.Key_Enter, Qt.Key_Return, Qt.Key_Escape, Qt.Key_Tab, Qt.Key_Backtab):
-    #             e.ignore()
-    #             # Let the completer do default behavior.
-    #             print("in 1st return")
-    #             return
+    def keyPressEvent(self, e):
+        # super().keyPressEvent(e)
+        # print("In keyPressEvent")
 
-    #     isShortcut = ((e.modifiers() & Qt.ControlModifier) != 0 and e.key() == Qt.Key_E)
-    #     if self._completer is None or not isShortcut:
-    #         # Do not process the shortcut when we have a completer.
-    #         super(QPlainTextEdit, self).keyPressEvent(e)
+        if self._completer is not None and self._completer.popup().isVisible():
+            # The following keys are forwarded by the completer to the widget.
+            if e.key() in (Qt.Key_Enter, Qt.Key_Return, Qt.Key_Escape, Qt.Key_Tab, Qt.Key_Backtab):
+                e.ignore()
+                # Let the completer do default behavior.
+                return
 
-    #     ctrlOrShift = e.modifiers() & (Qt.ControlModifier | Qt.ShiftModifier)
-    #     if self._completer is None or (ctrlOrShift and len(e.text()) == 0):
-    #         print("in 2nd return")
-    #         return
+        isShortcut = ((e.modifiers() & Qt.ControlModifier) != 0 and e.key() == Qt.Key_E)
+        if self._completer is None or not isShortcut:
+            # Do not process the shortcut when we have a completer.
+            super().keyPressEvent(e)
 
-    #     eow = "~!@#$%^&*()_+{}|:\"<>?,./;'[]\\-="
-    #     hasModifier = (e.modifiers() != Qt.NoModifier) and not ctrlOrShift
-    #     completionPrefix = self.textUnderCursor()
+        ctrlOrShift = e.modifiers() & (Qt.ControlModifier | Qt.ShiftModifier)
+        if self._completer is None or (ctrlOrShift and len(e.text()) == 0):
+            return
 
-    #     if not isShortcut and (hasModifier or len(e.text()) == 0 or len(completionPrefix) < 3 or e.text()[-1] in eow):
-    #         self._completer.popup().hide()
-    #         print("in 3rd return")
-    #         return
+        eow = "~!@#$%^&*()_+{}|:\"?,.;'[]\\-="
+        hasModifier = (e.modifiers() != Qt.NoModifier) and not ctrlOrShift
+        completionPrefix = self.textUnderCursor()
 
-    #     if completionPrefix != self._completer.completionPrefix():
-    #         self._completer.setCompletionPrefix(completionPrefix)
-    #         self._completer.popup().setCurrentIndex(
-    #                 self._completer.completionModel().index(0, 0))
+        if not isShortcut and (hasModifier or len(e.text()) == 0 or len(completionPrefix) < 3 or e.text()[-1] in eow):
+            self._completer.popup().hide()
+            return
 
-    #     print("Showing popup")
-    #     cr = self.cursorRect()
-    #     cr.setWidth(self._completer.popup().sizeHintForColumn(0) + self._completer.popup().verticalScrollBar().sizeHint().width())
-    #     self._completer.complete(cr)
+        if completionPrefix != self._completer.completionPrefix():
+            self._completer.setCompletionPrefix(completionPrefix)
+            self._completer.popup().setCurrentIndex(
+                    self._completer.completionModel().index(0, 0))
+
+        cr = self.cursorRect()
+        cr.setWidth(self._completer.popup().sizeHintForColumn(0) + self._completer.popup().verticalScrollBar().sizeHint().width())
+        self._completer.complete(cr)
 
     def modelFromFile(self, fileName):
         f = QFile(fileName)

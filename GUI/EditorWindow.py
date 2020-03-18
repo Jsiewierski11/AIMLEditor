@@ -348,7 +348,6 @@ class EditorWindow(QMainWindow):
             if DEBUG: print("compiling complete")
 
             # clearing before updating graph view.
-            # NOTE: Causing system to crash if you move nodes then try to compile. (FIXED!...maybe)
             if DEBUG: print("Clearing scene")
             self.editSpace.graphview.scene.clear()
             self.editSpace.graphview.scene.grScene.clear()
