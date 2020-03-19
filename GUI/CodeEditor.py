@@ -42,7 +42,7 @@ else:
     import Utils.AIMLHighlighter as HL
     import re
 
-from GUI.CodeCompleter import CodeCompleter
+# from GUI.CodeCompleter import CodeCompleter
 
 
 def handleError(error):
@@ -154,14 +154,8 @@ class QCodeEditor(QPlainTextEdit):
 
         self.theme_color = theme_color
 
-        # Code completer object
-        self._completer = CodeCompleter()
-        self._completer.setModel(self.modelFromFile(':/style/keywords.txt'))
-        self._completer.setModelSorting(QCompleter.CaseInsensitivelySortedModel)
-        self._completer.setCompletionMode(QtWidgets.QCompleter.PopupCompletion)
-        self._completer.setCaseSensitivity(Qt.CaseInsensitive)
-        self._completer.insertText.connect(self.insertCompletion)
-
+        # Code completer object, gets set by the TabController
+        self._completer = None
         
         if self.theme_color == 'dark':
             # Setting background color to dark blue
@@ -241,7 +235,19 @@ class QCodeEditor(QPlainTextEdit):
         tab_controller.catCreated.connect(self.categoryCreated)
         tab_controller.catUpdated.connect(self.categoryUpdated)
 
+    def setCompleter(self, completer):
+        if self._completer is not None:
+            self._completer.activated.disconnect()
+
+        self._completer = completer
+
+        completer.setWidget(self)
+        # completer.setCompletionMode(QCompleter.PopupCompletion)
+        completer.setCaseSensitivity(Qt.CaseInsensitive)
+        completer.activated.connect(self.insertCompletion)
+
     def insertCompletion(self, completion):
+        print("In insertCompletion")
         if self._completer.widget() is not self:
             return
 
@@ -249,29 +255,25 @@ class QCodeEditor(QPlainTextEdit):
         extra = len(completion) - len(self._completer.completionPrefix())
         tc.movePosition(QTextCursor.Left)
         tc.movePosition(QTextCursor.EndOfWord)
-        tc.insertText(completion[-extra:])
+        tc.activated(completion[-extra:])
         self.setTextCursor(tc)
 
     def textUnderCursor(self):
         tc = self.textCursor()
         tc.select(QTextCursor.WordUnderCursor)
-
         print("textUnderCursor returning: {}".format(tc.selectedText()))
         return tc.selectedText()
 
     def focusInEvent(self, e):
         if self._completer is not None:
             self._completer.setWidget(self)
-
         super().focusInEvent(e)
 
     def keyPressEvent(self, e):
-        # super().keyPressEvent(e)
-        # print("In keyPressEvent")
-
         if self._completer is not None and self._completer.popup().isVisible():
             # The following keys are forwarded by the completer to the widget.
             if e.key() in (Qt.Key_Enter, Qt.Key_Return, Qt.Key_Escape, Qt.Key_Tab, Qt.Key_Backtab):
+                print("Condition 0")
                 e.ignore()
                 # Let the completer do default behavior.
                 return
@@ -279,10 +281,12 @@ class QCodeEditor(QPlainTextEdit):
         isShortcut = ((e.modifiers() & Qt.ControlModifier) != 0 and e.key() == Qt.Key_E)
         if self._completer is None or not isShortcut:
             # Do not process the shortcut when we have a completer.
+            print("Condition 1")
             super().keyPressEvent(e)
 
         ctrlOrShift = e.modifiers() & (Qt.ControlModifier | Qt.ShiftModifier)
         if self._completer is None or (ctrlOrShift and len(e.text()) == 0):
+            print("Condition 2")
             return
 
         eow = "~!@#$%^&*()_+{}|:\"?,.;'[]\\-="
@@ -291,15 +295,18 @@ class QCodeEditor(QPlainTextEdit):
 
         if not isShortcut and (hasModifier or len(e.text()) == 0 or len(completionPrefix) < 3 or e.text()[-1] in eow):
             self._completer.popup().hide()
+            print("Condition 3")
             return
 
         if completionPrefix != self._completer.completionPrefix():
+            print("Condition 4")
             self._completer.setCompletionPrefix(completionPrefix)
             self._completer.popup().setCurrentIndex(
                     self._completer.completionModel().index(0, 0))
 
         cr = self.cursorRect()
         cr.setWidth(self._completer.popup().sizeHintForColumn(0) + self._completer.popup().verticalScrollBar().sizeHint().width())
+        print("Showing completer")
         self._completer.complete(cr)
 
     def modelFromFile(self, fileName):

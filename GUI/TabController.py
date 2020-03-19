@@ -1,12 +1,12 @@
 from PyQt5.QtWidgets import QMainWindow, QWidget, QVBoxLayout, QGridLayout, \
-                            QTabWidget, QPushButton, QVBoxLayout, QLabel
+                            QTabWidget, QPushButton, QVBoxLayout, QLabel, QCompleter
 from GUI.CodeEditor import *
 from PyQt5.QtGui import QColor
 from PyQt5.QtCore import Qt, pyqtSlot, QFileInfo, pyqtSignal
 from GUI.DockerWidget import DockerWidget
 from GUI.EditorWidget import EditorWidget
 from GUI.Node.Node import Node
-from GUI.CodeCompleter import CodeCompleter
+# from GUI.CodeCompleter import CodeCompleter
 from Model.Data import *
 from Utils.ErrorMessage import handleError
 
@@ -65,6 +65,16 @@ class TabController(QWidget):
         tab.layout = QVBoxLayout(self)
         # Setting main editing area where Files will be displayed and can be edited
         self.editSpace = QCodeEditor(self, theme_color=self.editSpace_theme)
+
+        # Setting completer
+        self.completer = QCompleter(self)
+        self.completer.setCompletionMode(QCompleter.PopupCompletion)
+        self.completer.setModel(self.editSpace.modelFromFile(':/style/keywords.txt'))
+        self.completer.setModelSorting(QCompleter.CaseInsensitivelySortedModel)
+        self.completer.setCaseSensitivity(Qt.CaseInsensitive)
+        self.completer.setWrapAround(False)
+        self.editSpace.setCompleter(self.completer)
+
         self.tab1.layout.addWidget(self.editSpace)
         tab.setLayout(tab.layout)
 
