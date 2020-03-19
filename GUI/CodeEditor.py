@@ -245,8 +245,6 @@ class QCodeEditor(QPlainTextEdit):
         completer.activated.connect(self.insertCompletion)
 
     def insertCompletion(self, completion):
-        print("In insertCompletion")
-        print(completion)
         if self._completer.widget() is not self:
             return
 
@@ -260,7 +258,6 @@ class QCodeEditor(QPlainTextEdit):
     def textUnderCursor(self):
         tc = self.textCursor()
         tc.select(QTextCursor.WordUnderCursor)
-        print("textUnderCursor returning: {}".format(tc.selectedText()))
         return tc.selectedText()
 
     def focusInEvent(self, e):
