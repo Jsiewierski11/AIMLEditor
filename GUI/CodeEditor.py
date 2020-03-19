@@ -275,7 +275,6 @@ class QCodeEditor(QPlainTextEdit):
         if self._completer is not None and self._completer.popup().isVisible():
             # The following keys are forwarded by the completer to the widget.
             if e.key() in (Qt.Key_Enter, Qt.Key_Return, Qt.Key_Escape, Qt.Key_Tab, Qt.Key_Backtab):
-                print("Condition 0")
                 e.ignore()
                 # Let the completer do default behavior.
                 return
@@ -283,55 +282,32 @@ class QCodeEditor(QPlainTextEdit):
         isShortcut = ((e.modifiers() & Qt.ControlModifier) != 0 and e.key() == Qt.Key_E)
         if self._completer is None or not isShortcut:
             # Do not process the shortcut when we have a completer.
-            print("Condition 1")
             super().keyPressEvent(e)
 
         ctrlOrShift = e.modifiers() & (Qt.ControlModifier | Qt.ShiftModifier)
         if self._completer is None or (ctrlOrShift and len(e.text()) == 0):
-            print("Condition 2")
             return
 
-        eow = "~!@#$%^&*()_+{}|:\"?,.;'[]\\-="
+        eow = "~!@#$%^&*()_+{}|:\"<>?,./;'[]\\-="
         hasModifier = (e.modifiers() != Qt.NoModifier) and not ctrlOrShift
         completionPrefix = self.textUnderCursor()
 
         if not isShortcut and (hasModifier or len(e.text()) == 0 or len(completionPrefix) < 3 or e.text()[-1] in eow):
             self._completer.popup().hide()
-            print("Condition 3")
             return
 
         if completionPrefix != self._completer.completionPrefix():
-            print("Condition 4")
             self._completer.setCompletionPrefix(completionPrefix)
             self._completer.popup().setCurrentIndex(
                     self._completer.completionModel().index(0, 0))
 
         cr = self.cursorRect()
         cr.setWidth(self._completer.popup().sizeHintForColumn(0) + self._completer.popup().verticalScrollBar().sizeHint().width())
-        print("Showing completer")
-        self._completer.complete(cr)
-
-    def modelFromFile(self, fileName):
-        f = QFile(fileName)
-        if not f.open(QFile.ReadOnly):
-            return QStringListModel(self._completer)
-
-        QApplication.setOverrideCursor(QCursor(Qt.WaitCursor))
-
-        words = []
-        while not f.atEnd():
-            line = f.readLine().trimmed()
-            if line.length() != 0:
-                try:
-                    line = str(line, encoding='ascii')
-                except TypeError:
-                    line = str(line)
-
-                words.append(line)
-
-        QApplication.restoreOverrideCursor()
-
-        return QStringListModel(words, self._completer)
+        try:
+            self._completer.complete(cr)
+            print("showing completer")
+        except Exception as ex:
+            print(f"Error occured while showing completion popup: {ex}")
 
     # slot function for a category being created and displaying on editSpace
     @pyqtSlot(Tag)

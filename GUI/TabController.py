@@ -67,9 +67,9 @@ class TabController(QWidget):
         self.editSpace = QCodeEditor(self, theme_color=self.editSpace_theme)
 
         # Setting completer
-        self.completer = QCompleter(self)
+        self.completer = QCompleter(self.editSpace)
         self.completer.setCompletionMode(QCompleter.PopupCompletion)
-        self.completer.setModel(self.editSpace.modelFromFile(':/style/keywords.txt'))
+        self.completer.setModel(self.modelFromFile('GUI/style/keywords.txt'))
         self.completer.setModelSorting(QCompleter.CaseInsensitivelySortedModel)
         self.completer.setCaseSensitivity(Qt.CaseInsensitive)
         self.completer.setWrapAround(False)
@@ -77,6 +77,16 @@ class TabController(QWidget):
 
         self.tab1.layout.addWidget(self.editSpace)
         tab.setLayout(tab.layout)
+
+    def modelFromFile(self, fileName):
+        f = open(fileName, "r")
+        print(f"f: {f}")
+        f.seek(0)
+        words = f.readlines()
+
+        QApplication.restoreOverrideCursor()
+        print(f"modelFromFile returning: {QStringListModel(words, self.completer).stringList()}")
+        return QStringListModel(words, self.completer)
 
     def add_graphview(self, tab):
         tab.layout = QGridLayout(self)
