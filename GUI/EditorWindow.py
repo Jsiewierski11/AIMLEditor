@@ -273,7 +273,14 @@ class EditorWindow(QMainWindow):
             aiml = Storage.importAIML(self.filename) # import the aiml file
             numCats = 0
             if DEBUG: print(f"aiml tags:\n{aiml.tags}")
+            topics = []
             for cat in aiml.tags:
+                if cat.type == "topic":
+                    topics.append(cat)
+                    continue
+                self.catCreated.emit(cat)
+                numCats = numCats + 1
+            for cat in topics:
                 self.catCreated.emit(cat)
                 numCats = numCats + 1
             if DEBUG: print("Finished creating " + str(numCats) + " categories")
