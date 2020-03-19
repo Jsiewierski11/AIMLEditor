@@ -6,7 +6,6 @@ from PyQt5.QtCore import Qt, pyqtSlot, QFileInfo, pyqtSignal
 from GUI.DockerWidget import DockerWidget
 from GUI.EditorWidget import EditorWidget
 from GUI.Node.Node import Node
-# from GUI.CodeCompleter import CodeCompleter
 from Model.Data import *
 from Utils.ErrorMessage import handleError
 
@@ -69,6 +68,7 @@ class TabController(QWidget):
         # Setting completer
         self.completer = QCompleter(self.editSpace)
         self.completer.setCompletionMode(QCompleter.UnfilteredPopupCompletion)
+        # self.completer.setCompletionMode(QCompleter.PopupCompletion)
         self.completer.setModel(self.modelFromFile('GUI/style/keywords.txt'))
         self.completer.setModelSorting(QCompleter.CaseInsensitivelySortedModel)
         self.completer.setCaseSensitivity(Qt.CaseInsensitive)

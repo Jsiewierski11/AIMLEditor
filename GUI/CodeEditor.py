@@ -42,8 +42,6 @@ else:
     import Utils.AIMLHighlighter as HL
     import re
 
-# from GUI.CodeCompleter import CodeCompleter
-
 
 def handleError(error):
     em = QErrorMessage.qtHandler()
@@ -81,7 +79,6 @@ class QCodeEditor(QPlainTextEdit):
             self.numberBarColor = QColor("#e8e8e8")
 
         def paintEvent(self, event):
-
             painter = QPainter(self)
             painter.fillRect(event.rect(), self.numberBarColor)
 
@@ -244,12 +241,12 @@ class QCodeEditor(QPlainTextEdit):
         self._completer = completer
 
         completer.setWidget(self)
-        # completer.setCompletionMode(QCompleter.PopupCompletion)
         completer.setCaseSensitivity(Qt.CaseInsensitive)
         completer.activated.connect(self.insertCompletion)
 
     def insertCompletion(self, completion):
         print("In insertCompletion")
+        print(completion)
         if self._completer.widget() is not self:
             return
 
@@ -274,11 +271,11 @@ class QCodeEditor(QPlainTextEdit):
     def keyPressEvent(self, e):
         if self._completer is not None and self._completer.popup().isVisible():
             # The following keys are forwarded by the completer to the widget.
-            if e.key() in (Qt.Key_Escape, Qt.Key_Tab, Qt.Key_Backtab):
+            if e.key() in (Qt.Key_Enter, Qt.Key_Return, Qt.Key_Escape, Qt.Key_Tab, Qt.Key_Backtab):
                 e.ignore()
                 # Let the completer do default behavior.
                 return
-
+        
         isShortcut = ((e.modifiers() & Qt.ControlModifier) != 0 and e.key() == Qt.Key_E)
         if self._completer is None or not isShortcut:
             # Do not process the shortcut when we have a completer.
@@ -305,7 +302,6 @@ class QCodeEditor(QPlainTextEdit):
         cr.setWidth(self._completer.popup().sizeHintForColumn(0) + self._completer.popup().verticalScrollBar().sizeHint().width())
         try:
             self._completer.complete(cr)
-            print("showing completer")
         except Exception as ex:
             print(f"Error occured while showing completion popup: {ex}")
 
