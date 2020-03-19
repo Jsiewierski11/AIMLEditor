@@ -68,7 +68,7 @@ class TabController(QWidget):
 
         # Setting completer
         self.completer = QCompleter(self.editSpace)
-        self.completer.setCompletionMode(QCompleter.PopupCompletion)
+        self.completer.setCompletionMode(QCompleter.UnfilteredPopupCompletion)
         self.completer.setModel(self.modelFromFile('GUI/style/keywords.txt'))
         self.completer.setModelSorting(QCompleter.CaseInsensitivelySortedModel)
         self.completer.setCaseSensitivity(Qt.CaseInsensitive)
@@ -79,10 +79,8 @@ class TabController(QWidget):
         tab.setLayout(tab.layout)
 
     def modelFromFile(self, fileName):
-        f = open(fileName, "r")
-        print(f"f: {f}")
-        f.seek(0)
-        words = f.readlines()
+        with open(fileName, "r") as f:
+            words = f.read().splitlines()
 
         QApplication.restoreOverrideCursor()
         print(f"modelFromFile returning: {QStringListModel(words, self.completer).stringList()}")

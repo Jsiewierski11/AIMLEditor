@@ -254,10 +254,10 @@ class QCodeEditor(QPlainTextEdit):
             return
 
         tc = self.textCursor()
-        extra = len(completion) - len(self._completer.completionPrefix())
+        extra = len(completion) - len(self._completer.completionPrefix())-1
         tc.movePosition(QTextCursor.Left)
         tc.movePosition(QTextCursor.EndOfWord)
-        tc.activated(completion[-extra:])
+        tc.insertText(completion[-extra:])
         self.setTextCursor(tc)
 
     def textUnderCursor(self):
@@ -274,7 +274,7 @@ class QCodeEditor(QPlainTextEdit):
     def keyPressEvent(self, e):
         if self._completer is not None and self._completer.popup().isVisible():
             # The following keys are forwarded by the completer to the widget.
-            if e.key() in (Qt.Key_Enter, Qt.Key_Return, Qt.Key_Escape, Qt.Key_Tab, Qt.Key_Backtab):
+            if e.key() in (Qt.Key_Escape, Qt.Key_Tab, Qt.Key_Backtab):
                 e.ignore()
                 # Let the completer do default behavior.
                 return
@@ -288,11 +288,11 @@ class QCodeEditor(QPlainTextEdit):
         if self._completer is None or (ctrlOrShift and len(e.text()) == 0):
             return
 
-        eow = "~!@#$%^&*()_+{}|:\"<>?,./;'[]\\-="
+        eow = "~!@#$%^&*()_+{}|:\"?,.;'[]\\-="
         hasModifier = (e.modifiers() != Qt.NoModifier) and not ctrlOrShift
         completionPrefix = self.textUnderCursor()
 
-        if not isShortcut and (hasModifier or len(e.text()) == 0 or len(completionPrefix) < 3 or e.text()[-1] in eow):
+        if not isShortcut and (hasModifier or len(e.text()) == 0 or len(completionPrefix) < 2 or e.text()[-1] in eow):
             self._completer.popup().hide()
             return
 
