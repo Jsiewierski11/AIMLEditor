@@ -149,6 +149,8 @@ class QCodeEditor(QPlainTextEdit):
             switch on/off the current line highliting
         SyntaxHighlighter : QSyntaxHighlighter
             should be inherited from QSyntaxHighlighter
+        theme_color : string
+            gets set by TabController
         '''
         super(QCodeEditor, self).__init__()
 
