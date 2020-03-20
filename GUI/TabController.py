@@ -74,11 +74,38 @@ class TabController(QWidget):
         # Setting main editing area where Files will be displayed and can be edited
         self.editSpace = QCodeEditor(self, theme_color=self.editSpace_theme)
 
+        # list for Completer model
+        words = [
+            "<aiml></aiml>",
+            "<topic></topic>",
+            "<category></category>",
+            "<pattern></pattern>",
+            "<template></template>",
+            "<condition></condition>",
+            "<li></li>",
+            "<random></random>",
+            "<set></set>",
+            "<think></think>",
+            "<that></that>",
+            "<oob></oob>",
+            "<robot></robot>",
+            "<options></options>",
+            "<option></option>",
+            "<image></image>",
+            "<video></video>",
+            "<filename></filename>",
+            "<get name=\"\" />",
+            "<srai/>",
+            "<star/>"
+        ]
+
         # Setting completer
         self.completer = QCompleter(self.editSpace)
         self.completer.setCompletionMode(QCompleter.UnfilteredPopupCompletion)
         # self.completer.setCompletionMode(QCompleter.PopupCompletion)
-        self.completer.setModel(self.modelFromFile('GUI/style/keywords.txt'))
+        print(f"modelFromFile returning: {QStringListModel(words, self.completer).stringList()}")
+        # self.completer.setModel(self.modelFromFile('GUI/style/keywords.txt'))
+        self.completer.setModel(QStringListModel(words, self.completer))
         self.completer.setModelSorting(QCompleter.CaseInsensitivelySortedModel)
         self.completer.setCaseSensitivity(Qt.CaseInsensitive)
         self.completer.setWrapAround(False)
