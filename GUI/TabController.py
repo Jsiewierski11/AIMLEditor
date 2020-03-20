@@ -1,8 +1,17 @@
+# Standard imports
+import os
+import os.path
+from pathlib import Path
+import sys
+
+# Pyqt imports
 from PyQt5.QtWidgets import QMainWindow, QWidget, QVBoxLayout, QGridLayout, \
                             QTabWidget, QPushButton, QVBoxLayout, QLabel, QCompleter
-from GUI.CodeEditor import *
 from PyQt5.QtGui import QColor
 from PyQt5.QtCore import Qt, pyqtSlot, QFileInfo, pyqtSignal
+
+# Relative imports
+from GUI.CodeEditor import *
 from GUI.DockerWidget import DockerWidget
 from GUI.EditorWidget import EditorWidget
 from GUI.Node.Node import Node
@@ -79,11 +88,18 @@ class TabController(QWidget):
         tab.setLayout(tab.layout)
 
     def modelFromFile(self, fileName):
-        with open(fileName, "r") as f:
+        if getattr(sys, 'frozen', False):
+            path = os.path.dirname(sys.executable)
+            path = path[:-4] + fileName
+        else:
+            path = os.path.abspath(os.path.dirname(os.path.abspath(__file__))) + fileName
+
+        if DEBUG: print(f"path: {path}")
+        with open(path, "r") as f:
             words = f.read().splitlines()
 
         QApplication.restoreOverrideCursor()
-        print(f"modelFromFile returning: {QStringListModel(words, self.completer).stringList()}")
+        if DEBUG: print(f"modelFromFile returning: {QStringListModel(words, self.completer).stringList()}")
         return QStringListModel(words, self.completer)
 
     def add_graphview(self, tab):

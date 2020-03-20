@@ -50,7 +50,7 @@ Once you hit the "Create" button, a Category tag will be generated with the text
 
     Linux
     ```
-    pyinstaller main.py
+    pyinstaller --onefile main.py
     ```
     - This will create a dist folder that will contain a main.dat file (a linux executable file).
 
