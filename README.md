@@ -1,5 +1,5 @@
 # AIMLEditor
-A graphical AIML editor written in python 3 and pyqt5. This editor is used to create files that work with a custom AIML parser, Program-R, found here: https://github.com/roholazandie/program-r
+A graphical AIML editor written in python 3 and pyqt5. This editor is used to create files that work with a common AIML parsers such as [Pandorabots](https://home.pandorabots.com/home.html) and [Program-Y](https://github.com/keiffster/program-y)
 
 
 AIML is a markup language used to create chatbots created by [Richard Wallace](https://en.wikipedia.org/wiki/Richard_Wallace_(scientist)). You can find his paper on AIML [here](https://freeshell.de/~chali/programowanie/Anatomy_of_ALICE.pdf) for a better understanding of the language.
